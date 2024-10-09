@@ -4,6 +4,7 @@ use App\Models\Setting;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Resource;
+use App\Models\ResourceFile;
 
 /**
  * Retrieve a setting value by key.
@@ -42,8 +43,8 @@ if (!function_exists('tcount')) {
     {
         $totalUsers = User::count();
         $totalCategories = Category::count();
-        $totalVideos = Resource::where('type', 'link')->count();
-        $totalDocuments = Resource::where('type', 'file')->count();
+        $totalVideos = ResourceFile::where('resource_type', 'embed_code')->count();
+        $totalDocuments = ResourceFile::where('resource_type', 'file')->count();
 
         return [
             'total_users' => $totalUsers,
