@@ -10,8 +10,9 @@
           <div class="card-body">
             <div class="hgt">
             <h5 class="card-title">Role List</h5>
-              
-              <div class="bt mt-2"><a href="{{ route('roles.create') }}" class="btn btn-sm btn-primary">Create</a></div>
+                @can('create-roles')
+                    <div class="bt mt-2"><a href="{{ route('roles.create') }}" class="btn btn-sm btn-primary">Create</a></div>
+                @endcan
             </div>
 
             <!-- Roles Table -->
@@ -36,17 +37,20 @@
                             </td>
                             <td>
                                 @if ($role->name != "super-admin")
-                                    <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
-                                    
-                                    <!-- Delete Button with Confirmation -->
-                                    <form action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display:inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this role?');">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
+                                    @can('edit-roles')
+                                        <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                    @endcan
+                                    @can('delete-roles')
+                                        <!-- Delete Button with Confirmation -->
+                                        <form action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this role?');">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    @endcan
                                 @endif
                             </td>
                         </tr>
