@@ -44,6 +44,7 @@
             </div>
     
             <!-- Submit Button -->
+            <a href="{{ route('settings.index') }}" class="btn btn-warning">Back</a>
             <button type="submit" class="btn btn-primary">Update Settings</button>
         </form>
 

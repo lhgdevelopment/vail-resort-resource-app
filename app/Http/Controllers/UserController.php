@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Password;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -155,5 +157,63 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+    }
+
+    public function editProfile()
+    {
+        // Get the current authenticated admin
+        $admin = Auth::user();
+
+        return view('backend.users.profile_edit', compact('admin'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $admin = Auth::user();
+
+        // Password validation
+        if ($request->filled('current_password')) {
+            $request->validate([
+                'current_password' => 'required|current_password', // Validates against the current logged-in user's password
+                'new_password' => ['nullable', 'confirmed', Password::defaults()], // Password confirmation rule
+            ]);
+
+            // Update password only if current password matches and new password is provided
+            if ($request->filled('new_password')) {
+                $admin->password = Hash::make($request->new_password);
+            }
+        }
+        else {
+
+            // Validate profile data
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users,email,' . $admin->id,
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+
+            // Update name and email
+            $admin->name = $validatedData['name'];
+            $admin->email = $validatedData['email'];
+
+            // Handle image upload
+            if ($request->hasFile('image')) {
+                // Delete old image if exists
+                if ($admin->image) {
+                    Storage::disk('public')->delete($admin->image);
+                }
+
+                // Store new image
+                $path = $request->file('image')->store('profile_images', 'public');
+                $admin->image = $path;
+            }
+        }
+
+        
+
+        // Save the changes
+        $admin->save();
+
+        return redirect()->route('admin.profile.edit')->with('success', 'Updated successfully.');
     }
 }

@@ -48,6 +48,8 @@
         </div>
     </div>
 
-    <a href="{{ route('settings.edit') }}" class="btn btn-primary">Edit Settings</a>
+    @can('edit-settings')
+        <a href="{{ route('settings.edit') }}" class="btn btn-primary">Edit Settings</a>
+    @endcan
 </div>
 @endsection

@@ -1,6 +1,9 @@
 <?php
 
 use App\Models\Setting;
+use App\Models\User;
+use App\Models\Category;
+use App\Models\Resource;
 
 /**
  * Retrieve a setting value by key.
@@ -30,5 +33,23 @@ if (!function_exists('settings')) {
 
         // Return the setting value if it exists, else default
         return $settings[$key] ?? $default;
+    }
+}
+
+
+if (!function_exists('tcount')) {
+    function tcount()
+    {
+        $totalUsers = User::count();
+        $totalCategories = Category::count();
+        $totalVideos = Resource::where('type', 'link')->count();
+        $totalDocuments = Resource::where('type', 'file')->count();
+
+        return [
+            'total_users' => $totalUsers,
+            'total_categories' => $totalCategories,
+            'total_videos' => $totalVideos,
+            'total_documents' => $totalDocuments,
+        ];
     }
 }

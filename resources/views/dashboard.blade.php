@@ -8,7 +8,7 @@
 </style>
 <section class="section dashboard">
     <div class="row">
-
+      @php $counts = tcount(); @endphp
       <!-- Left side columns -->
       <div class="col-lg-12">
         <div class="row">
@@ -24,7 +24,7 @@
                     <i class="bi bi-people"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>145</h6>
+                    <h6>{{ $counts['total_users'] }}</h6>
                   </div>
                 </div>
               </div>
@@ -44,7 +44,7 @@
                     <i class="bi bi-card-list"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>64</h6>
+                    <h6>{{ $counts['total_categories'] }}</h6>
 
                   </div>
                 </div>
@@ -66,7 +66,7 @@
                     <i class="bi bi-camera-video-fill"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>1244</h6>
+                    <h6>{{ $counts['total_videos'] }}</h6>
 
                   </div>
                 </div>
@@ -88,7 +88,7 @@
                     <i class="bi bi-file-binary"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>1244</h6>
+                    <h6>{{ $counts['total_documents'] }}</h6>
 
                   </div>
                 </div>

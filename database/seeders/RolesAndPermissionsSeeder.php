@@ -43,6 +43,16 @@ class RolesAndPermissionsSeeder extends Seeder
                 'edit-resources',
                 'delete-resources',
             ],
+            'sliders' => [
+                'view-sliders',
+                'create-sliders',
+                'edit-sliders',
+                'delete-sliders',
+            ],
+            'settings' => [
+                'view-settings',
+                'edit-settings',
+            ],
             // Add more modules and permissions as needed
         ];
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,17 +18,26 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('admin/profile', [UserController::class, 'editProfile'])->name('admin.profile.edit');
+    Route::put('admin/profile', [UserController::class, 'updateProfile'])->name('admin.profile.update');
+
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::get('/settings/edit', [SettingController::class, 'edit'])->name('settings.edit');
     Route::put('/settings/update/{id}', [SettingController::class, 'update'])->name('settings.update');
 
-    // AJAX Routes for Uploading Logo and Icon
-    Route::post('/settings/upload-logo', [SettingController::class, 'uploadLogo'])->name('settings.uploadLogo');
-    Route::post('/settings/upload-icon', [SettingController::class, 'uploadIcon'])->name('settings.uploadIcon');
+    // Route to view all sliders (index)
+    Route::get('sliders', [SliderController::class, 'index'])->name('sliders.index')->middleware('can:view-sliders');
+    Route::get('sliders/create', [SliderController::class, 'create'])->name('sliders.create')->middleware('can:create-sliders');
+    Route::post('sliders', [SliderController::class, 'store'])->name('sliders.store')->middleware('can:create-sliders');
+    Route::get('sliders/{slider}/edit', [SliderController::class, 'edit'])->name('sliders.edit')->middleware('can:edit-sliders');
+    Route::put('sliders/{slider}', [SliderController::class, 'update'])->name('sliders.update')->middleware('can:edit-sliders');
+    Route::get('sliders/{slider}/show', [SliderController::class, 'show'])->name('sliders.show')->middleware('permission:view-sliders');
+    Route::delete('sliders/{slider}', [SliderController::class, 'destroy'])->name('sliders.destroy')->middleware('can:delete-sliders');
 
 
     // Role Management Routes

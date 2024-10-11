@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Setting;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -69,6 +70,9 @@ class SettingController extends Controller
         $setting->contact = $request->input('contact');
 
         $setting->save();
+
+        // Clear the cache to ensure updated settings are loaded
+        Cache::forget('general_settings');
 
         return redirect()->route('settings.index')->with('success', 'Settings updated successfully.');
     }

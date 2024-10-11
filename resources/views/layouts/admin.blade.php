@@ -5,12 +5,12 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - Admin</title>
+  <title>Dashboard - {{ settings('site_name', 'VAIL RESORTS') }}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{asset('')}}assets/img/favicon.png" rel="icon">
+  <link href="{{ asset('storage/' . settings('icon')) }}" rel="icon">
   <link href="{{asset('')}}assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -44,9 +44,9 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">NiceAdmin</span>
+      <a href="{{route('/')}}" class="logo d-flex align-items-center">
+        <img src="{{ asset('storage/' . settings('logo')) }}" alt="">
+        <span class="d-none d-lg-block">{{ settings('site_name', 'VAIL RESORTS') }}</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -58,7 +58,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <img src="{{asset('storage/'. auth()->user()->image)}}" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name }}</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -72,7 +72,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="{{route('admin.profile.edit')}}">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -82,11 +82,15 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-flex align-items-center">
+                  @csrf
+                  <button type="submit" class="dropdown-item d-flex align-items-center">
+                      <i class="bi bi-box-arrow-right"></i>
+                      <span>Sign Out</span>
+                  </button>
+              </form>
+          </li>
+          
 
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->
