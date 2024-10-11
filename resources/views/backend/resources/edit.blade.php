@@ -94,6 +94,7 @@
             </div>
     
             <!-- Submit Button -->
+            <a href="{{ route('resources.index') }}" class="btn btn-warning">Back</a>
             <button type="submit" class="btn btn-primary">Update Resource</button>
         </form>
 

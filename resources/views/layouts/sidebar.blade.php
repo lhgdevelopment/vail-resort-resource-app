@@ -60,6 +60,31 @@
             </ul>
         </li>
       @endcanany
+
+      @canany(['view-users', 'view-roles'])
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#settings-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-gear"></i><span>Settings</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="settings-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                @can('view-users')
+                    <li>
+                        <a href="{{ route('settings.index') }}">
+                            <i class="bi bi-circle"></i><span>General Settings</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('view-roles')
+                    <li>
+                        <a href="{{ route('roles.index') }}">
+                            <i class="bi bi-circle"></i><span>Sliders</span>
+                        </a>
+                    </li>
+                @endcan
+            </ul>
+        </li>
+      @endcanany
 <!-- End Forms Nav -->
 
     </ul>
