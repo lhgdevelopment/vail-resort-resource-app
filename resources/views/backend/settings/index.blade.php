@@ -15,11 +15,11 @@
 
     <div class="card mb-3">
         <div class="card-header">
-            Logo
+            Logo Black
         </div>
         <div class="card-body">
-            @if($setting->logo)
-                <img src="{{ asset('storage/' . $setting->logo) }}" alt="Logo" style="max-width: 200px;">
+            @if($setting->logo_black)
+                <img src="{{ asset('storage/' . $setting->logo_black) }}" alt="Logo_black" style="max-width: 200px;">
             @else
                 <p>No logo uploaded.</p>
             @endif
@@ -28,11 +28,37 @@
 
     <div class="card mb-3">
         <div class="card-header">
-            Icon
+            Logo White
         </div>
         <div class="card-body">
-            @if($setting->icon)
-                <img src="{{ asset('storage/' . $setting->icon) }}" alt="Icon" style="max-width: 100px;">
+            @if($setting->logo_white)
+                <img src="{{ asset('storage/' . $setting->logo_white) }}" alt="logo_white" style="max-width: 200px;">
+            @else
+                <p>No logo uploaded.</p>
+            @endif
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            Icon Black
+        </div>
+        <div class="card-body">
+            @if($setting->icon_black)
+                <img src="{{ asset('storage/' . $setting->icon_black) }}" alt="icon_black" style="max-width: 100px;">
+            @else
+                <p>No icon uploaded.</p>
+            @endif
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            Icon White
+        </div>
+        <div class="card-body">
+            @if($setting->icon_white)
+                <img src="{{ asset('storage/' . $setting->icon_white) }}" alt="icon_white" style="max-width: 100px;">
             @else
                 <p>No icon uploaded.</p>
             @endif

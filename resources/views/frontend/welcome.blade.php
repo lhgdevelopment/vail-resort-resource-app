@@ -1,170 +1,71 @@
 @extends('layouts.front')
 
 @section('content')
+    <!--========================= full screen slider part ======================-->
+    <div id="carouselExampleAutoplaying" class="carousel slide carousel-fade animate__delay-.2s" data-bs-ride="carousel">
 
-<!--========================= full screen slider part hear ======================-->
-<div id="carouselExampleAutoplaying" class="carousel slide carousel-fade animate__delay-.2s" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-          <img src="{{asset('')}}front/images/pexels-photo-1705667.jpeg" class="d-block w-100" alt="image">
-          <div class="carousel-caption d-md-block">
-            <h5 class="animate__animated animate__backInRight animate__delay-.1s fs-2">Consectetur adipisicing elit. </h5>
-            <p class="animate__animated animate__backInRight animate__delay-1s fs-5">Vitae reiciendis repellendus placeat beatae id quas voluptatum, consequuntur ad dolorem quae quis tenetur eum laboriosam aperiam.</p>
-            <a href="#">view More</a>
-          </div>
+        <!-- Carousel indicators -->
+        <div class="carousel-indicators">
+            @foreach($sliders as $key => $slider)
+                <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="{{ $key }}" 
+                    class="{{ $key === 0 ? 'active' : '' }}" aria-current="{{ $key === 0 ? 'true' : 'false' }}" 
+                    aria-label="Slide {{ $key + 1 }}"></button>
+            @endforeach
         </div>
 
-      <div class="carousel-item ">
-        <img src="{{asset('')}}front/images/20120319_HV_VailResortsPhotography_001-1-1024x358.jpg" class="d-block w-100" alt="image">
-        <div class="carousel-caption d-md-block">
-          <h5 class="animate__animated animate__fadeInLeft animate__delay-.1s fs-2" >Lorem ipsum dolor sit, amet.</h5>
-          <p class="animate__animated animate__fadeInLeft animate__delay-1s fs-5">Ipsam soluta numquam aliquid, illum, aut ratione. Impedit dolores facere beatae omnis?</p>
-          <a href="#">view More</a>
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+            @foreach($sliders as $key => $slider)
+                <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                    <img src="{{ asset('storage/' . $slider->image) }}" class="d-block w-100" alt="slider image">
+                    <div class="carousel-caption d-md-block">
+                        <h5 class="animate__animated animate__backInRight animate__delay-.1s fs-2">{{ $slider->title }}</h5>
+                        <p class="animate__animated animate__backInRight animate__delay-1s fs-5">{{ $slider->sub_title }}</p>
+                        @if($slider->btn_link)
+                            <a href="{{ $slider->btn_link }}" class="btn btn-primary">View More</a>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
         </div>
-      </div>
-      
-      <div class="carousel-item ">
-        <img src="{{asset('')}}front/images/free-photo-of-a-man-skiing.jpeg" class="d-block w-100" alt="image">
-        <div class="carousel-caption d-md-block">
-          <h5 class="animate__animated animate__backInUp animate__delay-.5s fs-2"> Debitis libero autem harum nobis!.</h5>
-          <p class="animate__animated animate__backInUp animate__delay-1s fs-5">Consequuntur ad dolorem quae quis tenetur eum laboriosam aperiam.</p>
-          <a href="#">view More</a>
-        </div>
-      </div>
     </div>
-  </div>
+
 </header>
 <!--================ header section html code end here =================-->
 
 <!--================ Current_category section html code start here =================-->
 <section class="Current_category py-5">
-  <div class="container">
+    <div class="container">
       <div class="row">
-          <h1>Current Release Category</h1>
+        <h1>Featured Category</h1>
+  
+        @foreach($featuredCategories as $category)
           <div class="col-lg-3 col-md-6 col-sm-6 pb-4">
-              <div class="cardcontainer card">
-                  <div class="photo">
-                      <img src="{{asset('')}}front/images/pexels-photo-3600571.jpeg">
-                  </div>
-                  <div class="content">
-                      <h2 class="txt4">Lorem ipsum dolor </h2>
-                      <p class="txt2 text-limit-10">New York, the largest city in the U.S., is an architectural marvel, </p>
-                  </div>
-                  <div class="footer">
-                      <a class=" btn" href="details.html"> View Details</a>
-                  </div>
+            <div class="cardcontainer card">
+              <div class="photo">
+                <img src="{{ asset('storage/' . $category->thumbnail) }}" class="d-block w-100" alt="{{ $category->name }}">
               </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 pb-4">
-              <div class="cardcontainer card">
-                  <div class="photo">
-                      <img src="{{asset('')}}front/images/20120319_HV_VailResortsPhotography_001-1-1024x358.jpg">
-                  </div>
-                  <div class="content">
-                      <h2 class="txt4">Lorem ipsum dolor </h2>
-                      <p class="txt2 text-limit-10">New York, the largest city in the U.S., is an architectural marvel, </p>
-                  </div>
-                  <div class="footer">
-                      <a class=" btn" href="details.html"> View Details</a>
-                  </div>
+              <div class="content">
+                <h2 class="txt4">{{ $category->name }}</h2>
+                <p class="txt2 text-limit-10">
+                  {{ \Illuminate\Support\Str::words($category->short_description, 10, '...') }}
+                </p>
               </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 pb-4">
-              <div class="cardcontainer card">
-                  <div class="photo">
-                      <img src="{{asset('')}}front/images/pexels-photo-1705667.jpeg">
-                  </div>
-                  <div class="content">
-                      <h2 class="txt4">Lorem ipsum dolor </h2>
-                      <p class="txt2 text-limit-10">New York, the largest city in the U.S., is an architectural marvel, </p>
-                  </div>
-                  <div class="footer">
-                      <a class=" btn" href="details.html"> View Details</a>
-                  </div>
+              <div class="footer">
+                <a class="btn" href="{{ route('category.details', $category->id) }}"> View Details</a>
               </div>
+            </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 pb-4">
-              <div class="cardcontainer card">
-                  <div class="photo">
-                      <img src="{{asset('')}}front/images/Vail-Resorts-11-1024x683.jpg">
-                  </div>
-                  <div class="content">
-                      <h2 class="txt4">Lorem ipsum dolor </h2>
-                      <p class="txt2 text-limit-10">New York, the largest city in the U.S., is an architectural marvel, </p>
-                  </div>
-                  <div class="footer">
-                      <a class=" btn" href="details.html"> View Details</a>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 pb-4">
-              <div class="cardcontainer card">
-                  <div class="photo">
-                      <img src="{{asset('')}}front/images/20221220_BC_Miller_004-1024x819.webp">
-                  </div>
-                  <div class="content">
-                      <h2 class="txt4">Lorem ipsum dolor </h2>
-                      <p class="txt2 text-limit-10">New York, the largest city in the U.S., is an architectural marvel, </p>
-                  </div>
-                  <div class="footer">
-                      <a class=" btn" href="details.html"> View Details</a>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 pb-4">
-              <div class="cardcontainer card">
-                  <div class="photo">
-                      <img src="{{asset('')}}front/images/pexels-photo-1705667.jpeg">
-                  </div>
-                  <div class="content">
-                      <h2 class="txt4">Lorem ipsum dolor </h2>
-                      <p class="txt2 text-limit-10">New York, the largest city in the U.S., is an architectural marvel, </p>
-                  </div>
-                  <div class="footer">
-                      <a class=" btn" href="details.html"> View Details</a>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 pb-4">
-              <div class="cardcontainer card">
-                  <div class="photo">
-                      <img src="{{asset('')}}front/images/Vail-Resorts-11-1024x683.jpg">
-                  </div>
-                  <div class="content">
-                      <h2 class="txt4">Lorem ipsum dolor </h2>
-                      <p class="txt2 text-limit-10">New York, the largest city in the U.S., is an architectural marvel, </p>
-                  </div>
-                  <div class="footer">
-                      <a class=" btn" href="details.html"> View Details</a>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6 pb-4">
-              <div class="cardcontainer card">
-                  <div class="photo">
-                      <img src="{{asset('')}}front/images/pexels-photo-1705667.jpeg">
-                  </div>
-                  <div class="content">
-                      <h2 class="txt4">Lorem ipsum dolor </h2>
-                      <p class="txt2 text-limit-10">New York, the largest city in the U.S., is an architectural marvel, </p>
-                  </div>
-                  <div class="footer">
-                      <a class=" btn" href="details.html"> View Details</a>
-                  </div>
-              </div>
-          </div>
-          <div class="all_btn pt-2">
-              <a href="product-list.html">SEE ALL Categories</a>
-          </div>
+        @endforeach
+  
+        <div class="all_btn pt-2">
+          <a href="{{ route('category.index') }}">SEE ALL Categories</a>
+        </div>
       </div>
-  </div>
-</section>
-<!--================ Current_category section html code end here =================-->
+    </div>
+  </section>
+  <!--================ Current_category section html code end here =================-->
+  
 
 <!--================ bg_banner section html code start here =================-->
 <section id="bg_banner">

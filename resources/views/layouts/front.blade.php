@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Home page</title>
+	<title>{{ settings('site_name', 'VAIL RESORTS') }} | Home page</title>
 	<link rel="shortcut icon" href="{{asset('')}}front/images/VR_FandB_icon_blk.png" type="image/x-icon">
 	<link rel="stylesheet" href="{{asset('')}}front/css/all.min.css" />
 	<link rel="stylesheet" href="{{asset('')}}front/css/fontawesome.min.css" />
@@ -16,7 +16,7 @@
 	<header id="header" class="" >
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		  <div class="container-fluid">
-		    <a class="navbar-brand m-auto" href="#"><img src="{{asset('')}}front/images/VR_FandB_lockup_blk.png" alt="logo"></a>
+		    <a class="navbar-brand m-auto" href="{{url('/')}}"><img src="{{ asset('storage/' . settings('logo_black')) }}" alt="logo"></a>
 		  </div>
 		</nav>
 
@@ -31,7 +31,7 @@
 			<div class="row">
 				<div class="col-md-6 col-sm-6">
 					<div class="f_logo">
-						<img src="{{asset('')}}front/images/VR_FandB_lockup_wht.png" alt="logo">
+						<img src="{{ asset('storage/' . settings('logo_white')) }}" alt="logo">
 					</div>
 				</div>
 				<div class="col-md-6 col-sm-6">

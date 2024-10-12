@@ -17,24 +17,44 @@
                 <input type="text" name="site_name" class="form-control" required value="{{ old('site_name', $setting->site_name) }}">
             </div>
     
-            <!-- Logo Input Field -->
+            <!-- Logo Black Input Field -->
             <div class="form-group mb-3">
-                <label for="logo">Logo (optional)</label>
-                <input type="file" name="logo" id="logoInput" accept="image/*" class="form-control">
-                @if ($setting->logo)
-                    <img id="currentLogo" src="{{ asset('storage/' . $setting->logo) }}" alt="Current Logo" style="max-width: 100px; max-height: 100px;">
+                <label for="logo_black">Logo Black(optional)</label>
+                <input type="file" name="logo_black" id="logoBlackInput" accept="image/*" class="form-control">
+                @if ($setting->logo_black)
+                    <img id="currentLogoBlack" src="{{ asset('storage/' . $setting->logo_black) }}" alt="Current Logo Black" style="max-width: 100px; max-height: 100px;">
                 @endif
-                <img id="logoPreview" src="#" alt="Logo Preview" style="display: none; max-width: 100px; max-height: 100px;">
+                <img id="logoBlackPreview" src="#" alt="Logo Black Preview" style="display: none; max-width: 100px; max-height: 100px;">
             </div>
 
-            <!-- Icon Input Field -->
+            <!-- Logo White Input Field -->
             <div class="form-group mb-3">
-                <label for="icon">Icon (optional)</label>
-                <input type="file" name="icon" id="iconInput" accept="image/*" class="form-control">
-                @if ($setting->icon)
-                    <img id="currentIcon" src="{{ asset('storage/' . $setting->icon) }}" alt="Current Icon" style="max-width: 50px; max-height: 50px;">
+                <label for="logo_white">Logo White(optional)</label>
+                <input type="file" name="logo_white" id="logoWhiteInput" accept="image/*" class="form-control">
+                @if ($setting->logo_white)
+                    <img id="currentLogoWhite" src="{{ asset('storage/' . $setting->logo_white) }}" alt="Current Logo White" style="max-width: 100px; max-height: 100px;">
                 @endif
-                <img id="iconPreview" src="#" alt="Icon Preview" style="display: none; max-width: 50px; max-height: 50px;">
+                <img id="logoWhitePreview" src="#" alt="Logo White Preview" style="display: none; max-width: 100px; max-height: 100px;">
+            </div>
+
+            <!-- Icon Black Input Field -->
+            <div class="form-group mb-3">
+                <label for="icon_black">Icon Black (optional)</label>
+                <input type="file" name="icon_black" id="iconBlackInput" accept="image/*" class="form-control">
+                @if ($setting->icon_black)
+                    <img id="currentBlackIcon" src="{{ asset('storage/' . $setting->icon_black) }}" alt="Current Black Icon" style="max-width: 50px; max-height: 50px;">
+                @endif
+                <img id="iconBlackPreview" src="#" alt="Icon Black Preview" style="display: none; max-width: 50px; max-height: 50px;">
+            </div>
+
+            <!-- Icon White Input Field -->
+            <div class="form-group mb-3">
+                <label for="icon_white">Icon White (optional)</label>
+                <input type="file" name="icon_white" id="iconWhiteInput" accept="image/*" class="form-control">
+                @if ($setting->icon_white)
+                    <img id="currentWhiteIcon" src="{{ asset('storage/' . $setting->icon_white) }}" alt="Current White Icon" style="max-width: 50px; max-height: 50px;">
+                @endif
+                <img id="iconWhitePreview" src="#" alt="Icon White Preview" style="display: none; max-width: 50px; max-height: 50px;">
             </div>
 
             <!-- Contact -->
@@ -56,40 +76,80 @@
 
 @section('script')
 <script>
-    // Logo Preview
-    const logoInput = document.getElementById('logoInput');
-    const logoPreview = document.getElementById('logoPreview');
-    const currentLogo = document.getElementById('currentLogo');
+    // Logo Black Preview
+    const logoBlackInput = document.getElementById('logoBlackInput');
+    const logoBlackPreview = document.getElementById('logoBlackPreview');
+    const currentLogoBlack = document.getElementById('currentLogoBlack');
 
-    logoInput.addEventListener('change', function() {
-        const file = logoInput.files[0];
+    logoBlackInput.addEventListener('change', function() {
+        const file = logoBlackInput.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                logoPreview.src = e.target.result;
-                logoPreview.style.display = 'block';
-                if (currentLogo) {
-                    currentLogo.style.display = 'none';
+                logoBlackPreview.src = e.target.result;
+                logoBlackPreview.style.display = 'block';
+                if (currentLogoBlack) {
+                    currentLogoBlack.style.display = 'none';
                 }
             }
             reader.readAsDataURL(file);
         }
     });
 
-    // Icon Preview
-    const iconInput = document.getElementById('iconInput');
-    const iconPreview = document.getElementById('iconPreview');
-    const currentIcon = document.getElementById('currentIcon');
+    // Logo White Preview
+    const logoWhiteInput = document.getElementById('logoWhiteInput');
+    const logoWhitePreview = document.getElementById('logoWhitePreview');
+    const currentLogoWhite = document.getElementById('currentLogoWhite');
 
-    iconInput.addEventListener('change', function() {
-        const file = iconInput.files[0];
+    logoWhiteInput.addEventListener('change', function() {
+        const file = logoWhiteInput.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                iconPreview.src = e.target.result;
-                iconPreview.style.display = 'block';
-                if (currentIcon) {
-                    currentIcon.style.display = 'none';
+                logoWhitePreview.src = e.target.result;
+                logoWhitePreview.style.display = 'block';
+                if (currentLogoWhite) {
+                    currentLogoWhite.style.display = 'none';
+                }
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Icon Black Preview
+    const iconBlackInput = document.getElementById('iconBlackInput');
+    const iconBlackPreview = document.getElementById('iconBlackPreview');
+    const currentBlackIcon = document.getElementById('currentBlackIcon');
+
+    iconBlackInput.addEventListener('change', function() {
+        const file = iconBlackInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                iconBlackPreview.src = e.target.result;
+                iconBlackPreview.style.display = 'block';
+                if (currentBlackIcon) {
+                    currentBlackIcon.style.display = 'none';
+                }
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Icon White Preview
+    const iconWhiteInput = document.getElementById('iconWhiteInput');
+    const iconWhitePreview = document.getElementById('iconWhitePreview');
+    const currentWhiteIcon = document.getElementById('currentWhiteIcon');
+
+    iconWhiteInput.addEventListener('change', function() {
+        const file = iconWhiteInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                iconWhitePreview.src = e.target.result;
+                iconWhitePreview.style.display = 'block';
+                if (currentWhiteIcon) {
+                    currentWhiteIcon.style.display = 'none';
                 }
             }
             reader.readAsDataURL(file);

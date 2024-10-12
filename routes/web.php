@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\RoleController;
@@ -9,9 +10,19 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('frontend.welcome');
-});
+
+
+// Route::get('/', function () {
+//     return view('frontend.welcome');
+// });
+
+//Frontend Routes.....................................
+Route::get('/', [FrontendController::class, 'index']);
+Route::get('category/{id}', [FrontendController::class, 'categoryDetails'])->name('category.details');
+Route::get('category-list', [FrontendController::class, 'categoryList'])->name('category.index');
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
