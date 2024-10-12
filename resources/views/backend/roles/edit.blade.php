@@ -30,8 +30,9 @@
                 </div>
             </div>
     
-            <button type="submit" class="btn btn-primary">Update Role</button>
             <a href="{{ route('roles.index') }}" class="btn btn-warning">Back</a>
+            <button type="submit" class="btn btn-primary">Update Role</button>
+            
         </form>
         
 

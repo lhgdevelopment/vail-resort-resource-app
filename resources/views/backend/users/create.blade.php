@@ -5,7 +5,7 @@
 
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Create Role</h5>
+        <h5 class="card-title">Create User</h5>
 
         <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -48,7 +48,7 @@
             <!-- Profile Image -->
             <div class="form-group mb-3">
                 <label for="image">Profile Image (optional)</label>
-                <input type="file" name="image" class="form-control-file" accept="image/*" id="imageInput">
+                <input type="file" name="image" class="form-control form-control-file" accept="image/*" id="imageInput">
                 <div class="mt-3">
                     <img id="imagePreview" src="#" alt="Image Preview" style="display: none; max-width: 200px; max-height: 200px;">
                 </div>

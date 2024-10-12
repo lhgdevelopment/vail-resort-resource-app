@@ -61,7 +61,7 @@
             <!-- Profile Image -->
             <div class="form-group mb-3">
                 <label for="image">Change Profile Image (optional)</label>
-                <input type="file" name="image" class="form-control-file" accept="image/*" id="imageInput">
+                <input type="file" name="image" class="form-control form-control-file" accept="image/*" id="imageInput">
                 <div class="mt-3">
                     <img id="imagePreview" src="#" alt="Image Preview" style="display: none; max-width: 200px; max-height: 200px;">
                 </div>

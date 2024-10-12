@@ -78,6 +78,7 @@
             </div>
     
             <!-- Submit Button -->
+            <a href="{{ route('categories.index') }}" class="btn btn-warning">Back</a>
             <button type="submit" class="btn btn-primary">Update Category</button>
         </form>
         
