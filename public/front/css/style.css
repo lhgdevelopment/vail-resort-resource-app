@@ -1,0 +1,548 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Open Sans;
+}
+:root{
+  --body-bg-color: #fbf7f0;
+  --primary-color: #fff;
+  --secondary-color: #032E5C;
+  --third-color: #29292B;
+  --primary-bg-color: #fff;
+  --secondary-bg-color: #032E5C;
+  --paragaraph-text-color: #303944;
+  --btn-text-color: #617993;
+  --sky-blue-color: #98BDE2;
+}
+
+a{
+	text-decoration: none;
+}
+ul li{
+	list-style: none; 
+}
+img{
+	object-fit: cover;
+	width: 100%;
+	height: auto;
+	vertical-align: middle;
+}
+iframe{
+	object-fit: cover;
+	width: 100%;
+	height: auto;
+	vertical-align: middle;
+}
+
+/*============header section css code start here===============*/
+#header .navbar-brand img{
+	width: 20%;
+    margin: 0 auto;
+    display: block;
+}
+#header .navbar-dark{
+	background: transparent !important; 
+	z-index: 1;
+}
+#header .carousel-item{
+	height: 100vh;
+	width: 100%;
+}
+#header .carousel-item img{
+	height: 100vh;
+	width: 100%;
+	object-fit: cover;
+	display: block;
+}
+#header .carousel-caption a{
+	display: inline-flex;
+	color: var(--secondary-color);
+	background: var(--primary-bg-color);
+	padding: 6px 20px;
+	border-radius: 2px;
+	font-size: 16px;
+	font-weight: 700;
+	text-transform: capitalize;
+	cursor: pointer;
+	display: none;
+}
+#header .carousel-caption{
+	margin-bottom: 180px;
+}
+/*#header .carousel-caption a:hover{
+	background: var(--secondary-bg-color);
+	color: var(--primary-color);
+}*/
+
+#header #carouselExampleAutoplaying{
+	margin-top: -156px;
+	z-index: -1;
+}
+@media screen and (min-width: 754px){
+	#header .carousel-item{
+		width: 100%;
+	}
+}
+@media screen and (max-width: 554px){
+	#header .carousel-item .fs-2{
+		font-size: 14px !important;
+		font-weight: 600 !important;
+	}
+	#header .carousel-item .fs-5{
+		font-size: 10px !important;
+		font-weight: 300 !important;
+	}
+	#header .carousel-item .carousel-caption{
+		bottom: 5px;
+	}
+	#detailProduct h4{
+		font-size: 18px
+	}
+}
+/*============header section css code end here===============*/
+
+/*============hero section css code start here===============*/
+#hero .img img{
+	width: 100%;
+	height: 450px;
+	object-fit: cover;
+}
+#hero .img{
+	width: 100%;
+	height: 450px;
+	overflow: hidden;
+	clear: both;
+}
+#hero .category_item{
+	width: 100%;
+	height: 450px;
+	overflow: hidden;
+	clear: both;
+}
+/*============hero section css code end here===============*/
+
+/*============category section css code start here===============*/
+.Current_category{
+	background: var(--body-bg-color);
+}
+    .Current_category h1{
+        text-align: center;
+        padding-bottom: 20px;
+        color: var(--third-color);
+		text-transform: capitalize;
+		font-size: 40px;
+		font-weight: 700;
+		font-family: poppins !important; 
+    }
+    .Current_category .cardcontainer{
+        width: 100%;
+        height: auto;
+        background-color: var(--primary-bg-color);
+
+        transition: 0.3s;
+        padding-bottom: 20px;
+    }
+    .Current_category .cardcontainer:hover{
+        box-shadow: 0 0 45px gray;
+        transition: 0.3s;
+    }
+    .Current_category .photo{
+        height: 200px;
+        width: 100%;
+    }
+    .Current_category .photo img{
+        height: 100%;
+        width: 100%;
+    }
+    .Current_category .photo video{
+    	height: 100%;
+        width: 100%;
+    }
+    .Current_category .txt1{
+        margin: auto;
+        text-align: center;
+        font-size: 17px;
+    }
+    .Current_category .content{
+    	padding: 5px 10px;
+    }
+    .Current_category .txt4{
+        font-size:27px;
+        line-height: 38px;
+        text-transform: capitalize;
+        color: var(--secondary-color);
+        font-weight: 700;
+    }
+
+    .Current_category .cardcontainer:hover > .photo{
+        animation: move1 0.5s ease both;
+        transition: 1s;
+    }
+    .Current_category .footer{
+        width: 100%;
+        height:auto;
+        background-color: var(--primary-bg-color);
+        position: relative;
+        top: -15px;
+        padding: 0 20px;
+        text-align: center;
+    }
+    .Current_category .btn{
+        position: relative;
+        top: 20px;
+        background: var(--secondary-bg-color);
+        padding: 5px 20px;
+        color: var(--primary-color);
+        border-radius: unset;
+    }
+    .Current_category .btn:hover{
+    	background: var(--third-color);
+    	color: var(--primary-color);
+    }
+
+    .Current_category .comments{
+        float: right;
+        cursor: pointer;
+    }
+    .Current_category .all_btn{
+    	display: flex;
+    	justify-content: center;
+    	text-align: center;
+    	align-items: center;
+    }
+    .Current_category .all_btn a{
+    	color: var(--primary-color);
+    	background: var(--secondary-bg-color);
+    	padding: 15px 35px;
+    	text-transform: uppercase;
+    	font-weight: 600;
+    	font-size: 16px;
+    	text-align: center;
+    	display: block;
+    	justify-content: center;
+    	align-items: center;
+    	margin: 0 auto;
+    }
+    .Current_category .all_btn a:hover{
+    	background: var(--third-color);
+    	color: var(--primary-color);
+    }
+/*============category section css code end here===============*/
+
+/*============bg_banner section css code start here===============*/
+#bg_banner .img img{
+	width: 100%;
+	height: 600px;
+	overflow: hidden;
+	clear: both;
+	object-fit: cover;
+}
+#bg_banner{
+	padding: 60px 0;
+}
+#bg_banner .all_contents{
+	padding-left: 20px;
+	vertical-align: middle;
+	margin: auto;
+	display: block;
+}
+#bg_banner .alignitem{
+	vertical-align: middle;
+	margin: auto;
+}
+#bg_banner .all_contents h6{
+	color: var(--third-color);
+	text-transform: uppercase;
+	font-size: 16px;
+	font-weight: normal;
+}
+#bg_banner .all_contents h2{
+	color: var(--third-color);
+	text-transform: capitalize;
+	font-size: 35px;
+	font-weight: 500; 
+}
+#bg_banner .all_contents p{
+	color: var(--paragaraph-text-color);
+	text-transform: capitalize;
+	font-size: 16px;
+	font-weight: 400;
+}
+#bg_banner .all_contents a{
+	color: var(--sky-blue-color);
+	text-transform: capitalize;
+	font-size: 20px;
+	font-weight: 500;
+	font-family: poppins !important; 
+}
+#bg_banner .img img:hover{
+		-ms-transform: scale(1.5); 
+  		-webkit-transform: scale(1.5); 
+  		transform: scale(1.5); 
+  		transition: 0.6s;
+	}
+#bg_banner .img{
+		width: 100%;
+		height: 600px;
+		overflow: hidden;
+		clear: both;
+		transition: 0.6s; 
+	}
+
+#bg_banner.bgcolor{
+	background: var(--body-bg-color);
+}
+/*============bg_banner section css code end here===============*/
+
+/*============features section css code start here===============*/
+	#features {
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+	#features .feature_img .img img{
+		width: 100%;
+		height: 300px;
+		object-fit: cover;
+	}
+	#features .feature_img .img video{
+		width: 100%;
+		height: 300px;
+	}
+	#features .feature_img .img img:hover{
+		-ms-transform: scale(1.5); 
+  		-webkit-transform: scale(1.5); 
+  		transform: scale(1.5); 
+  		transition: 0.6s;
+	}
+	#features .feature_img{
+		width: 100%;
+		height: 300px;
+	}
+	#features .feature_img .img{
+		width: 100%;
+		height: 300px;
+		overflow: hidden;
+		clear: both;
+		transition: 0.6s; 
+	}
+	#features .feature_img .txt{
+		transform: translateY(-100px);
+		display: block;
+		overflow: hidden;
+		color: var(--primary-color);
+		padding-left: 20px;
+	}
+/*============features section css code end here===============*/
+
+/*============footer section css code start here===============*/
+	#footer{
+		background: var(--secondary-bg-color);
+		padding-top: 60px;
+		padding-bottom: 40px;
+	}
+	#footer .f_bottom{
+		padding-top: 10px;
+		text-align: center;
+   		margin: 0 auto;
+    	display: flex;
+    	align-items: center;
+    	justify-content: center;
+    	margin-top: 20px;
+	}
+	#footer .f_bottom p{
+		text-align: center;
+		color: #C0C0C0;
+		font-size: 16px;
+	}
+	#footer .f_logo img{
+		width: 250px;
+		vertical-align: center;
+		align-items: center;
+		display: flex;
+	}
+	#footer .f_logo{
+		text-align: center;
+   		margin: 0 auto;
+    	display: flex;
+    	align-items: center;
+    	justify-content: center;
+	}
+
+/*============footer section css code end here===============*/
+
+/*============product list section css code start here===============*/
+#hero .category_item .category h1{
+	text-align: center;
+    padding-bottom: 20px;
+    color: var(--primary-color);
+    text-transform: capitalize;
+    font-size: 40px;
+    font-weight: 700;
+    font-family: poppins !important;
+}
+#header #carouselExampleAutoplaying video{
+	width: 100%;
+	height: 100vh;
+}
+#header #carouselExampleAutoplaying .img img{
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+
+.category_item .category{
+	transform: translateY(-250px);
+	padding-left: 40px;
+}
+.breadcrumb-item+.breadcrumb-item::before{
+	color: var(--primary-color);
+}
+.category_item .category ul li a{
+	color: var(--primary-color);
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer; 
+	display: block;
+}
+#hero .category_item .category nav{
+	margin: auto;
+    display: flex;
+    table-layout: ce;
+    justify-content: center;
+    align-items: center;
+}
+.category_item .category ul li{
+	color: var(--primary-color);
+	font-size: 16px;
+	font-weight: 500;
+}
+.category_item .category ul li a:hover{
+	color: var(--secondary-color);
+}
+.Current_category .selects{
+	padding: 8px 40px;
+	border: 1px solid var(--secondary-bg-color);
+	border-radius: 4px;
+}
+/*============product list section css code end here===============*/
+/*=================product details section css start here=============*/
+#detailProduct .card{
+  border:none;
+}
+#detailProduct h4{
+	color: var(--secondary-color);
+}
+.bgwhite{
+	background:var(--body-bg-color);
+}
+#detailProduct .pricelist{
+    margin: 0 7px 7px -2px;
+    background: rgb(225, 226, 231, 1);
+    border-radius: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    font-size: 14px;
+}
+#detailProduct .brand{
+  font-size: 13px;
+}
+#detailProduct .dis-price{
+  text-decoration: line-through;
+}
+#detailProduct .about{
+  font-size: 14px;
+}
+#detailProduct .color{
+  margin-bottom:10px;
+}
+
+#detailProduct .btn-danger{
+  background-color: var(--secondary-bg-color) !important;
+  border-color: var(--secondary-bg-color) !important;
+  border-radius: unset;
+}
+#detailProduct .btn-danger:hover{
+  background-color: var(--btn-text-color) !important;
+  border-color: var(--btn-text-color) !important;
+}
+#detailProduct .btn-danger:focus{
+  box-shadow: none;
+}
+
+#detailProduct .images{
+	width: 100%;
+	max-height: 250px;
+	height: 100%;
+	overflow: hidden;
+	clear: both;
+}
+#detailProduct .images img{
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+	max-height: 250px;
+	vertical-align: middle;
+	display: block;
+}
+#detailProduct iframe{
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+	max-height: 250px;
+	vertical-align: middle;
+	display: block;
+}
+#detailProduct .images img:hover{
+		-ms-transform: scale(1.5); 
+  		-webkit-transform: scale(1.5); 
+  		transform: scale(1.5); 
+  		transition: 0.6s;
+	}
+/*=================product details section css end here=============*/
+
+/*=================product description section css start here=============*/
+
+#description .title h6:hover{
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+#description .card-title{
+  color: var(--third-color);
+  text-transform: capitalize;
+  font-weight: 600;
+  font-size: 25px;
+}
+#description .card-text{
+	color: var(--paragaraph-text-color);
+}
+#description .heading{
+  background: #F5F6FC;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+#detailProduct .dflex{
+  display: flex;
+}
+#description ul{
+  display: flex;
+  gap: 12px;
+}
+
+.resource-title {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+
+@media screen and (max-width: 554px){
+	#detailProduct h4{
+		font-size: 18px
+	}
+	#description ul {
+		flex-direction: column;
+		padding-left: 0
+	}
+}
+/*=================product description section css end here=============*/
