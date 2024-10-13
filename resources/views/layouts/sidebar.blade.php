@@ -13,7 +13,7 @@
         @canany(['view-categories'])
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('categories.*', 'resources.*') ? '' : 'collapsed' }}" data-bs-target="#categories-nav" data-bs-toggle="collapse" href="#" aria-expanded="{{ request()->routeIs('categories.*', 'resources.*') ? 'true' : 'false' }}">
-                    <i class="bi bi-folder"></i><span>Manage Category</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-folder"></i><span>Manage Resource</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="categories-nav" class="nav-content collapse {{ request()->routeIs('categories.*', 'resources.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                     @can('view-categories')

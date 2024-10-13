@@ -36,7 +36,7 @@ class FrontendController extends Controller
                         return $query->where('name', 'like', '%' . $search . '%');
                     })
                     ->orderBy('priority', 'asc')
-                    ->paginate(8); // 8 records per page
+                    ->paginate(8); // 12 records per page
 
         return view('frontend.category_list', compact('categories', 'search'));
     }

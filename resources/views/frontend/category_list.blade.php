@@ -28,7 +28,11 @@
         <div class="row">
             <div class="form-inline d-flex gap-3 pb-4 justify-content-between px-3">
                 <span class="mr-md-auto">Showing {{ $categories->firstItem() }}–{{ $categories->lastItem() }} of {{ $categories->total() }} results</span>
-                <input type="text" id="category-search" name="search" value="{{ $search ?? '' }}" placeholder="Type and press enter to Search" class="mr-2">
+                <div class="search-container">
+                    <input type="text" id="category-search" name="search" value="{{ $search ?? '' }}" placeholder="Type and press enter to search" class="search-input">
+                    <span class="search-icon"><i class="fa-solid fa-search"></i></span>
+                </div>
+                
             </div>
             <hr class="pb-4">
             
@@ -49,11 +53,41 @@
                 </div>
             </div>
             @endforeach
-
-            <!-- Pagination links -->
-            <div class="paginations pt-3">
-                {{ $categories->appends(request()->query())->links() }}
+      
+            <div class="paginations">
+                <ul class="pagination">
+                    <!-- Previous Button -->
+                    @if ($categories->onFirstPage())
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Previous</a>
+                        </li>
+                    @else
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $categories->previousPageUrl() }}">Previous</a>
+                        </li>
+                    @endif
+            
+                    <!-- Page Numbers -->
+                    @for ($i = 1; $i <= $categories->lastPage(); $i++)
+                        <li class="page-item {{ $categories->currentPage() === $i ? 'active' : '' }}">
+                            <a class="page-link" href="{{ $categories->url($i) }}">{{ $i }}</a>
+                        </li>
+                    @endfor
+            
+                    <!-- Next Button -->
+                    @if ($categories->hasMorePages())
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $categories->nextPageUrl() }}">Next</a>
+                        </li>
+                    @else
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    @endif
+                </ul>
             </div>
+            
+            
         </div>
     </div>
 </section>
