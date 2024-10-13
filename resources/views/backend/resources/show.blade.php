@@ -11,7 +11,7 @@
         <div class="card-body">
             <p><strong>Description:</strong> {{ $resource->description }}</p>
             <p><strong>Author:</strong> {{ $resource->author }}</p>
-            <p><strong>Category:</strong> {{ $resource->category->name }}</p>
+            <p><strong>Category:</strong> {{ $resource->category?->name }}</p>
             <p><strong>Tags:</strong> {{ $resource->tags }}</p>
             <p><strong>Status:</strong> {{ ucfirst($resource->status) }}</p>
             <p><strong>Type:</strong> {{ ucfirst($resource->type) }}</p>

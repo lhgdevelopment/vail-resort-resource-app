@@ -19,4 +19,10 @@ class Category extends Model
         'short_description',
         'long_description',
     ];
+
+    // Define the relationship with Resource
+    public function resources()
+    {
+        return $this->hasMany(Resource::class);
+    }
 }

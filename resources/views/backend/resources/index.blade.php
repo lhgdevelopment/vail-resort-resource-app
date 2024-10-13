@@ -32,7 +32,7 @@
                     @foreach ($resources as $resource)
                         <tr>
                             <td>{{ $resource->title }}</td>
-                            <td>{{ $resource->category->name }}</td>
+                            <td>{{ $resource->category?->name }}</td>
                             <td>{{ ucfirst($resource->type) }}</td>
                             <td>{{ $resource->author }}</td>
                             <td>{{ $resource->tags }}</td>

@@ -21,6 +21,7 @@ class Resource extends Model
         'status',
     ];
 
+    // Define the reverse relationship with Category
     public function category()
     {
         return $this->belongsTo(Category::class);

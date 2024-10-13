@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Resource;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
@@ -40,8 +41,18 @@ class FrontendController extends Controller
         return view('frontend.category_list', compact('categories', 'search'));
     }
 
-    public function categoryDetails()
+    public function categoryDetails($id)
     {
-        dd("Comming Soon...!!");
+        $category = Category::with('resources')->where('id', $id)->firstOrFail();
+
+        return view('frontend.category_details', compact('category'));
+    }
+
+    public function resourceDetails($id)
+    {
+        $resource = Resource::findOrFail($id);
+        $category = Category::where('id', $resource->category_id)->firstOrFail();
+
+        return view('frontend.resource_details', compact('resource', 'category'));
     }
 }

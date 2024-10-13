@@ -14,7 +14,7 @@
             <h1>Cape of Good Hope Riebeeksrivier Western Slopes</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
               <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Category</li>
               </ul>
             </nav>
