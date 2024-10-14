@@ -37,11 +37,21 @@ class RolesAndPermissionsSeeder extends Seeder
                 'edit-users',
                 'delete-users',
             ],
-            'documents' => [
-                'view-documents',
-                'create-documents',
-                'edit-documents',
-                'delete-documents',
+            'resources' => [
+                'view-resources',
+                'create-resources',
+                'edit-resources',
+                'delete-resources',
+            ],
+            'sliders' => [
+                'view-sliders',
+                'create-sliders',
+                'edit-sliders',
+                'delete-sliders',
+            ],
+            'settings' => [
+                'view-settings',
+                'edit-settings',
             ],
             // Add more modules and permissions as needed
         ];
