@@ -65,11 +65,16 @@
                 <a class="nav-link {{ request()->routeIs('settings.*', 'sliders.*', 'admin.*') ? '' : 'collapsed' }}" data-bs-target="#settings-nav" data-bs-toggle="collapse" href="#" aria-expanded="{{ request()->routeIs('settings.*', 'sliders.*', 'admin.*') ? 'true' : 'false' }}">
                     <i class="bi bi-gear"></i><span>Settings</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="settings-nav" class="nav-content collapse {{ request()->routeIs('settings.*', 'sliders.*', 'admin.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+                <ul id="settings-nav" class="nav-content collapse {{ request()->routeIs('settings.*', 'smtp.*', 'sliders.*', 'admin.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                     @can('view-settings')
                         <li>
                             <a href="{{ route('settings.index') }}" class="{{ request()->routeIs('settings.*') ? 'active' : '' }}">
                                 <i class="bi bi-circle"></i><span>General Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('smtp.index') }}" class="{{ request()->routeIs('smtp.*') ? 'active' : '' }}">
+                                <i class="bi bi-circle"></i><span>SMTP Settings</span>
                             </a>
                         </li>
                     @endcan

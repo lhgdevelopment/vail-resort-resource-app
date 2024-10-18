@@ -15,7 +15,7 @@
 	<!--================ header section html code start here =================-->
 	<header id="header" class="" >
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		  <div class="container-fluid">
+		  <div class="container-fluid animated animate-slide-left">
 		    <a class="navbar-brand m-auto" href="{{url('/')}}"><img src="{{ asset('storage/' . settings('logo_black')) }}" alt="logo"></a>
 		  </div>
 		</nav>
@@ -26,22 +26,25 @@
 
 
 	<!--================ footer section html code start here =================-->
-	<footer id="footer">
+	<footer id="footer" class="py-5">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6 col-sm-6">
+				<!-- Logo Section -->
+				<div class="col-md-6 col-sm-6 animated animate-slide-left">
 					<div class="f_logo">
-						<img src="{{ asset('storage/' . settings('logo_white')) }}" alt="logo">
+						<img src="{{ asset('storage/' . settings('logo_white')) }}" alt="logo" class="img-fluid">
 					</div>
 				</div>
-				<div class="col-md-6 col-sm-6">
+	
+				<!-- Copyright Text Section -->
+				<div class="col-md-6 col-sm-6 text-right animated animate-slide-right">
 					<div class="f_bottom">
-						<p>Copyright © 2024. All Rights Reserved.</p>
+						<p class="animated animate-fade-up">Copyright © 2024. All Rights Reserved.</p>
 					</div>
 				</div>
 			</div>
 		</div>
-	</footer>
+	</footer>	
 	<!--================ footer section html code end here =================-->
 
 

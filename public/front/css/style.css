@@ -181,10 +181,6 @@ iframe{
         font-weight: 700;
     }
 
-    .Current_category .cardcontainer:hover > .photo{
-        animation: move1 0.5s ease both;
-        transition: 1s;
-    }
     .Current_category .footer{
         width: 100%;
         height:auto;
@@ -705,5 +701,169 @@ opacity:1;
     transform: translateY(-50%); /* Center vertically */
     color: #999; /* Gray color for the icon */
     pointer-events: none; /* Prevent click events */
+}
+
+
+/* 
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-title {
+    animation: slideInDown 1s ease-out;
+}
+
+.animate-card {
+    animation: slideInLeft 1.2s ease-out;
+}
+
+.animate-image img {
+    animation: slideInRight 1.3s ease-out;
+}
+
+.animate-text {
+    animation: slideInUp 1.5s ease-out;
+}
+
+.animate-footer,
+.animate-all-btn {
+    animation: slideInLeft 1.6s ease-out;
+} */
+
+
+/* Custom animations */
+@keyframes slideLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Initial hidden state */
+.animated {
+    opacity: 0;
+    transform: translateY(30px); /* Default movement before animation starts */
+    transition: all 0.5s ease-in-out;
+}
+
+/* Slide from left */
+.animate-slide-left.in-view {
+    animation: slideLeft 0.8s forwards;
+}
+
+/* Slide from right */
+.animate-slide-right.in-view {
+    animation: slideRight 0.8s forwards;
+}
+
+/* Fade in and move up */
+.animate-fade-up.in-view {
+    animation: fadeInUp 0.8s forwards;
+}
+
+
+
+.feature_img {
+    position: relative;
+}
+
+.text-overlay {
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    width: 50%;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background for better readability */
+    border-radius: 8px;
+}
+
+.banner-text-overlay {
+    top: 72%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    width: 40%;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background for better readability */
+    border-radius: 8px;
+	height: 150px;
+}
+
+.text-overlay h3, .text-overlay p {
+    margin: 0;
+}
+
+.img img {
+    width: 100%;
+    border-radius: 8px;
 }
 

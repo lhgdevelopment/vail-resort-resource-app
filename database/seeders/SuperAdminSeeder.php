@@ -23,6 +23,7 @@ class SuperAdminSeeder extends Seeder
                 'email' => 'superadmin@example.com',
                 'password' => Hash::make('12345678'),
                 'role' => 'super-admin',
+                'is_approved' => true,
             ]);
 
             // Assign the super-admin role

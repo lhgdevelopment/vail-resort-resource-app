@@ -6,11 +6,11 @@
 <!--========================= full screen slider part hear ======================-->
 <section id="hero">
     <div class="category_item">
-        <div class="img">
+        <div class="img animated animate-slide-right">
             <img src="{{ asset('storage/' . $category->banner) }}" alt="{{ $category->name }}">
         </div>
         <div class="category">
-            <h1>{{ $category->name }}</h1>
+            <h1 class="animated animate-slide-left">{{ $category->name }}</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
@@ -28,12 +28,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 animated animate-slide-left">
                             <div class="images p-3">
                                 <img id="main-image" src="{{ asset('storage/' . $category->thumbnail) }}" width="100%" alt="{{ $category->name }}" />
                             </div>
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-8 animated animate-slide-right">
                             <div class="product p-4">
                                 <h4 class="text-uppercase">{{ $category->name }}</h4>
                                 <div class="description pt-2">
@@ -72,7 +72,7 @@
                     <div class="card mb-3">
                         <div class="row g-0 p-3 bg-white border rounded">
                             <div class="col-md-4">
-                                <div class="img imgheight beforehover">
+                                <div class="img imgheight beforehover animated animate-slide-left">
                                     <!-- Display File or Embed Code -->
                                     @if ($resource->type === 'file' && $resource->file_path)
                                         @php
@@ -92,7 +92,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 animated animate-slide-right">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $resource->title }}</h5>
                                     <p class="card-text">{{ $resource->description }}</p>

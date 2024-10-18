@@ -6,11 +6,11 @@
 <!--========================= full screen slider part hear ======================-->
 <section id="hero">
     <div class="category_item">
-        <div class="img">
+        <div class="img animated animate-slide-right">
             <img src="{{ asset('storage/' . $category->banner) }}" alt="{{ $category->name }}">
         </div>
         <div class="category">
-            <h1>{{ $category->name }}</h1>
+            <h1 class="animated animate-slide-left">{{ $category->name }}</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
@@ -59,7 +59,7 @@
                     <div class="row g-0 p-3 bg-white border rounded">
 
                         <!-- Resource Details Section -->
-                        <div class="col-md-12 mb-4">
+                        <div class="col-md-12 mb-4 animated animate-slide-right">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $resource->title }}</h5>
                                 <p class="card-text">{{ $resource->description }}</p>
@@ -77,7 +77,7 @@
                         </div>
 
                         <!-- File/Embed Display Section -->
-                        <div class="col-md-12 mb-4">
+                        <div class="col-md-12 mb-4 animated animate-slide-left">
                             <div class="img imgheight">
                                 <!-- Display File or Embed Code -->
                                 @if ($resource->type === 'file' && $resource->file_path)

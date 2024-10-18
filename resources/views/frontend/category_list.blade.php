@@ -7,13 +7,13 @@
 <!--========================= full screen slider part hear ======================-->
 <section id="hero">
     <div class="category_item" >
-        <div class="img">
+        <div class="img animated animate-slide-right">
             <img src="{{asset('')}}front/images/pexels-photo-3888007.jpeg" alt="image">
         </div>
         <div class="category">
-            <h1>Cape of Good Hope Riebeeksrivier Western Slopes</h1>
+            <h1 class="animated animate-slide-left">Cape of Good Hope Riebeeksrivier Western Slopes</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-              <ul class="breadcrumb">
+              <ul class="breadcrumb animated animate-slide-left">
                 <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Category</li>
               </ul>
@@ -38,12 +38,12 @@
             
             <!-- Loop through the categories -->
             @foreach($categories as $category)
-            <div class="col-lg-3 col-md-6 col-sm-6 pb-4">
+            <div class="col-lg-3 col-md-6 col-sm-6 pb-4 animated animate-slide-left">
                 <div class="cardcontainer card">
-                    <div class="photo">
+                    <div class="photo animated animate-fade-up">
                         <img src="{{ asset('storage/' . $category->thumbnail) }}" class="d-block w-100" alt="{{ $category->name }}">
                     </div>
-                    <div class="content">
+                    <div class="content animated animate-slide-right">
                         <h2 class="txt4">{{ $category->name }}</h2>
                         <p class="txt2 text-limit-10">{{ \Illuminate\Support\Str::words($category->short_description, 10, '...') }}</p>
                     </div>
