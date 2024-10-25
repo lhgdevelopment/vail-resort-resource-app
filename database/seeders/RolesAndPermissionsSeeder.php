@@ -43,6 +43,12 @@ class RolesAndPermissionsSeeder extends Seeder
                 'edit-resources',
                 'delete-resources',
             ],
+            'ltos' => [
+                'view-ltos',
+                'create-ltos',
+                'edit-ltos',
+                'delete-ltos',
+            ],
             'sliders' => [
                 'view-sliders',
                 'create-sliders',
