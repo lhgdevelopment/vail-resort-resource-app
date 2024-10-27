@@ -321,6 +321,16 @@ iframe{
 	height: 595px;
 	object-fit: cover;
 }
+#bg_banner .img_container .image.col2 iframe {
+    width: 100%;
+    height: 595px;
+    object-fit: cover;
+}
+#bg_banner .img_container .image.col1 iframe {
+    width: 100%;
+    height: 397px;
+    object-fit: cover;
+}
 #bg_banner .img_container .image{
 	position: relative;
 	margin-bottom: 25px;
@@ -1241,4 +1251,8 @@ opacity:1;
 #description .resource-details {
 	width: 90% !important;
 	margin: auto;
+}
+
+.select-month {
+	width: 50%;
 }

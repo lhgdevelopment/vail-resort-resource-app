@@ -22,7 +22,8 @@ use Illuminate\Support\Facades\Route;
 //Frontend Routes.....................................
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('category/{id}', [FrontendController::class, 'categoryDetails'])->name('category.details');
-Route::get('category-list', [FrontendController::class, 'categoryList'])->name('category.index');
+// Route::get('category-list', [FrontendController::class, 'categoryList'])->name('category.index');
+Route::get('lto-list', [FrontendController::class, 'ltoList'])->name('lto.index');
 Route::get('resource/{id}', [FrontendController::class, 'resourceDetails'])->name('resource.details');
 
 

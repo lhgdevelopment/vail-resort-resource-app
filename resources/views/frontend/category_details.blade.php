@@ -87,7 +87,7 @@
                                 @endif
                             @elseif ($resource->type === 'link' && $resource->embed_code)
                                 <!-- Embed code for link type resources -->
-                                <div class="embed-responsive">
+                                <div>
                                     {!! $resource->embed_code !!}
                                 </div>
                             @endif
