@@ -17,12 +17,12 @@ class FrontendController extends Controller
                         ->get();
                         
         // Fetch featured categories that are active, ordered by priority.
-        $featuredCategories = Category::where('is_featured', true)
+        $categories = Category::where('is_featured', true)
         ->where('status', 'active')
         ->orderBy('priority', 'asc')
         ->get();
 
-        return view('frontend.welcome', compact('sliders', 'featuredCategories'));
+        return view('frontend.welcome', compact('sliders', 'categories'));
     }
 
     public function categoryList(Request $request)
