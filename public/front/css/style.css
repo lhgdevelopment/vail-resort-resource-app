@@ -1197,26 +1197,79 @@ opacity:1;
 }
 
 /* Initial hidden state */
+/* .animated {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s ease-in-out;
+}
+.animate-slide-left.in-view {
+    animation: slideLeft 0.8s forwards;
+}
+.animate-slide-right.in-view {
+    animation: slideRight 0.8s forwards;
+}
+.animate-fade-up.in-view {
+    animation: fadeInUp 0.8s forwards;
+} */
+
+/* Initial hidden state */
 .animated {
     opacity: 0;
     transform: translateY(30px); /* Default movement before animation starts */
-    transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out; /* Smooth transition */
+}
+
+/* Slide from left animation keyframes */
+@keyframes slideLeft {
+    0% {
+        opacity: 0; /* Start invisible */
+        transform: translateX(-25px); /* Start slightly off-screen to the left */
+    }
+    100% {
+        opacity: 1; /* Fully visible */
+        transform: translateX(0); /* Move to original position */
+    }
+}
+
+/* Slide from right animation keyframes */
+@keyframes slideRight {
+    0% {
+        opacity: 0; /* Start invisible */
+        transform: translateX(25px); /* Start slightly off-screen to the right */
+    }
+    100% {
+        opacity: 1; /* Fully visible */
+        transform: translateX(0); /* Move to original position */
+    }
+}
+
+/* Fade in and move up animation keyframes */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0; /* Start invisible */
+        transform: translateY(30px); /* Start slightly below */
+    }
+    100% {
+        opacity: 1; /* Fully visible */
+        transform: translateY(0); /* Move to original position */
+    }
 }
 
 /* Slide from left */
 .animate-slide-left.in-view {
-    animation: slideLeft 0.8s forwards;
+    animation: slideLeft 0.8s forwards; /* Apply the slide left animation */
 }
 
 /* Slide from right */
 .animate-slide-right.in-view {
-    animation: slideRight 0.8s forwards;
+    animation: slideRight 0.8s forwards; /* Apply the slide right animation */
 }
 
 /* Fade in and move up */
 .animate-fade-up.in-view {
-    animation: fadeInUp 0.8s forwards;
+    animation: fadeInUp 0.8s forwards; /* Apply the fade up animation */
 }
+
 
 
 

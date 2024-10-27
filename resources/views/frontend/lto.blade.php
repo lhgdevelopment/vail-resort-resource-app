@@ -12,9 +12,9 @@
             <img src="{{asset('')}}front/images/pixelcut-export9.png" alt="image">
         </div>
         <div class="category">
-            <h1>LTO Lists</h1>
+            <h1 class="animated animate-slide-left">LTO Lists</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-              <ul class="breadcrumb">
+              <ul class="breadcrumb animated animate-slide-right">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">LTO</li>
               </ul>
@@ -44,7 +44,7 @@
                     }
                 @endphp
         
-                <h3 class="text-uppercase text-center fs-3 text-white">LTO for {{ $monthName }} {{ $year }}</h3>
+                <h3 class="text-uppercase text-center fs-3 text-white animated animate-slide-left">LTO for {{ $monthName }} {{ $year }}</h3>
             </div>
             <div class="col-4">
                 <form method="GET" action="{{ route('lto.list') }}" class="d-flex justify-content-end">
@@ -70,7 +70,7 @@
                         </select>
                     </div>
                     <div>
-                        <button class="btn btn-primary">Search</button>
+                        <button class="btn btn-primary animated animate-slide-right">Search</button>
                     </div>
                 </form>
             </div>
@@ -90,9 +90,9 @@
                             <div class="row g-0 p-3 BgWhite rounded">
                                 <div class="col-12">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{ $lto->title }}</h5>
-                                        <p class="card-date">{{ \Carbon\Carbon::parse($lto->from_date)->format('F d, Y') }} to {{ \Carbon\Carbon::parse($lto->to_date)->format('F d, Y') }}</p>
-                                        <p class="card-text">{!! $lto->description !!}</p>
+                                        <h5 class="card-title animated animate-slide-left">{{ $lto->title }}</h5>
+                                        <p class="card-date animated animate-slide-left">{{ \Carbon\Carbon::parse($lto->from_date)->format('F d, Y') }} to {{ \Carbon\Carbon::parse($lto->to_date)->format('F d, Y') }}</p>
+                                        <p class="card-text animated animate-slide-right">{!! $lto->description !!}</p>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                         <div class="row g-0 p-3 BgWhite rounded">
                             <div class="col-12">
                                 <div class="card-body">
-                                    <p>No Data Found.</p>
+                                    <p class="animated animate-slide-left">No Data Found.</p>
                                 </div>
                             </div>
                         </div>

@@ -10,9 +10,9 @@
             <img src="{{ asset('storage/' . $category->banner) }}" alt="{{ $category->name }}">
         </div>
         <div class="category">
-            <h1>{{ $category->name }}</h1>
+            <h1 class="animated animate-slide-left">{{ $category->name }}</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                <ul class="breadcrumb">
+                <ul class="breadcrumb animated animate-slide-right">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ $category->name }}</li>
                 </ul>
@@ -31,9 +31,9 @@
                         <div class="imgheight">
                             <img src="{{ asset('storage/' . $category->thumbnail) }}" alt="{{ $category->name }}">
                             <div class="cards_content">
-                                <h5 class="cardtitle">{{ $category->name }}</h5>
-                                <h6>{{ $category->short_description }}</h6>
-                                <p class="cardtext">{{ $category->long_description }}</p>
+                                <h5 class="cardtitle animated animate-slide-left">{{ $category->name }}</h5>
+                                <h6 class="animated animate-slide-right">{{ $category->short_description }}</h6>
+                                <p class="cardtext animated animate-slide-right">{{ $category->long_description }}</p>
                             </div>
                         </div>
                     </div>
@@ -59,8 +59,8 @@
                     <a href="{{route('resource.details', $resource->id)}}">
                         <div class="image {{ $index % 4 == 0 || $index % 4 == 3 ? 'col2' : 'col1' }}">
                             <div class="txt">
-                                <h3>{{ $resource->title }}</h3>
-                                <p>{{ $resource->description }}</p>
+                                <h3 class="animated animate-slide-left">{{ $resource->title }}</h3>
+                                <p class="animated animate-slide-right">{{ $resource->description }}</p>
                             </div>
 
                             <!-- Display File or Embed Code -->

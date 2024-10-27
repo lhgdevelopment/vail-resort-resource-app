@@ -11,9 +11,9 @@
             <img src="{{ asset('storage/' . $category->banner) }}" alt="Category Banner">
         </div>
         <div class="category">
-            <h1>{{ $category->name }}</h1>
+            <h1 class="animated animate-slide-left">{{ $category->name }}</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-              <ul class="breadcrumb">
+              <ul class="breadcrumb animated animate-slide-right">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('category.details', $category->id) }}">{{ $category->name }}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $resource->title }}</li>
@@ -31,9 +31,9 @@
                 <div class="card mb-3" style="background-color: #29292B;">
                     <div class="row g-0 p-4 bg_white rounded">
                         <div class="card-body">
-                            <h5 class="card-title cardtitle">{{ $resource->title }}</h5>
-                            <p class="card-text text-white">{{ $resource->description }}</p>
-                            <p class="card-text text-white"><small class="text-muted">Author: {{ $resource->author }}</small></p>
+                            <h5 class="card-title cardtitle animated animate-slide-left">{{ $resource->title }}</h5>
+                            <p class="card-text text-white animated animate-slide-right">{{ $resource->description }}</p>
+                            <p class="card-text text-white animated animate-slide-right"><small class="text-muted">Author: {{ $resource->author }}</small></p>
 
                             <!-- Download Button for Files -->
                             @if ($resource->type === 'file' && $resource->file_path)

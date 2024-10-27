@@ -33,7 +33,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-6 col-sm-6">
-					<div class="f_logo">
+					<div class="f_logo animated animate-slide-left">
 						<img src="{{asset('storage/' . settings('logo_white'))}}" alt="logo">
 					</div>
 				</div>
@@ -41,12 +41,12 @@
 					<div class="f_list">
 						<ul>
 							<li>
-								<a href="{{route('lto.list')}}" class="text-white text-center bold">LTO Lists</a>
+								<a href="{{route('lto.list')}}" class="text-white text-center bold animated animate-slide-right">LTO Lists</a>
 							</li>
 						</ul>
 					</div>
 					<div class="f_bottom">
-						<p>Copyright © 2024. All Rights Reserved.</p>
+						<p class="animated animate-slide-right">Copyright © 2024. All Rights Reserved.</p>
 					</div>
 				</div>
 			</div>
