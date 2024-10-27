@@ -600,6 +600,21 @@ iframe{
 		color: #C0C0C0;
 		font-size: 16px;
 	}
+
+
+	#footer .f_list{
+		padding-top: 10px;
+   		margin: 0 auto;
+    	display: flex;
+    	align-items: center;
+    	justify-content: center;
+	}
+	#footer .f_list a{
+		color: #C0C0C0;
+		font-size: 16px;
+	}
+
+
 	#footer .f_logo img{
 		width: 200px;
 		vertical-align: center;
@@ -1251,8 +1266,4 @@ opacity:1;
 #description .resource-details {
 	width: 90% !important;
 	margin: auto;
-}
-
-.select-month {
-	width: 50%;
 }

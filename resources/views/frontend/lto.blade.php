@@ -28,31 +28,55 @@
         <div class="row">
             <div class="col-6">
                 @php
-                    $selectedMonth = request('month');
-                    if ($selectedMonth) {
-                        [$month, $year] = explode('-', $selectedMonth);
-                        $month = (int) $month;
+                    $selectedMonth = $month;
+                    $selectedYear = $year;
+        
+                    if ($selectedMonth && $selectedYear) {
+                        // When month and year are selected
+                        $month = (int) $selectedMonth;
+                        $year = (int) $selectedYear;
                         $monthName = \Carbon\Carbon::create()->month($month)->format('F');
                     } else {
+                        // Default to current month and year if not selected
                         $currentDate = \Carbon\Carbon::now();
                         $monthName = $currentDate->format('F'); 
-                        $year = $currentDate->year; 
+                        $year = $currentDate->year;
                     }
                 @endphp
-
+        
                 <h3 class="text-uppercase text-center fs-3 text-white">LTO for {{ $monthName }} {{ $year }}</h3>
             </div>
-            <div class="col-6">
-                <select name="month" id="month" class="form-control select-month" onchange="location = this.value;">
-                    <option value="">Select Month</option>
-                    <option value="09-24" {{ request('month') === '09-24' ? 'selected' : '' }}>September 2024</option>
-                    <option value="10-24" {{ request('month') === '10-24' ? 'selected' : '' }}>October 2024</option>
-                    <option value="11-24" {{ request('month') === '11-24' ? 'selected' : '' }}>November 2024</option>
-                    <option value="12-24" {{ request('month') === '12-24' ? 'selected' : '' }}>December 2024</option>
-                    <option value="{{ $currentMonth }}-{{ $currentYear }}" {{ request('month') === "{$currentMonth}-{$currentYear}" ? 'selected' : '' }}>Current Month</option>
-                </select>
+            <div class="col-4">
+                <form method="GET" action="{{ route('lto.list') }}" class="d-flex justify-content-end">
+                    <div class="me-2">
+                        <select name="month" id="month" class="form-control select-month">
+                            <option value="">Select Month</option>
+                            @foreach(range(1, 12) as $m)
+                                <option value="{{ str_pad($m, 2, '0', STR_PAD_LEFT) }}" 
+                                    {{ (int) $selectedMonth === $m ? 'selected' : '' }}>
+                                    {{ \Carbon\Carbon::create()->month($m)->format('F') }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="me-2">
+                        <select name="year" id="year" class="form-control select-year">
+                            <option value="">Select Year</option>
+                            @foreach(range(2024, 2027) as $y)
+                                <option value="{{ $y }}" {{ (int) $selectedYear === $y ? 'selected' : '' }}>
+                                    {{ $y }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary">Search</button>
+                    </div>
+                </form>
             </div>
         </div>
+        
+        
     </div>
 </section>
 
@@ -93,12 +117,4 @@
         </div>
     </div>
 </section>
-
-
-<script>
-    document.getElementById('month').addEventListener('change', function() {
-        const month = this.value;
-        window.location.href = `?month=${month}`;
-    });
-</script>
 @endsection

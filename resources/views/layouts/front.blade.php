@@ -38,6 +38,13 @@
 					</div>
 				</div>
 				<div class="col-md-6 col-sm-6">
+					<div class="f_list">
+						<ul>
+							<li>
+								<a href="{{route('lto.list')}}" class="text-white text-center bold">LTO Lists</a>
+							</li>
+						</ul>
+					</div>
 					<div class="f_bottom">
 						<p>Copyright © 2024. All Rights Reserved.</p>
 					</div>
