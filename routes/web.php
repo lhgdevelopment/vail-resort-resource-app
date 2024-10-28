@@ -1,33 +1,30 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\LtoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\SMTPSettingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
 
-// Route::get('/', function () {
-//     return view('frontend.welcome');
-// });
-
 //Frontend Routes.....................................
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('category/{id}', [FrontendController::class, 'categoryDetails'])->name('category.details');
-Route::get('category-list', [FrontendController::class, 'categoryList'])->name('category.index');
+Route::get('lto/list', [FrontendController::class, 'ltoList'])->name('lto.list');
 Route::get('resource/{id}', [FrontendController::class, 'resourceDetails'])->name('resource.details');
 
 
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [UserController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
 
@@ -38,6 +35,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::get('/settings/edit', [SettingController::class, 'edit'])->name('settings.edit');
     Route::put('/settings/update/{id}', [SettingController::class, 'update'])->name('settings.update');
+    Route::get('settings/smtp', [SMTPSettingController::class, 'index'])->name('smtp.index');
+    Route::put('settings/smtp', [SMTPSettingController::class, 'update'])->name('smtp.update');
+    Route::get('/verify/{token}', [RegisteredUserController::class, 'verifyEmail'])->name('verify.email');
+
+
 
     // Route to view all sliders (index)
     Route::get('sliders', [SliderController::class, 'index'])->name('sliders.index')->middleware('can:view-sliders');
@@ -82,6 +84,14 @@ Route::middleware('auth')->group(function () {
     Route::get('resources/{resource}/show', [ResourceController::class, 'show'])->name('resources.show')->middleware('permission:view-resources');
     Route::put('resources/{resource}', [ResourceController::class, 'update'])->name('resources.update')->middleware('permission:edit-resources');
     Route::delete('resources/{resource}', [ResourceController::class, 'destroy'])->name('resources.destroy')->middleware('permission:delete-resources');
+
+    Route::get('ltos', [LtoController::class, 'index'])->name('ltos.index')->middleware('permission:view-ltos');
+    Route::get('ltos/create', [LtoController::class, 'create'])->name('ltos.create')->middleware('permission:create-ltos');
+    Route::post('ltos', [LtoController::class, 'store'])->name('ltos.store')->middleware('permission:create-ltos');
+    Route::get('ltos/{lto}/edit', [LtoController::class, 'edit'])->name('ltos.edit')->middleware('permission:edit-ltos');
+    Route::get('ltos/{lto}/show', [LtoController::class, 'show'])->name('ltos.show')->middleware('permission:view-ltos');
+    Route::put('ltos/{lto}', [LtoController::class, 'update'])->name('ltos.update')->middleware('permission:edit-ltos');
+    Route::delete('ltos/{lto}', [LtoController::class, 'destroy'])->name('ltos.destroy')->middleware('permission:delete-ltos');
 });
 
 require __DIR__.'/auth.php';

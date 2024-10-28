@@ -23,6 +23,7 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Roles</th>
+                        <th>Is Approved</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -37,11 +38,18 @@
                                 @endif
                             </td>
                             <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->email }} @if ($user->email_verification_token == null) <span class="text-success" title="Email Vrified"><i class="bi bi-check-circle-fill"></i></span> @else <span class="text-warning" title="Email Not Vrified"><i class="bi bi-exclamation-triangle-fill"></i></span> @endif</td>
                             <td>
                                 @foreach($user->roles as $role)
                                     <span class="badge bg-secondary">{{ ucwords(str_replace('-', ' ', $role->name)) }}</span>
                                 @endforeach
+                            </td>
+                            <td>
+                                @if ($user->is_approved)
+                                    <span class="badge bg-secondary">YES</span>
+                                @else
+                                    <span class="badge bg-warning">NO</span>
+                                @endif
                             </td>
                             <td>
                                 @if ($user->role != "super-admin")

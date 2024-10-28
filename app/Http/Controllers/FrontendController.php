@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Lto;
 use App\Models\Resource;
 use App\Models\Slider;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -17,12 +19,12 @@ class FrontendController extends Controller
                         ->get();
                         
         // Fetch featured categories that are active, ordered by priority.
-        $featuredCategories = Category::where('is_featured', true)
+        $categories = Category::where('is_featured', true)
         ->where('status', 'active')
         ->orderBy('priority', 'asc')
         ->get();
 
-        return view('frontend.welcome', compact('sliders', 'featuredCategories'));
+        return view('frontend.welcome', compact('sliders', 'categories'));
     }
 
     public function categoryList(Request $request)
@@ -54,5 +56,29 @@ class FrontendController extends Controller
         $category = Category::where('id', $resource->category_id)->firstOrFail();
 
         return view('frontend.resource_details', compact('resource', 'category'));
+    }
+
+    public function ltoList(Request $request)
+    {
+        $month = $request->input('month');
+        $year = $request->input('year');
+
+        if ($month && $year) {
+            // Filter by selected month and year
+            $ltos = LTO::whereYear('from_date', $year)
+                    ->whereMonth('from_date', $month)
+                    ->paginate(10);
+        } else {
+            // Default to the current month and year if no selection
+            $currentDate = Carbon::now();
+            $month = $currentDate->month;
+            $year = $currentDate->year;
+
+            $ltos = LTO::whereYear('from_date', $year)
+                    ->whereMonth('from_date', $month)
+                    ->paginate(10);
+        }
+
+        return view('frontend.lto', compact('ltos', 'month', 'year'));
     }
 }

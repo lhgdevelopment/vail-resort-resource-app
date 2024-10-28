@@ -3,8 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{{ settings('site_name', 'VAIL RESORTS') }} | Home page</title>
-	<link rel="shortcut icon" href="{{asset('')}}front/images/VR_FandB_icon_blk.png" type="image/x-icon">
+	<title>{{settings('site_name')}}</title>
+	<link href="https://fonts.cdnfonts.com/css/touch" rel="stylesheet">
+                
+	<link rel="shortcut icon" href="{{asset('storage/' . settings('icon_white'))}}" type="image/x-icon">
 	<link rel="stylesheet" href="{{asset('')}}front/css/all.min.css" />
 	<link rel="stylesheet" href="{{asset('')}}front/css/fontawesome.min.css" />
 	<link rel="stylesheet" href="{{asset('')}}front/css/bootstrap.min.css" />
@@ -14,29 +16,37 @@
 <body>
 	<!--================ header section html code start here =================-->
 	<header id="header" class="" >
-		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<nav class="navbar navbar-expand-sm ">
 		  <div class="container-fluid">
-		    <a class="navbar-brand m-auto" href="{{url('/')}}"><img src="{{ asset('storage/' . settings('logo_black')) }}" alt="logo"></a>
+		    <a class="navbar-brand m-auto" href="{{ url('/') }}"><img src="{{asset('storage/' . settings('logo_white'))}}" alt="logo"></a>
 		  </div>
 		</nav>
+	
 
 
-        @yield('content')
+		@yield('content')
 
 
 
 	<!--================ footer section html code start here =================-->
 	<footer id="footer">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-6 col-sm-6">
-					<div class="f_logo">
-						<img src="{{ asset('storage/' . settings('logo_white')) }}" alt="logo">
+					<div class="f_logo animated animate-slide-left">
+						<img src="{{asset('storage/' . settings('logo_white'))}}" alt="logo">
 					</div>
 				</div>
 				<div class="col-md-6 col-sm-6">
+					<div class="f_list">
+						<ul>
+							<li>
+								<a href="{{route('lto.list')}}" class="text-white text-center bold animated animate-slide-right">LTO Lists</a>
+							</li>
+						</ul>
+					</div>
 					<div class="f_bottom">
-						<p>Copyright © 2024. All Rights Reserved.</p>
+						<p class="animated animate-slide-right">Copyright © 2024. All Rights Reserved.</p>
 					</div>
 				</div>
 			</div>

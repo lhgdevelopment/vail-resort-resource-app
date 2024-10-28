@@ -43,6 +43,12 @@ class RolesAndPermissionsSeeder extends Seeder
                 'edit-resources',
                 'delete-resources',
             ],
+            'ltos' => [
+                'view-ltos',
+                'create-ltos',
+                'edit-ltos',
+                'delete-ltos',
+            ],
             'sliders' => [
                 'view-sliders',
                 'create-sliders',
@@ -68,5 +74,9 @@ class RolesAndPermissionsSeeder extends Seeder
         // Super Admin - has all permissions
         $superAdminRole = Role::create(['name' => 'super-admin']);
         $superAdminRole->givePermissionTo(Permission::all());
+
+        //Create some default Role.
+        Role::updateOrCreate(['name' => 'Operator']);
+        Role::updateOrCreate(['name' => 'Supplier']);
     }
 }

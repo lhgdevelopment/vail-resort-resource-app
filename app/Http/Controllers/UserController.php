@@ -13,12 +13,24 @@ use Log;
 
 class UserController extends Controller
 {
+    public function dashboard()
+    {
+        $user = Auth::user();
+        if (!$user->is_approved) {
+            Auth::logout();
+            return redirect('/login')->with('message', 'Your account is not approved yet.');
+            // return redirect('/login')->withErrors('Your account is not yet approved by the admin.');
+        }
+
+        return view('dashboard');
+    }
+
     /**
      * Display a listing of the users.
      */
     public function index()
     {
-        $users = User::with('roles')->get(); // Fetch users with roles
+        $users = User::with('roles')->orderBy('id', 'desc')->get(); // Fetch users with roles
         return view('backend.users.index', compact('users'));
     }
 
@@ -63,6 +75,8 @@ class UserController extends Controller
             'name'     => $request->name,
             'email'    => $request->email,
             'role'    => $request->roles,
+            'is_approved' => true,
+            'email_verified_at' => now(),
             'password' => Hash::make($request->password),
             'image'    => $imagePath,
         ]);
@@ -97,6 +111,7 @@ class UserController extends Controller
             'email'                 => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password'              => 'nullable|string|min:8|confirmed',
             'roles'                 => 'required|string', // Single role as string
+            'is_approved'           => 'required|boolean',
             'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120', // Image validation
         ]);
 
@@ -123,6 +138,7 @@ class UserController extends Controller
         $user->update([
             'name'     => $request->name,
             'email'    => $request->email,
+            'is_approved'    => $request->is_approved,
             'password' => $request->password ? Hash::make($request->password) : $user->password,
             'image'    => $imagePath,
         ]);

@@ -5,3 +5,10 @@
         {{ $status }}
     </div>
 @endif
+
+@if(session('message'))
+    <div class="alert alert-success text-white">
+        {{ session('message') }}
+    </div>
+@endif
+

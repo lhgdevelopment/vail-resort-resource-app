@@ -49,6 +49,17 @@
                     @endforeach
                 </select>
             </div>
+
+            <!-- Admin Approval -->
+            <div class="form-group mb-3">
+                <label for="is_approved">Approve User<span class="text-danger">*</span></label>
+                <select name="is_approved" class="form-control" required>
+                    <option value="" disabled>Select One</option>
+                    <option value="1" @if($user->is_approved) selected @endif>YES</option>
+                    <option value="0" @if(!$user->is_approved) selected @endif>NO</option>
+                   
+                </select>
+            </div>
     
             <!-- Current Profile Image -->
             @if ($user->image)
