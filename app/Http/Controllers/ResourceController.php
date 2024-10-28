@@ -39,7 +39,7 @@ class ResourceController extends Controller
             'author'            => 'nullable|string|max:255',
             'category_id'       => 'required|exists:categories,id',
             'type'              => 'required|in:file,link',
-            'file_path'         => 'nullable|file|mimes:pdf,jpg,jpeg,png,gif|max:5120',
+            'file_path'         => 'nullable|file|mimes:pdf,jpg,jpeg,png,gif|max:102400',
             'embed_code'        => 'nullable|string',
             'tags'              => 'nullable|string|max:255',
             'status'            => 'required|in:active,inactive',
@@ -48,7 +48,7 @@ class ResourceController extends Controller
         // Handle conditional fields based on type
         if ($request->type === 'file') {
             $request->validate([
-                'file_path' => 'required|file|mimes:pdf,jpg,jpeg,png,gif|max:5120',
+                'file_path' => 'required|file|mimes:pdf,jpg,jpeg,png,gif|max:102400',
             ]);
 
             if ($request->hasFile('file_path')) {
@@ -112,7 +112,7 @@ class ResourceController extends Controller
             'author'            => 'nullable|string|max:255',
             'category_id'       => 'required|exists:categories,id',
             'type'              => 'required|in:file,link',
-            'file_path'         => 'nullable|file|mimes:pdf,jpg,jpeg,png,gif|max:5120',
+            'file_path'         => 'nullable|file|mimes:pdf,jpg,jpeg,png,gif|max:102400',
             'embed_code'        => 'nullable|string',
             'tags'              => 'nullable|string|max:255',
             'status'            => 'required|in:active,inactive',
@@ -121,7 +121,7 @@ class ResourceController extends Controller
         // Handle conditional fields based on type
         if ($request->type === 'file') {
             $request->validate([
-                'file_path' => 'required|file|mimes:pdf,jpg,jpeg,png,gif|max:5120',
+                'file_path' => 'required|file|mimes:pdf,jpg,jpeg,png,gif|max:102400',
             ]);
 
             if ($request->hasFile('file_path')) {
