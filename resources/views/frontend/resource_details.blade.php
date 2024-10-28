@@ -8,7 +8,7 @@
 <section id="hero">
     <div class="category_item">
         <div class="img">
-            <img src="{{ asset('storage/' . $category->banner) }}" alt="Category Banner">
+            <img src="{{ asset('storage/' . $category->banner) }}" alt="Category Banner" class="animated animate-slide-right">
         </div>
         <div class="category">
             <h1 class="animated animate-slide-left">{{ $category->name }}</h1>
@@ -37,7 +37,7 @@
 
                             <!-- Download Button for Files -->
                             @if ($resource->type === 'file' && $resource->file_path)
-                                <div class="footer download-btn">
+                                <div class="footer download-btn animated animate-slide-left">
                                     <a class="btn btn-success" href="{{ asset('storage/' . $resource->file_path) }}" download>
                                         <span class="mx-2"><i class="fa-solid fa-download"></i></span>Download
                                     </a>

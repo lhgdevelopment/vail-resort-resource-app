@@ -45,11 +45,13 @@
                 @foreach($chunk as $index => $category)
                     <a href="{{route('category.details', $category->id)}}">
                         <div class="image {{ $index % 4 == 0 || $index % 4 == 3 ? 'col2' : 'col1' }}">
+                            <div class="animated animate-slide-left">
+                                <img src="{{ asset('storage/' . $category->thumbnail) }}" alt="{{ $category->name }}">
+                            </div>
                             <div class="txt">
                                 <h3 class="animated animate-slide-left">{{ $category->name }}</h3>
                                 <p class="animated animate-slide-right">{{ $category->short_description }}</p>
                             </div>
-                            <img src="{{ asset('storage/' . $category->thumbnail) }}" alt="{{ $category->name }}">
                         </div>
                     </a>
                 @endforeach
@@ -69,7 +71,7 @@
 <section id="bg_banner" class=" gallery">
   <div class="img_container">
       <a href="#">
-          <div class="image col3">
+          <div class="image col3 animated animate-slide-left">
               <img src="{{asset('')}}front/images/pixcel5.jpg" alt="image">
           </div>
       </a>
@@ -93,7 +95,7 @@
           </div>
 
       <a href="#">
-          <div class="image col3">
+          <div class="image col3 animated animate-slide-right">
               <img src="{{asset('')}}front/images/pixelcut6.jpeg" alt="image">
           </div>
       </a>
@@ -107,7 +109,7 @@
           <a class="d-block" href="#">
               <div class="coll">
                   <div class="feature_img">
-                      <div class="img">
+                      <div class="img animated animate-slide-left">
                           <img src="{{asset('')}}front/images/pixelcut-export7.jpeg" alt="img">
                       </div>
                       <div class="txt">
@@ -120,7 +122,7 @@
           <a class="d-block"  href="#">
               <div class="coll">
                   <div class="feature_img">
-                      <div class="img">
+                      <div class="img animated animate-slide-right">
                           <img src="{{asset('')}}front/images/pixelcut-export8.png" alt="image">
                       </div>
                       <div class="txt">

@@ -8,7 +8,7 @@
 <!--================ header section html code end here =================-->
 <section id="hero">
     <div class="category_item" >
-        <div class="img">
+        <div class="img animated animate-slide-right">
             <img src="{{asset('')}}front/images/pixelcut-export9.png" alt="image">
         </div>
         <div class="category">
@@ -49,7 +49,7 @@
             <div class="col-4">
                 <form method="GET" action="{{ route('lto.list') }}" class="d-flex justify-content-end">
                     <div class="me-2">
-                        <select name="month" id="month" class="form-control select-month">
+                        <select name="month" id="month" class="form-control select-month animated animate-slide-right">
                             <option value="">Select Month</option>
                             @foreach(range(1, 12) as $m)
                                 <option value="{{ str_pad($m, 2, '0', STR_PAD_LEFT) }}" 
@@ -60,7 +60,7 @@
                         </select>
                     </div>
                     <div class="me-2">
-                        <select name="year" id="year" class="form-control select-year">
+                        <select name="year" id="year" class="form-control select-year animated animate-slide-right">
                             <option value="">Select Year</option>
                             @foreach(range(2024, 2027) as $y)
                                 <option value="{{ $y }}" {{ (int) $selectedYear === $y ? 'selected' : '' }}>

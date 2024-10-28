@@ -7,7 +7,7 @@
 <section id="hero">
     <div class="category_item">
         <div class="img">
-            <img src="{{ asset('storage/' . $category->banner) }}" alt="{{ $category->name }}">
+            <img src="{{ asset('storage/' . $category->banner) }}" alt="{{ $category->name }}" class="animated animate-slide-right">
         </div>
         <div class="category">
             <h1 class="animated animate-slide-left">{{ $category->name }}</h1>
@@ -29,7 +29,7 @@
                 <div class="cards mb-3">
                     <div class="cards_img">
                         <div class="imgheight">
-                            <img src="{{ asset('storage/' . $category->thumbnail) }}" alt="{{ $category->name }}">
+                            <img src="{{ asset('storage/' . $category->thumbnail) }}" alt="{{ $category->name }}" class="animated animate-slide-left">
                             <div class="cards_content">
                                 <h5 class="cardtitle animated animate-slide-left">{{ $category->name }}</h5>
                                 <h6 class="animated animate-slide-right">{{ $category->short_description }}</h6>

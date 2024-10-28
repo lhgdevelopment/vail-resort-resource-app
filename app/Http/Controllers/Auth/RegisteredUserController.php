@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        if (Str::endsWith($request->email, ['vailresort.com', 'marketam.com'])) {
+        if (Str::endsWith($request->email, ['vailresort.com', 'marketeaminc.com'])) {
             $role_name = 'Operator';
             $role = Role::where('name', $role_name)->first();
             
