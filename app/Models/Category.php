@@ -18,6 +18,11 @@ class Category extends Model
         'status',
         'short_description',
         'long_description',
+        'roles',
+    ];
+
+    protected $casts = [
+        'roles' => 'array',
     ];
 
     // Define the relationship with Resource

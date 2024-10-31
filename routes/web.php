@@ -15,23 +15,21 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
-
-//Frontend Routes.....................................
-Route::get('/', [FrontendController::class, 'index']);
-Route::get('category/{id}', [FrontendController::class, 'categoryDetails'])->name('category.details');
-Route::get('lto/list', [FrontendController::class, 'ltoList'])->name('lto.list');
-Route::get('resource/{id}', [FrontendController::class, 'resourceDetails'])->name('resource.details');
-
-
-
-
-Route::get('/dashboard', [UserController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
 
+    //Frontend Routes.....................................
+    Route::get('/', [FrontendController::class, 'index']);
+    Route::get('category/{id}', [FrontendController::class, 'categoryDetails'])->name('category.details');
+    Route::get('lto/list', [FrontendController::class, 'ltoSelect'])->name('lto.list');
+    Route::get('lto/data/{month}/{year}', [FrontendController::class, 'ltoList'])->name('lto.data');
+    Route::get('resource/{id}', [FrontendController::class, 'resourceDetails'])->name('resource.details');
+
+
+
+    //Admin Dashboard Routes..........
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
     Route::get('admin/profile', [UserController::class, 'editProfile'])->name('admin.profile.edit');
     Route::put('admin/profile', [UserController::class, 'updateProfile'])->name('admin.profile.update');
-
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::get('/settings/edit', [SettingController::class, 'edit'])->name('settings.edit');
@@ -39,8 +37,6 @@ Route::middleware('auth')->group(function () {
     Route::get('settings/smtp', [SMTPSettingController::class, 'index'])->name('smtp.index');
     Route::put('settings/smtp', [SMTPSettingController::class, 'update'])->name('smtp.update');
     Route::get('/verify/{token}', [RegisteredUserController::class, 'verifyEmail'])->name('verify.email');
-
-
 
     // Route to view all sliders (index)
     Route::get('sliders', [SliderController::class, 'index'])->name('sliders.index')->middleware('can:view-sliders');

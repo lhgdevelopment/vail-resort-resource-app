@@ -1,6 +1,18 @@
 @extends('layouts.admin')
 
+@section('cdn')
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <!-- Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@endsection
+
 @section('content')
+
 <div class="col-lg-12">
 
     <div class="card">
@@ -61,6 +73,19 @@
                 <label for="priority">Priority (optional)</label>
                 <input type="number" name="priority" class="form-control" value="{{ old('priority', $category->priority) }}">
             </div>
+            
+            <!-- Role -->
+            <div class="form-group mb-3">
+                <label for="roles">Roles</label>
+                <select name="roles[]" id="roles" class="form-control select2-multiple" multiple>
+                    @foreach($roles as $role)
+                        <option value="{{ $role->name }}" 
+                            {{ isset($category) && in_array($role->name, $category->roles ?? []) ? 'selected' : '' }}>
+                            {{ ucfirst($role->name) }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
             <!-- Is Featured -->
             <div class="form-group mb-3 form-check">
@@ -90,6 +115,15 @@
 @endsection
 
 @section('script')
+<script>
+    $(document).ready(function() {
+        $('#roles').select2({
+            placeholder: 'Select roles',
+            allowClear: true
+        });
+    });
+</script>
+
 <!-- JavaScript for Drag-and-Drop and Image Preview -->
 <script>
     // Banner Drag-and-Drop

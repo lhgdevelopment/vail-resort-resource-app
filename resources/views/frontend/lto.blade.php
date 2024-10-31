@@ -12,11 +12,11 @@
             <img src="{{asset('')}}front/images/pixelcut-export9.png" alt="image">
         </div>
         <div class="category">
-            <h1 class="animated animate-slide-left">LTO Lists</h1>
+            <h1 class="animated animate-slide-left">LTO Details</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
               <ul class="breadcrumb animated animate-slide-right">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">LTO</li>
+                <li class="breadcrumb-item active" aria-current="page">LTO Details</li>
               </ul>
             </nav>
         </div>
@@ -26,7 +26,7 @@
   <section id="resource" class="pb-3 pt-5">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-6">
+            <div class="col-7">
                 @php
                     $selectedMonth = $month;
                     $selectedYear = $year;
@@ -44,35 +44,8 @@
                     }
                 @endphp
         
-                <h3 class="text-uppercase text-center fs-3 text-white animated animate-slide-left">LTO for {{ $monthName }} {{ $year }}</h3>
+                <h3 class="text-uppercase text-center fs-3 text-white animated animate-slide-left">LTO Details for {{ $monthName }} {{ $year }}</h3>
             </div>
-            <div class="col-4">
-                <form method="GET" action="{{ route('lto.list') }}" class="d-flex justify-content-end">
-                    <div class="me-2">
-                        <select name="month" id="month" class="form-control select-month animated animate-slide-right">
-                            <option value="">Select Month</option>
-                            @foreach(range(1, 12) as $m)
-                                <option value="{{ str_pad($m, 2, '0', STR_PAD_LEFT) }}" 
-                                    {{ (int) $selectedMonth === $m ? 'selected' : '' }}>
-                                    {{ \Carbon\Carbon::create()->month($m)->format('F') }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="me-2">
-                        <select name="year" id="year" class="form-control select-year animated animate-slide-right">
-                            <option value="">Select Year</option>
-                            @foreach(range(2024, 2027) as $y)
-                                <option value="{{ $y }}" {{ (int) $selectedYear === $y ? 'selected' : '' }}>
-                                    {{ $y }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary animated animate-slide-right">Search</button>
-                    </div>
-                </form>
             </div>
         </div>
         
@@ -108,11 +81,17 @@
                             </div>
                         </div>
                     </div>
-                @endif
+                @endif 
                 
-                <div class="pagination justify-content-center">
+                <div class="pagination justify-content-center mb-4">
                     {{ $ltos->links() }}
                 </div>
+
+                <div class="col-4">
+                    <div class="col-2">
+                        <button type="button" class="btn btn-warning animated animate-slide-right" onclick="history.back()">Back</button>
+                    </div>
+                </div>  
             </div>
         </div>
     </div>

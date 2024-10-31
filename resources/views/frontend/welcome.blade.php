@@ -43,17 +43,19 @@
         @foreach($categories->chunk(4) as $chunk)
             <div class="img_container">
                 @foreach($chunk as $index => $category)
-                    <a href="{{route('category.details', $category->id)}}">
-                        <div class="image {{ $index % 4 == 0 || $index % 4 == 3 ? 'col2' : 'col1' }}">
-                            <div class="animated animate-slide-left">
-                                <img src="{{ asset('storage/' . $category->thumbnail) }}" alt="{{ $category->name }}">
+                    @if($category->roles && (Auth::user()->hasAnyRole($category->roles)  || Auth::user()->hasRole('admin') || Auth::user()->hasRole('super-admin')))
+                        <a href="{{route('category.details', $category->id)}}">
+                            <div class="image {{ $index % 4 == 0 || $index % 4 == 3 ? 'col2' : 'col1' }}">
+                                <div class="animated animate-slide-left">
+                                    <img src="{{ asset('storage/' . $category->thumbnail) }}" alt="{{ $category->name }}">
+                                </div>
+                                <div class="txt">
+                                    <h3 class="animated animate-slide-left">{{ $category->name }}</h3>
+                                    <p class="animated animate-slide-right">{{ $category->short_description }}</p>
+                                </div>
                             </div>
-                            <div class="txt">
-                                <h3 class="animated animate-slide-left">{{ $category->name }}</h3>
-                                <p class="animated animate-slide-right">{{ $category->short_description }}</p>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
+                    @endif
                 @endforeach
             </div>
         @endforeach
@@ -67,39 +69,41 @@
 
 <!--================ Current_category section html code end here =================-->
 
+<!--================ Current_category section html code start here =================-->
+<section id="bg_banner" class="paddingtopbtm gallery">
+    <div class="img_container columnOne">
+        <div class="image col3">
+            <img src="{{ $banner && $banner->image ? asset('storage/' . $banner->image) : asset('front/images/pixelcut-export7.jpeg') }}" alt="image">
+            <div class="txt">
+                <h3>{{ $banner->title ?? 'a new generation of winemakers' }}</h3>
+                <p>{{ $banner->sub_title ?? 'Lorem, ipsum dolor sit amet, consectetur quasi adipisicing elit. Possimus vel, dolorum, eligendi quasi consectetur ab.' }}</p>
+                <a class="button" href="{{ $banner->button_link ?? '#' }}">{{ $banner->button_title ?? 'view details' }}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--================ Current_category section html code end here =================-->
+
+</div>
 <!--================ bg_banner section html code start here =================-->
 <section id="bg_banner" class=" gallery">
-  <div class="img_container">
-      <a href="#">
-          <div class="image col3 animated animate-slide-left">
-              <img src="{{asset('')}}front/images/pixcel5.jpg" alt="image">
-          </div>
-      </a>
-          <div class="image col3 topmargin ">
-              <div class="txt">
-                  <h6 class="animated animate-slide-left">primium wine</h6>
-                  <h3 class="animated animate-slide-left">Innovative Spirits: The Future of Winemaking</h3>
-                  <p class="animated animate-slide-right">In the realm of premium wine, a new generation of winemakers is emerging, bringing fresh perspectives and innovative techniques to the craft. These artisans are dedicated to exploring the nuances of flavor and sustainability, harnessing both traditional practices and modern technology to produce exceptional wines. Each bottle is a testament to their creativity and commitment, showcasing unique varietals that reflect the terroir and the passion of the winemaker. </p>
-                  {{-- <a href="#">load more</a> --}}
-              </div>
-              <div class="color"></div>
-          </div>
-          <div class="image col3 topmargin">
-              <div class="txt">
-                  <h6 class="animated animate-slide-left">primium wine</h6>
-                  <h3 class="animated animate-slide-left">a new genaration of winemarkers</h3>
-                  <p class="animated animate-slide-right">Discover the innovative spirit of a new generation of winemakers who are redefining the art of winemaking. These trailblazers combine traditional techniques with modern methods, crafting premium wines that capture unique flavors and characteristics. With a commitment to sustainability and quality, they embrace new technologies and practices, ensuring that every bottle reflects their passion and dedication. Experience the future of wine with selections that inspire and delight, celebrating the evolution of this timeless craft.</p>
-                  {{-- <a href="#">load more</a> --}}
-              </div>
-              <div class="color"></div>
-          </div>
-
-      <a href="#">
-          <div class="image col3 animated animate-slide-right">
-              <img src="{{asset('')}}front/images/pixelcut6.jpeg" alt="image">
-          </div>
-      </a>
-  </div>
+    <div class="img_container">
+        <div class="image col3 topmargin ">
+            <div class="txt">
+                <h6>primium wine</h6>
+                <h3>a new genaration of winemarkers</h3>
+                <p>Lorem, ipsum dolor sit amet, consectetur quasi adipisicing elit. Possimus vel, dolorum, eligendi quasi consectetur ab.Possimus vel, dolorum, eligendi quasi consectetur ab.eligendi quasi consectetur</p>
+                <a href="#" target="_blank"><i class="fas fa-external-link"></i> &nbsp; Sign Up</a>
+            </div>
+            <div class="color"></div>
+        </div>
+        <a href="#">
+            <div class="image col3">
+                <img src="{{asset('')}}front/images/pixelcut-export7.jpeg" alt="image">
+            </div>
+        </a>
+    </div>
 </section>
 <!--================ bg_banner section html code end here =================-->
 

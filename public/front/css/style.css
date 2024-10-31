@@ -354,7 +354,7 @@ iframe{
 	right: 0;
 	width: 100%;
 	height: 595px;
-	background-color: rgba(0, 0, 0, .3);
+	background-color: rgba(0, 0, 0, .7);
 }
 #bg_banner .img_container .image.col1::before{
 	content: ' ';
@@ -365,7 +365,7 @@ iframe{
 	right: 0;
 	width: 100%;
 	height: 397px;
-	background-color: rgba(0, 0, 0, .3);
+	background-color: rgba(0, 0, 0, .7);
 }
 #bg_banner .img_container .txt h3{
 	color: #FBF7F0;
@@ -441,7 +441,7 @@ iframe{
 }
 #bg_banner .img_container .image.col3 .txt a{
 	display: inline-block;
-	background-color: #000000;
+	background-color: #032e5c;
 	color: #FBF7F0;
 	text-transform: uppercase;
 	font-size: 15px;
@@ -1319,4 +1319,49 @@ opacity:1;
 #description .resource-details {
 	width: 90% !important;
 	margin: auto;
+}
+
+
+#bg_banner .columnOne{
+	columns: 1;
+}
+#features .coll .feature_img .img::before{
+	content: ' ';
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 280px;
+	background-color: rgba(0, 0, 0, .8);
+}
+#bg_banner.paddingtopbtm .col3::before{
+	content: ' ';
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 480px;
+	/* background-color: #222121cc; */
+	background-color: rgba(0, 0, 0, .8);
+}
+#bg_banner.paddingtopbtm .img_container .image .txt .button {
+    display:inline-block;
+    background-color: #032E5C;
+    color: #FBF7F0;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 10px 25px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+#description.months .card{
+	background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+	box-shadow: 5px 5px 5px 3px lightblue;
+	border: 1px solid #fff;
 }

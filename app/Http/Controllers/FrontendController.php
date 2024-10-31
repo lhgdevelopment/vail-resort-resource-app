@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\FooterBanner;
 use App\Models\Lto;
 use App\Models\Resource;
 use App\Models\Slider;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
     public function index()
     {
+        if (!Auth::user()) {
+            return redirect('register');
+        }
+
         // Fetch active sliders ordered by priority.
         $sliders = Slider::where('status', 'active')
                         ->orderBy('priority', 'asc')
@@ -24,7 +30,10 @@ class FrontendController extends Controller
         ->orderBy('priority', 'asc')
         ->get();
 
-        return view('frontend.welcome', compact('sliders', 'categories'));
+        // Fetch footer banner
+        $banner = FooterBanner::first();
+
+        return view('frontend.welcome', compact('sliders', 'categories', 'banner'));
     }
 
     public function categoryList(Request $request)
@@ -47,7 +56,11 @@ class FrontendController extends Controller
     {
         $category = Category::with('resources')->where('id', $id)->firstOrFail();
 
-        return view('frontend.category_details', compact('category'));
+        if (Auth::user()->hasAnyRole($category->roles)) {
+            return view('frontend.category_details', compact('category'));
+        }else {
+            return redirect('/');
+        }
     }
 
     public function resourceDetails($id)
@@ -55,19 +68,35 @@ class FrontendController extends Controller
         $resource = Resource::findOrFail($id);
         $category = Category::where('id', $resource->category_id)->firstOrFail();
 
-        return view('frontend.resource_details', compact('resource', 'category'));
+        if (Auth::user()->hasAnyRole($category->roles)) {
+            return view('frontend.resource_details', compact('resource', 'category'));
+        }else {
+            return redirect('/');
+        }
     }
 
-    public function ltoList(Request $request)
+    public function ltoSelect(Request $request)
     {
-        $month = $request->input('month');
-        $year = $request->input('year');
+        if (isset($request->year)) {
+            $year = $request->year;
+        } else {
+            $currentDate = Carbon::now();
+            $year = $currentDate->year;
+        }
+        
+        return view('frontend.lto_select', compact('year'));
+    }
+
+    public function ltoList($month, $year)
+    {
+        // Convert the month name to a numeric month format
+        $month = Carbon::parse($month)->month;
 
         if ($month && $year) {
             // Filter by selected month and year
             $ltos = LTO::whereYear('from_date', $year)
-                    ->whereMonth('from_date', $month)
-                    ->paginate(10);
+                        ->whereMonth('from_date', $month)
+                        ->paginate(10);
         } else {
             // Default to the current month and year if no selection
             $currentDate = Carbon::now();
@@ -75,10 +104,11 @@ class FrontendController extends Controller
             $year = $currentDate->year;
 
             $ltos = LTO::whereYear('from_date', $year)
-                    ->whereMonth('from_date', $month)
-                    ->paginate(10);
+                        ->whereMonth('from_date', $month)
+                        ->paginate(10);
         }
 
         return view('frontend.lto', compact('ltos', 'month', 'year'));
     }
+
 }

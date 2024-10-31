@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Role;
 
 class CategoryController extends Controller
 {
@@ -23,7 +24,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('backend.categories.create');
+        $roles = Role::where('name', '!=', 'super-admin')->get();
+        return view('backend.categories.create', compact('roles'));
     }
 
     /**
@@ -41,6 +43,8 @@ class CategoryController extends Controller
             'status'            => 'required|in:active,inactive',
             'short_description' => 'nullable|string',
             'long_description'  => 'nullable|string',
+            'roles'             => 'nullable|array',
+            'roles.*'           => 'exists:roles,name',
         ]);
 
         // Handle banner upload
@@ -57,6 +61,9 @@ class CategoryController extends Controller
             $thumbnailPath = null;
         }
 
+        $roles = $request->roles;
+        array_push($roles, 'super-admin');
+
         // Create the category
         Category::create([
             'name'              => $request->name,
@@ -67,6 +74,7 @@ class CategoryController extends Controller
             'status'            => $request->status,
             'short_description' => $request->short_description,
             'long_description'  => $request->long_description,
+            'roles'             => $roles,
         ]);
 
         return redirect()->route('categories.index')->with('success', 'Category created successfully.');
@@ -85,7 +93,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('backend.categories.edit', compact('category'));
+        $roles = Role::where('name', '!=', 'super-admin')->get();
+        return view('backend.categories.edit', compact('category', 'roles'));
     }
 
     /**
@@ -103,6 +112,8 @@ class CategoryController extends Controller
             'status'            => 'required|in:active,inactive',
             'short_description' => 'nullable|string',
             'long_description'  => 'nullable|string',
+            'roles'             => 'nullable|array',
+            'roles.*'           => 'exists:roles,name',
         ]);
 
         // Handle banner upload
@@ -135,6 +146,9 @@ class CategoryController extends Controller
             $thumbnailPath = $category->thumbnail; // Keep existing thumbnail
         }
 
+        $roles = $request->roles;
+        array_push($roles, 'super-admin');
+        
         // Update the category
         $category->update([
             'name'              => $request->name,
@@ -145,6 +159,7 @@ class CategoryController extends Controller
             'status'            => $request->status,
             'short_description' => $request->short_description,
             'long_description'  => $request->long_description,
+            'roles'             => $roles,
         ]);
 
         return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
