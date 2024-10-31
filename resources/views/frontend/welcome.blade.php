@@ -36,7 +36,7 @@
     <div class="container-fluid">
         <div class="row justify-content-md-center">
             <div class="col-12">
-                <h2 class="mb-4 display-5">Featured Resource Category</h2>
+                <h2 class="mb-4 display-5">Resources</h2>
             </div>
         </div>
 

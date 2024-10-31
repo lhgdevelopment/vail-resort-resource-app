@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FooterBannerController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\LtoController;
 use App\Http\Controllers\ProfileController;
@@ -49,6 +50,12 @@ Route::middleware('auth')->group(function () {
     Route::put('sliders/{slider}', [SliderController::class, 'update'])->name('sliders.update')->middleware('can:edit-sliders');
     Route::get('sliders/{slider}/show', [SliderController::class, 'show'])->name('sliders.show')->middleware('permission:view-sliders');
     Route::delete('sliders/{slider}', [SliderController::class, 'destroy'])->name('sliders.destroy')->middleware('can:delete-sliders');
+
+    Route::get('footer-banner', [FooterBannerController::class, 'create'])->name('footer-banner.create')->middleware('can:view-footer-banner');
+    Route::post('footer-banner', [FooterBannerController::class, 'store'])->name('footer-banner.store')->middleware('can:edit-footer-banner');
+    Route::put('footer-banner', [FooterBannerController::class, 'update'])->name('footer-banner.update')->middleware('can:edit-footer-banner');
+
+
 
 
     // Role Management Routes
