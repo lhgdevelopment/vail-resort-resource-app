@@ -26,6 +26,10 @@
             <p><strong>Is Featured:</strong> {{ $category->is_featured ? 'Yes' : 'No' }}</p>
             <p><strong>Priority:</strong> {{ $category->priority ?? 'N/A' }}</p>
             <p><strong>Status:</strong> {{ ucfirst($category->status) }}</p>
+            <p><strong>Roles:</strong> 
+                @if (isset($category->roles))
+                    @foreach($category->roles as $role) <span class="badge bg-secondary">{{ ucfirst($role) }}</span> @endforeach</p>
+                @endif 
             <p><strong>Short Description:</strong></p>
             <p>{{ $category->short_description ?? 'N/A' }}</p>
             <p><strong>Long Description:</strong></p>

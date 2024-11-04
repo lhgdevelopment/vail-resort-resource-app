@@ -19,7 +19,12 @@ class UserController extends Controller
         if (!$user->is_approved) {
             Auth::logout();
             return redirect('/login')->with('message', 'Your account is not approved yet.');
-            // return redirect('/login')->withErrors('Your account is not yet approved by the admin.');
+        }
+
+        // Redirect 'Operator' or 'Supplier' roles to the homepage
+        $user = User::find($user->id);
+        if ($user->hasRole('Operator') || $user->hasRole('Supplier')) {
+            return redirect('/');
         }
 
         return view('dashboard');

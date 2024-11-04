@@ -70,10 +70,10 @@
 
         @canany(['view-settings', 'view-sliders'])
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('settings.*', 'sliders.*', 'admin.*') ? '' : 'collapsed' }}" data-bs-target="#settings-nav" data-bs-toggle="collapse" href="#" aria-expanded="{{ request()->routeIs('settings.*', 'sliders.*', 'admin.*') ? 'true' : 'false' }}">
+                <a class="nav-link {{ request()->routeIs('settings.*', 'sliders.*', 'admin.*', 'footer-banner.*') ? '' : 'collapsed' }}" data-bs-target="#settings-nav" data-bs-toggle="collapse" href="#" aria-expanded="{{ request()->routeIs('settings.*', 'sliders.*', 'admin.*') ? 'true' : 'false' }}">
                     <i class="bi bi-gear"></i><span>Settings</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="settings-nav" class="nav-content collapse {{ request()->routeIs('settings.*', 'smtp.*', 'sliders.*', 'admin.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+                <ul id="settings-nav" class="nav-content collapse {{ request()->routeIs('settings.*', 'smtp.*', 'sliders.*', 'admin.*', 'footer-banner.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                     @can('view-settings')
                         <li>
                             <a href="{{ route('settings.index') }}" class="{{ request()->routeIs('settings.*') ? 'active' : '' }}">
@@ -91,6 +91,13 @@
                         <li>
                             <a href="{{ route('sliders.index') }}" class="{{ request()->routeIs('sliders.*') ? 'active' : '' }}">
                                 <i class="bi bi-circle"></i><span>Sliders</span>
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view-footer-banner')
+                        <li>
+                            <a href="{{ route('footer-banner.create') }}" class="{{ request()->routeIs('footer-banner.*') ? 'active' : '' }}">
+                                <i class="bi bi-circle"></i><span>Footer Banner</span>
                             </a>
                         </li>
                     @endcan

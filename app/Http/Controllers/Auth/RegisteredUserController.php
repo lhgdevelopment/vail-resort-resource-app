@@ -71,7 +71,7 @@ class RegisteredUserController extends Controller
         // Log in the user and redirect (you can also keep them logged out until verification)
         // Auth::login($user);
 
-        return redirect()->route('login')->with('message', 'Please verify your email and wait for admin approval.');
+        return redirect()->route('login')->with('message', 'Please verify your email.');
     }
 
     public function verifyEmail($token)
@@ -84,8 +84,14 @@ class RegisteredUserController extends Controller
 
         $user->email_verified_at = now();
         $user->email_verification_token = null;
+        //Auto approval for specific domain
+        if (Str::endsWith($user->email, ['vailresort.com', 'marketeaminc.com'])) {
+            $user->is_approved = true;
+        } 
+
+        
         $user->save();
 
-        return redirect('/login')->with('message', 'Email verified. Please wait for admin approval.');
+        return redirect('/login')->with('message', 'Email verified.');
     }
 }

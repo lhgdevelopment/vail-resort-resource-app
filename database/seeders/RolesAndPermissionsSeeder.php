@@ -59,6 +59,10 @@ class RolesAndPermissionsSeeder extends Seeder
                 'view-settings',
                 'edit-settings',
             ],
+            'footer-banner' => [
+                'view-footer-banner',
+                'edit-footer-banner',
+            ],
             // Add more modules and permissions as needed
         ];
 
