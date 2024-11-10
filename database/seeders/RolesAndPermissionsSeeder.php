@@ -43,6 +43,12 @@ class RolesAndPermissionsSeeder extends Seeder
                 'edit-resources',
                 'delete-resources',
             ],
+            'lto-month' => [
+                'view-lto-month',
+                'create-lto-month',
+                'edit-lto-month',
+                'delete-lto-month',
+            ],
             'ltos' => [
                 'view-ltos',
                 'create-ltos',
@@ -62,6 +68,10 @@ class RolesAndPermissionsSeeder extends Seeder
             'footer-banner' => [
                 'view-footer-banner',
                 'edit-footer-banner',
+            ],
+            'feel-special' => [
+                'view-feel-special',
+                'edit-feel-special',
             ],
             // Add more modules and permissions as needed
         ];

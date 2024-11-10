@@ -5,18 +5,18 @@
 </header>
 <!--================ header section html code end here =================-->
 <!--========================= full screen slider part hear ======================-->
-<section id="hero">
+<section id="hero"  class="heroSection">
     <div class="category_item">
         <div class="img">
-            <img src="{{ asset('storage/' . $category->banner) }}" alt="Category Banner" class="animated animate-slide-right">
+            <img src="{{ asset('storage/' . $category->banner) }}" alt="Category Banner"  class="animated animate-slide-right">
         </div>
-        <div class="category">
+        <div class="category UpdateCode">
             <h1 class="animated animate-slide-left">{{ $category->name }}</h1>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
               <ul class="breadcrumb animated animate-slide-right">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('category.details', $category->id) }}">{{ $category->name }}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $resource->title }}</li>
+                <li class="breadcrumb-item cat-item"><a href="{{ url('/') }}">Home</a></li>
+                <li class="breadcrumb-item cat-item"><a href="{{ route('category.details', $category->id) }}">Category</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Resources Details</li>
               </ul>
             </nav>
         </div>

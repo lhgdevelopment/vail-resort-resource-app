@@ -30,6 +30,50 @@
 </header>
 <!--================ header section html code end here =================-->
 
+
+<!--================ bg_banner section html code start here =================-->
+<section id="bg_banner" class="gallery">
+    <div class="img_container">
+        <div class="image col3 topmargin">
+            <div class="txt animated animate-slide-left">
+                <h3>{{ $feelSpecial->title }}</h3>
+                <p>{{ $feelSpecial->short_description }}</p>
+                <a href="{{route('signup.lto')}}" target="_blank">
+                    <i class="fas fa-external-link"></i> &nbsp; {{ $feelSpecial->button_title }}
+                </a>
+            </div>
+            <div class="color"></div>
+        </div>
+
+        <!-- Image Slider -->
+        <div id="feel-special-slider" class="image col3 animated animate-slide-right">
+            @foreach($feelSpecial->images as $image)
+                <div class="slider-item">
+                    <img src="{{ asset('storage/' . $image) }}" alt="Feel Special Image" class="slider-img">
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+
+<!--================ bg_banner section html code end here =================-->
+<!--================ Current_category section html code start here =================-->
+<section id="bg_banner" class="paddingtopbtm gallery">
+    <div class="img_container columnOne">
+        <div class="image col3">
+            <img src="{{ $banner && $banner->image ? asset('storage/' . $banner->image) : asset('front/images/pixelcut-export7.jpeg') }}" alt="image">
+            <div class="txt animated animate-slide-left">
+                <h3>{{ $banner->title ?? 'a new generation of winemakers' }}</h3>
+                <p>{{ $banner->sub_title ?? 'Lorem, ipsum dolor sit amet, consectetur quasi adipisicing elit. Possimus vel, dolorum, eligendi quasi consectetur ab.' }}</p>
+                <a class="button" href="{{ $banner->button_link ?? '#' }}">{{ $banner->button_title ?? 'view details' }}</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ Current_category section html code end here =================-->
+
+
 <!--================ bg_banner section html code start here =================-->
 
 <section id="bg_banner" class="paddingtopbtm py-xl-8">
@@ -49,9 +93,9 @@
                                 <div class="animated animate-slide-left">
                                     <img src="{{ asset('storage/' . $category->thumbnail) }}" alt="{{ $category->name }}">
                                 </div>
-                                <div class="txt">
-                                    <h3 class="animated animate-slide-left">{{ $category->name }}</h3>
-                                    <p class="animated animate-slide-right">{{ $category->short_description }}</p>
+                                <div class="txt animated animate-slide-left">
+                                    <h3>{{ $category->name }}</h3>
+                                    <p>{{ $category->short_description }}</p>
                                 </div>
                             </div>
                         </a>
@@ -63,81 +107,6 @@
 </section>
 
 
+
 <!--================ bg_banner section html code end here =================-->
-
-<!--================ Current_category section html code start here =================-->
-
-<!--================ Current_category section html code end here =================-->
-
-<!--================ Current_category section html code start here =================-->
-<section id="bg_banner" class="paddingtopbtm gallery">
-    <div class="img_container columnOne">
-        <div class="image col3">
-            <img src="{{ $banner && $banner->image ? asset('storage/' . $banner->image) : asset('front/images/pixelcut-export7.jpeg') }}" alt="image">
-            <div class="txt">
-                <h3>{{ $banner->title ?? 'a new generation of winemakers' }}</h3>
-                <p>{{ $banner->sub_title ?? 'Lorem, ipsum dolor sit amet, consectetur quasi adipisicing elit. Possimus vel, dolorum, eligendi quasi consectetur ab.' }}</p>
-                <a class="button" href="{{ $banner->button_link ?? '#' }}">{{ $banner->button_title ?? 'view details' }}</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!--================ Current_category section html code end here =================-->
-
-</div>
-<!--================ bg_banner section html code start here =================-->
-<section id="bg_banner" class=" gallery">
-    <div class="img_container">
-        <div class="image col3 topmargin ">
-            <div class="txt">
-                <h6>primium wine</h6>
-                <h3>a new genaration of winemarkers</h3>
-                <p>Lorem, ipsum dolor sit amet, consectetur quasi adipisicing elit. Possimus vel, dolorum, eligendi quasi consectetur ab.Possimus vel, dolorum, eligendi quasi consectetur ab.eligendi quasi consectetur</p>
-                <a href="#" target="_blank"><i class="fas fa-external-link"></i> &nbsp; Sign Up</a>
-            </div>
-            <div class="color"></div>
-        </div>
-        <a href="#">
-            <div class="image col3">
-                <img src="{{asset('')}}front/images/pixelcut-export7.jpeg" alt="image">
-            </div>
-        </a>
-    </div>
-</section>
-<!--================ bg_banner section html code end here =================-->
-
-<!--================ features section html code start here =================-->
-<section id="features">
-      <div class="colum_img">
-          <a class="d-block" href="#">
-              <div class="coll">
-                  <div class="feature_img">
-                      <div class="img animated animate-slide-left">
-                          <img src="{{asset('')}}front/images/pixelcut-export7.jpeg" alt="img">
-                      </div>
-                      <div class="txt">
-                        <h3 class="animated animate-slide-left">Join Us on a Journey of Flavor</h3>
-                        <p class="animated animate-slide-right">Discover exceptional wines crafted by the new generation of winemakers, where tradition meets innovation. Cheers to unforgettable experiences!</p>                        
-                      </div>
-                  </div>
-              </div>
-          </a>
-          <a class="d-block"  href="#">
-              <div class="coll">
-                  <div class="feature_img">
-                      <div class="img animated animate-slide-right">
-                          <img src="{{asset('')}}front/images/pixelcut-export8.png" alt="image">
-                      </div>
-                      <div class="txt">
-                        <h3 class="animated animate-slide-left">Experience the Art of Winemaking</h3>
-                        <p class="animated animate-slide-left">Indulge in premium wines that celebrate the passion and creativity of today's winemakers. Elevate your taste with every sip!</p>                        
-                      </div>
-                  </div>
-              </div>
-          </a>
-      </div>
-</section>
-<!--================ features section html code end here =================-->
-
 @endsection

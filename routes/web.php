@@ -11,6 +11,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SMTPSettingController;
+use App\Http\Controllers\FeelSpecialController;
+use App\Http\Controllers\LtoMonthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,8 +23,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [FrontendController::class, 'index']);
     Route::get('category/{id}', [FrontendController::class, 'categoryDetails'])->name('category.details');
     Route::get('lto/list', [FrontendController::class, 'ltoSelect'])->name('lto.list');
-    Route::get('lto/data/{month}/{year}', [FrontendController::class, 'ltoList'])->name('lto.data');
+    Route::get('lto/data/{ltoMonthId}', [FrontendController::class, 'ltoList'])->name('lto.data');
     Route::get('resource/{id}', [FrontendController::class, 'resourceDetails'])->name('resource.details');
+    //Embade page routes
+    Route::get('signup/lto', [FrontendController::class, 'ltoSignup'])->name('signup.lto');
+    Route::get('signup/menu-activation', [FrontendController::class, 'menuActivationSignup'])->name('signup.menu-activation');
 
 
 
@@ -38,7 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::put('settings/smtp', [SMTPSettingController::class, 'update'])->name('smtp.update');
     Route::get('/verify/{token}', [RegisteredUserController::class, 'verifyEmail'])->name('verify.email');
 
-    // Route to view all sliders (index)
+    // Route for sliders
     Route::get('sliders', [SliderController::class, 'index'])->name('sliders.index')->middleware('can:view-sliders');
     Route::get('sliders/create', [SliderController::class, 'create'])->name('sliders.create')->middleware('can:create-sliders');
     Route::post('sliders', [SliderController::class, 'store'])->name('sliders.store')->middleware('can:create-sliders');
@@ -50,6 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::get('footer-banner', [FooterBannerController::class, 'create'])->name('footer-banner.create')->middleware('can:view-footer-banner');
     Route::post('footer-banner', [FooterBannerController::class, 'store'])->name('footer-banner.store')->middleware('can:edit-footer-banner');
     Route::put('footer-banner', [FooterBannerController::class, 'update'])->name('footer-banner.update')->middleware('can:edit-footer-banner');
+    Route::get('feel-special', [FeelSpecialController::class, 'index'])->name('feel_special.index')->middleware('can:view-feel-special');
+    Route::put('feel-special/{id}', [FeelSpecialController::class, 'update'])->name('feel_special.update')->middleware('can:edit-feel-special');
 
 
 
@@ -95,6 +102,14 @@ Route::middleware('auth')->group(function () {
     Route::get('ltos/{lto}/show', [LtoController::class, 'show'])->name('ltos.show')->middleware('permission:view-ltos');
     Route::put('ltos/{lto}', [LtoController::class, 'update'])->name('ltos.update')->middleware('permission:edit-ltos');
     Route::delete('ltos/{lto}', [LtoController::class, 'destroy'])->name('ltos.destroy')->middleware('permission:delete-ltos');
+
+    Route::get('lto_months', [LtoMonthController::class, 'index'])->name('lto_months.index')->middleware('permission:view-lto-month');
+    Route::get('lto_months/create', [LtoMonthController::class, 'create'])->name('lto_months.create')->middleware('permission:create-lto-month');
+    Route::post('lto_months', [LtoMonthController::class, 'store'])->name('lto_months.store')->middleware('permission:create-lto-month');
+    Route::get('lto_months/{lto}/edit', [LtoMonthController::class, 'edit'])->name('lto_months.edit')->middleware('permission:edit-lto-month');
+    Route::get('lto_months/{lto}/show', [LtoMonthController::class, 'show'])->name('lto_months.show')->middleware('permission:view-lto-month');
+    Route::put('lto_months/{lto}', [LtoMonthController::class, 'update'])->name('lto_months.update')->middleware('permission:edit-lto-month');
+    Route::delete('lto_months/{lto}', [LtoMonthController::class, 'destroy'])->name('lto_months.destroy')->middleware('permission:delete-lto-month');
 });
 
 require __DIR__.'/auth.php';

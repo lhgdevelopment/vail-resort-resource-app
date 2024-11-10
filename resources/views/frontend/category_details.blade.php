@@ -4,7 +4,7 @@
 
 </header>
 <!-- Category Banner and Breadcrumb -->
-<section id="hero">
+<section id="hero" class="heroSection">
     <div class="category_item">
         <div class="img">
             <img src="{{ asset('storage/' . $category->banner) }}" alt="{{ $category->name }}" class="animated animate-slide-right">
@@ -14,7 +14,7 @@
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ul class="breadcrumb animated animate-slide-right">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $category->name }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">Category</li>
                 </ul>
             </nav>
         </div>

@@ -9,6 +9,15 @@ class Lto extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'from_date', 'to_date', 'description'];
+    protected $fillable = ['title', 'from_date', 'to_date', 'description', 'lto_month_id', 'images'];
+
+    protected $casts = [
+        'images' => 'array',
+    ];
+
+    public function ltoMonth()
+    {
+        return $this->belongsTo(LtoMonth::class);
+    }
 
 }
