@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\FeelSpecial;
 use App\Models\FooterBanner;
 use App\Models\Lto;
+use App\Models\LtoMonth;
 use App\Models\Resource;
 use App\Models\Slider;
 use Carbon\Carbon;
@@ -32,8 +34,9 @@ class FrontendController extends Controller
 
         // Fetch footer banner
         $banner = FooterBanner::first();
+        $feelSpecial = FeelSpecial::first();
 
-        return view('frontend.welcome', compact('sliders', 'categories', 'banner'));
+        return view('frontend.welcome', compact('sliders', 'categories', 'banner', 'feelSpecial'));
     }
 
     public function categoryList(Request $request)
@@ -77,38 +80,49 @@ class FrontendController extends Controller
 
     public function ltoSelect(Request $request)
     {
-        if (isset($request->year)) {
-            $year = $request->year;
-        } else {
-            $currentDate = Carbon::now();
-            $year = $currentDate->year;
-        }
-        
-        return view('frontend.lto_select', compact('year'));
+        $monthsOrder = [
+            'January' => 1, 'February' => 2, 'March' => 3,
+            'April' => 4, 'May' => 5, 'June' => 6,
+            'July' => 7, 'August' => 8, 'September' => 9,
+            'October' => 10, 'November' => 11, 'December' => 12
+        ];
+
+        $ltoMonths = LtoMonth::where('status', 1)
+            ->get()
+            ->sort(function ($a, $b) use ($monthsOrder) {
+                // Compare years first
+                if ($a->year != $b->year) {
+                    return $a->year - $b->year;
+                }
+                // Compare months by mapped numeric values
+                return $monthsOrder[$a->month_name] - $monthsOrder[$b->month_name];
+            })
+            ->values(); // Re-index the collection after sorting
+
+        return view('frontend.lto_select', compact('ltoMonths'));
     }
 
-    public function ltoList($month, $year)
+    public function ltoList($ltoMonthId)
     {
-        // Convert the month name to a numeric month format
-        $month = Carbon::parse($month)->month;
+        // Retrieve the selected LTO month from the database
+        $ltoMonth = LtoMonth::findOrFail($ltoMonthId);
+        
+        // Retrieve LTOs based on the selected month and year
+        $ltos = LTO::where('lto_month_id', $ltoMonthId)
+                ->paginate(10);
 
-        if ($month && $year) {
-            // Filter by selected month and year
-            $ltos = LTO::whereYear('from_date', $year)
-                        ->whereMonth('from_date', $month)
-                        ->paginate(10);
-        } else {
-            // Default to the current month and year if no selection
-            $currentDate = Carbon::now();
-            $month = $currentDate->month;
-            $year = $currentDate->year;
-
-            $ltos = LTO::whereYear('from_date', $year)
-                        ->whereMonth('from_date', $month)
-                        ->paginate(10);
-        }
-
-        return view('frontend.lto', compact('ltos', 'month', 'year'));
+        return view('frontend.lto', compact('ltos', 'ltoMonth'));
     }
+
+    public function ltoSignup()
+    {
+        return view('frontend.embade.lto_signup');
+    }
+
+    public function menuActivationSignup()
+    {
+        return view('frontend.embade.menu_activation_signup');
+    }
+
 
 }

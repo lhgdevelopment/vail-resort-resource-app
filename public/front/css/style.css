@@ -185,6 +185,7 @@ iframe{
 	height: 450px;
 	overflow: hidden;
 	clear: both;
+	position: relative;
 }
 #hero .category_item{
 	width: 100%;
@@ -354,7 +355,8 @@ iframe{
 	right: 0;
 	width: 100%;
 	height: 595px;
-	background-color: rgba(0, 0, 0, .7);
+	background-color: rgba(0, 0, 0, 0.733);
+	z-index: 1;
 }
 #bg_banner .img_container .image.col1::before{
 	content: ' ';
@@ -366,6 +368,7 @@ iframe{
 	width: 100%;
 	height: 397px;
 	background-color: rgba(0, 0, 0, .7);
+	z-index: 1;
 }
 #bg_banner .img_container .txt h3{
 	color: #FBF7F0;
@@ -380,6 +383,7 @@ iframe{
 	position: absolute;
 	top: 40px;
 	left: 20px;
+	z-index: 1;
 }
 #bg_banner .img_container .txt p{
 	color: #FBF7F0;
@@ -614,6 +618,11 @@ iframe{
 		font-size: 16px;
 	}
 
+	#footer .f_list li {
+		margin-bottom: 10px;
+		padding-left: 15px;
+	}
+
 
 	#footer .f_logo img{
 		width: 200px;
@@ -653,8 +662,26 @@ iframe{
 
 .category_item .category{
 	transform: translateY(-280px);
-	padding-left: 40px;
+	position: absolute;
+	z-index: 1;
+	text-align: center;
+	left: 0;
+	right: 0;
 }
+
+.heroSection .category_item .img::before{
+	content: ' ';
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 552px;
+	background-color: rgba(0, 0, 0, .8);
+	z-index: 1;
+}
+
 .breadcrumb-item+.breadcrumb-item::before{
 	color: var(--primary-color);
 }
@@ -950,13 +977,15 @@ overflow: hidden;
 	left: 0;
 	bottom: 0;
 	right: 0;
-	background-color: rgba(0, 0, 0, .5);
+	background-color: rgba(0, 0, 0, .8);
 	border-radius: 6px;
+	z-index: 1;
 }
 #description .cards .cards_content{
 	position: absolute;
 	top: 50px;
 	left: 50px;
+	z-index: 1;
 }
 
 @media screen and (min-width: 768px){
@@ -1093,73 +1122,6 @@ opacity:1;
     color: #999; /* Gray color for the icon */
     pointer-events: none; /* Prevent click events */
 }
-
-
-/* 
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate-title {
-    animation: slideInDown 1s ease-out;
-}
-
-.animate-card {
-    animation: slideInLeft 1.2s ease-out;
-}
-
-.animate-image img {
-    animation: slideInRight 1.3s ease-out;
-}
-
-.animate-text {
-    animation: slideInUp 1.5s ease-out;
-}
-
-.animate-footer,
-.animate-all-btn {
-    animation: slideInLeft 1.6s ease-out;
-} */
 
 
 /* Custom animations */
@@ -1361,7 +1323,58 @@ opacity:1;
 }
 
 #description.months .card{
-	background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+	background: linear-gradient(0deg, rgba(251, 247, 240, 1) 100%, rgba(41, 41, 43, 1) 0%);
 	box-shadow: 5px 5px 5px 3px lightblue;
 	border: 1px solid #fff;
 }
+
+
+#feel-special-slider {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.slider-item {
+    display: none;
+    text-align: center;
+}
+
+.slider-item img {
+    width: 100%;
+    height: auto;
+}
+
+
+.carousel-image {
+    height: 50vh;  
+    object-fit: cover;
+}
+
+.lto-footer a {
+	display:inline-block;
+    background-color: #032E5C;
+    color: #FBF7F0;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 10px 25px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+
+.breadcrumb-item.second-item {
+    cursor: pointer;  /* Change the cursor to a pointer on hover */
+    color: #007bff;    /* Change the text color on hover */
+    transition: color 0.3s ease;  /* Smooth transition effect for color change */
+}
+
+.breadcrumb-item.second-item:hover {
+    color: #0056b3;  /* Change color on hover */
+}
+
+.category_item .category.UpdateCode ul li a{
+	display: inline;
+}
+

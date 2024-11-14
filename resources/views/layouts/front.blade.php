@@ -36,18 +36,31 @@
 					<div class="f_logo animated animate-slide-left">
 						<img src="{{asset('storage/' . settings('logo_white'))}}" alt="logo">
 					</div>
-				</div>
-				<div class="col-md-6 col-sm-6">
-					<div class="f_list">
-						<ul>
-							<li>
-								<a href="{{route('lto.list')}}" class="text-white text-center bold animated animate-slide-right">LTO Lists</a>
-							</li>
-						</ul>
-					</div>
 					<div class="f_bottom">
 						<p class="animated animate-slide-right">Copyright © 2024. All Rights Reserved.</p>
 					</div>
+				</div>
+				<div class="col-md-6 col-sm-6">
+						<div class="f_list">
+							<ul>
+								<li>
+									@if(Auth::user()->hasAnyRole(['admin', 'super-admin']))
+										<!-- Dashboard Link for Admins and Super Admins -->
+										<a href="{{ route('dashboard') }}" class="text-white text-center bold animated animate-slide-right">Dashboard</a>
+									@endif
+								</li>
+								<li>
+									@if (Auth::user())
+										<!-- Logout Button for Other Users -->
+										<form action="{{ route('logout') }}" method="POST" class="d-inline">
+											@csrf
+											<button type="submit" class="text-white text-center bold animated animate-slide-right btn btn-primary" onclick="return confirm('Are you sure want to Sign out?')">Sign out</button>
+										</form>
+									@endif
+								</li>
+								
+							</ul>
+						</div>
 				</div>
 			</div>
 		</div>

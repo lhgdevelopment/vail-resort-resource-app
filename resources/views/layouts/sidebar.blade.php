@@ -12,10 +12,10 @@
 
         @canany(['view-categories'])
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('categories.*', 'resources.*', 'ltos.*') ? '' : 'collapsed' }}" data-bs-target="#categories-nav" data-bs-toggle="collapse" href="#" aria-expanded="{{ request()->routeIs('categories.*', 'resources.*') ? 'true' : 'false' }}">
+                <a class="nav-link {{ request()->routeIs('categories.*', 'resources.*', 'ltos.*', 'lto_months.*') ? '' : 'collapsed' }}" data-bs-target="#categories-nav" data-bs-toggle="collapse" href="#" aria-expanded="{{ request()->routeIs('categories.*', 'resources.*') ? 'true' : 'false' }}">
                     <i class="bi bi-folder"></i><span>Manage Resource</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="categories-nav" class="nav-content collapse {{ request()->routeIs('categories.*', 'resources.*', 'ltos.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+                <ul id="categories-nav" class="nav-content collapse {{ request()->routeIs('categories.*', 'resources.*', 'ltos.*', 'lto_months.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                     @can('view-categories')
                         <li>
                             <a href="{{ route('categories.index') }}" class="{{ request()->routeIs('categories.*') ? 'active' : '' }}">
@@ -32,7 +32,14 @@
                         </li>
                     @endcan
 
-                    @can('view-resources')
+                    @can('view-lto-month')
+                        <li>
+                            <a href="{{ route('lto_months.index') }}" class="{{ request()->routeIs('lto_months.*') ? 'active' : '' }}">
+                                <i class="bi bi-circle"></i><span>LTO Month</span>
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view-ltos')
                         <li>
                             <a href="{{ route('ltos.index') }}" class="{{ request()->routeIs('ltos.*') ? 'active' : '' }}">
                                 <i class="bi bi-circle"></i><span>LTO</span>
@@ -68,12 +75,12 @@
             </li>
         @endcanany
 
-        @canany(['view-settings', 'view-sliders'])
+        @canany(['view-settings', 'view-sliders', 'view-footer-banner', 'view-feel-special'])
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('settings.*', 'sliders.*', 'admin.*', 'footer-banner.*') ? '' : 'collapsed' }}" data-bs-target="#settings-nav" data-bs-toggle="collapse" href="#" aria-expanded="{{ request()->routeIs('settings.*', 'sliders.*', 'admin.*') ? 'true' : 'false' }}">
+                <a class="nav-link {{ request()->routeIs('settings.*', 'sliders.*', 'admin.*', 'footer-banner.*', 'feel_special.*') ? '' : 'collapsed' }}" data-bs-target="#settings-nav" data-bs-toggle="collapse" href="#" aria-expanded="{{ request()->routeIs('settings.*', 'sliders.*', 'admin.*') ? 'true' : 'false' }}">
                     <i class="bi bi-gear"></i><span>Settings</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="settings-nav" class="nav-content collapse {{ request()->routeIs('settings.*', 'smtp.*', 'sliders.*', 'admin.*', 'footer-banner.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+                <ul id="settings-nav" class="nav-content collapse {{ request()->routeIs('settings.*', 'smtp.*', 'sliders.*', 'admin.*', 'footer-banner.*', 'feel_special.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                     @can('view-settings')
                         <li>
                             <a href="{{ route('settings.index') }}" class="{{ request()->routeIs('settings.*') ? 'active' : '' }}">
@@ -98,6 +105,13 @@
                         <li>
                             <a href="{{ route('footer-banner.create') }}" class="{{ request()->routeIs('footer-banner.*') ? 'active' : '' }}">
                                 <i class="bi bi-circle"></i><span>Footer Banner</span>
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view-feel-special')
+                        <li>
+                            <a href="{{ route('feel_special.index') }}" class="{{ request()->routeIs('feel_special.*') ? 'active' : '' }}">
+                                <i class="bi bi-circle"></i><span>Feel Special</span>
                             </a>
                         </li>
                     @endcan

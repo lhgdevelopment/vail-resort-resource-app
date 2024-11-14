@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lto;
+use App\Models\LtoMonth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LtoController extends Controller
 {
@@ -21,7 +23,8 @@ class LtoController extends Controller
      */
     public function create()
     {
-        return view('backend.ltos.create');
+        $ltoMonths = LtoMonth::where('status', true)->get();
+        return view('backend.ltos.create', compact('ltoMonths'));
     }
 
     /**
@@ -33,9 +36,22 @@ class LtoController extends Controller
             'title' => 'required|string|max:255',
             'from_date' => 'required|date',
             'to_date' => 'required|date|after_or_equal:from_date',
+            'lto_month_id' => 'nullable|exists:lto_months,id',
+            'images.*' => 'image|mimes:jpg,png,jpeg,gif|max:10420',
         ]);
 
-        Lto::create($request->all());
+        $data = $request->all();
+
+        // Handle file upload
+        if ($request->hasFile('images')) {
+            $images = [];
+            foreach ($request->file('images') as $file) {
+                $images[] = $file->store('ltos', 'public');
+            }
+            $data['images'] = $images;
+        }
+
+        Lto::create($data);
 
         return redirect()->route('ltos.index')->with('success', 'LTO created successfully.');
     }
@@ -53,7 +69,8 @@ class LtoController extends Controller
      */
     public function edit(Lto $lto)
     {
-        return view('backend.ltos.create', compact('lto'));
+        $ltoMonths = LtoMonth::where('status', true)->get();
+        return view('backend.ltos.create', compact('lto', 'ltoMonths'));
     }
 
     /**
@@ -65,9 +82,30 @@ class LtoController extends Controller
             'title' => 'required|string|max:255',
             'from_date' => 'required|date',
             'to_date' => 'required|date|after_or_equal:from_date',
+            'lto_month_id' => 'nullable|exists:lto_months,id',
+            'images.*' => 'image|mimes:jpg,png,jpeg,gif|max:10420'
         ]);
 
-        $lto->update($request->all());
+        $data = $request->all();
+
+        // Handle image updates
+        if ($request->hasFile('images')) {
+            // Delete old images
+            if ($lto->images) {
+                foreach ($lto->images as $image) {
+                    Storage::disk('public')->delete($image);
+                }
+            }
+
+            // Save new images
+            $images = [];
+            foreach ($request->file('images') as $file) {
+                $images[] = $file->store('ltos', 'public');
+            }
+            $data['images'] = $images;
+        }
+
+        $lto->update($data);
 
         return redirect()->route('ltos.index')->with('success', 'LTO updated successfully.');
     }
@@ -77,6 +115,12 @@ class LtoController extends Controller
      */
     public function destroy(Lto $lto)
     {
+        if ($lto->images) {
+            foreach ($lto->images as $image) {
+                Storage::disk('public')->delete($image);
+            }
+        }
+        
         $lto->delete();
         return redirect()->route('ltos.index')->with('success', 'LTO deleted successfully.');
     }
