@@ -31,8 +31,9 @@ class LtoMonthController extends Controller
         return redirect()->route('lto_months.index')->with('success', 'LTO Month created successfully');
     }
 
-    public function edit(LtoMonth $ltoMonth)
+    public function edit($id)
     {
+        $ltoMonth = LtoMonth::find($id);
         return view('backend.lto_months.create', compact('ltoMonth'));
     }
 
@@ -49,8 +50,9 @@ class LtoMonthController extends Controller
         return redirect()->route('lto_months.index')->with('success', 'LTO Month updated successfully');
     }
 
-    public function destroy(LtoMonth $ltoMonth)
+    public function destroy($id)
     {
+        $ltoMonth = LtoMonth::find($id);
         $ltoMonth->delete();
 
         return redirect()->route('lto_months.index')->with('success', 'LTO Month deleted successfully');
