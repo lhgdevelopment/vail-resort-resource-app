@@ -42,7 +42,7 @@
     </div>
 </section>
 
-<section id="description" class="description pb-5 pt-5">
+{{-- <section id="description" class="description pb-5 pt-5">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -54,11 +54,12 @@
                                 <div class="col-12">
                                     <div id="carousel-{{ $lto->id }}" class="carousel slide" data-bs-interval="false">
                                         <div class="carousel-inner">
-                                            @foreach($lto->images as $index => $image)
-                                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                                    <!-- Adjust the height with CSS and object-fit to maintain aspect ratio -->
-                                                    <img src="{{ asset('storage/' . $image) }}" class="d-block w-100 carousel-image" alt="LTO Image {{ $index + 1 }}">
-                                                </div>
+                                            @foreach($lto->files as $index => $file)
+                                                    @if(in_array($file->file_type, ['jpg', 'jpeg', 'png']))
+                                                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                                            <img src="{{ asset('storage/' . $file->file_path) }}" class="d-block w-100 carousel-image" alt="LTO File {{ $index + 1 }}">
+                                                        </div>
+                                                    @endif
                                             @endforeach
                                         </div>
                                         <!-- Carousel navigation arrows -->
@@ -73,6 +74,20 @@
                                     </div>
                                 </div>
 
+                                <!-- Download buttons for other files -->
+                                <div class="col-12 mt-3">
+                                    <h6>Download Files:</h6>
+                                    @foreach($lto->files as $file)
+                                        @if(!in_array($file->file_type, ['jpg', 'jpeg', 'png', 'gif']))
+                                            <div class="mb-2">
+                                                <a href="{{ asset('storage/' . $file->file_path) }}" download class="btn btn-primary">
+                                                    Download {{ $file->file_name }}
+                                                </a>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+
                                 <!-- Card Content -->
                                 <div class="col-12">
                                     <div class="card-body">
@@ -80,7 +95,9 @@
                                         <p class="card-date animated animate-slide-left">
                                             {{ \Carbon\Carbon::parse($lto->from_date)->format('F d, Y') }} to {{ \Carbon\Carbon::parse($lto->to_date)->format('F d, Y') }}
                                         </p>
-                                        <p class="card-text animated animate-slide-right">{!! $lto->description !!}</p>
+                                        <div class="card-text animated animate-slide-right">
+                                            {!! $lto->description !!}
+                                        </div>
                                     </div>
                                 </div>
 
@@ -116,6 +133,99 @@
                     <div class="col-2">
                         <button type="button" class="btn btn-primary animated animate-slide-right" onclick="history.back()">Back</button>
                     </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</section> --}}
+
+
+<section id="description" class="description pb-5 pt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                @if (count($ltos))
+                    @foreach($ltos as $lto)
+                        <div class="card mb-4">
+                            <div class="row g-0 BgWhite rounded p-3">
+                                <!-- Left Column: Content -->
+                                <div class="col-md-6">
+                                    <div class="card-body">
+                                        <h5 class="card-title animated animate-slide-left">{{ $lto->title }}</h5>
+                                        <p class="card-date animated animate-slide-left">
+                                            {{ \Carbon\Carbon::parse($lto->from_date)->format('F d, Y') }} to {{ \Carbon\Carbon::parse($lto->to_date)->format('F d, Y') }}
+                                        </p>
+                                        <div class="card-text animated animate-slide-right">
+                                            {!! $lto->description !!}
+                                        </div>
+                                        <div class="mt-3">
+                                            <a href="{{ route('signup.menu-activation') }}" target="_blank" class="btn btn-primary">
+                                                <i class="fas fa-external-link"></i> &nbsp; Sign Up
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Right Column: Image Slider -->
+                                <div class="col-md-6">
+                                    <div id="carousel-{{ $lto->id }}" class="carousel slide" data-bs-interval="false">
+                                        <div class="carousel-inner">
+                                            @foreach($lto->files as $index => $file)
+                                                @if(in_array($file->file_type, ['jpg', 'jpeg', 'png']))
+                                                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                                        <img src="{{ asset('storage/' . $file->file_path) }}" class="d-block w-100 carousel-image" alt="LTO File {{ $index + 1 }}">
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                        <!-- Carousel navigation arrows -->
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ $lto->id }}" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ $lto->id }}" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Download Buttons -->
+                                    <div class="mt-3">
+                                        <h6>Other Files:</h6>
+                                        @foreach($lto->files as $file)
+                                            @if(!in_array($file->file_type, ['jpg', 'jpeg', 'png']))
+                                                <div class="mb-2">
+                                                    <a href="{{ asset('storage/' . $file->file_path) }}" download class="btn btn-secondary">
+                                                         {{ $file->file_name }}
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <div class="card mb-3">
+                        <div class="row g-0 p-3 BgWhite rounded">
+                            <div class="col-12">
+                                <div class="card-body">
+                                    <p class="animated animate-slide-left">No Data Found.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif 
+
+                <!-- Pagination -->
+                <div class="pagination justify-content-center mb-4">
+                    {{ $ltos->links() }}
+                </div>
+
+                <!-- Back Button -->
+                <div class="text-center mt-4">
+                    <button type="button" class="btn btn-primary animated animate-slide-right" onclick="history.back()">Back</button>
                 </div>  
             </div>
         </div>

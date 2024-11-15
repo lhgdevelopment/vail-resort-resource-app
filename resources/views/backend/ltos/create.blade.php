@@ -46,21 +46,6 @@
                 <textarea name="description" id="description" class="form-control">{{ $lto->description ?? old('description') }}</textarea>
             </div>
 
-            <!-- Images Upload -->
-            <div class="mb-3">
-                <label for="images" class="form-label">Images</label>
-                <input type="file" name="images[]" id="images" class="form-control" multiple accept="image/*" onchange="previewImages(event)">
-                @if(isset($lto) && $lto->images)
-                    <div class="mt-2" id="existingImages">
-                        <p>Current Images:</p>
-                        @foreach($lto->images as $image)
-                            <img src="{{ asset('storage/' . $image) }}" alt="Image" width="80" class="me-2 mb-2">
-                        @endforeach
-                    </div>
-                @endif
-                <div class="mt-2" id="imagePreview"></div>
-            </div>
-
             <a href="{{ route('ltos.index') }}" class="btn btn-warning">Back</a>
             <button type="submit" class="btn btn-primary">{{ isset($lto) ? 'Update' : 'Create' }}</button>
         </form>
@@ -78,27 +63,28 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
-        .create(document.querySelector('#description'), {
-            toolbar: [
-                'heading', // You can include this or remove it if not needed
-                '|',
-                'bold',
-                'italic',
-                'underline',
-                '|',
-                'bulletedList',
-                'numberedList',
-                '|',
-                'link'
-            ],
-            // Disable the file upload options
-            ckfinder: {
-                uploadUrl: '', // Set to an empty string or omit to disable file uploads
-            }
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    .create(document.querySelector('#description'), {
+        toolbar: [
+            'heading',
+            '|',
+            'bold',
+            'italic',
+            'underline',
+            '|',
+            'bulletedList',
+            'numberedList',
+            '|',
+            'link'
+        ],
+        ckfinder: {
+            uploadUrl: '',
+        },
+        removePlugins: ['br', 'enterkey', 'paragraph'] // Ensure <br> tags are not inserted
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
 </script>
 
 <!-- JavaScript for Image Preview -->

@@ -12,6 +12,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SMTPSettingController;
 use App\Http\Controllers\FeelSpecialController;
+use App\Http\Controllers\LtoFileController;
 use App\Http\Controllers\LtoMonthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -102,6 +103,13 @@ Route::middleware('auth')->group(function () {
     Route::get('ltos/{lto}/show', [LtoController::class, 'show'])->name('ltos.show')->middleware('permission:view-ltos');
     Route::put('ltos/{lto}', [LtoController::class, 'update'])->name('ltos.update')->middleware('permission:edit-ltos');
     Route::delete('ltos/{lto}', [LtoController::class, 'destroy'])->name('ltos.destroy')->middleware('permission:delete-ltos');
+
+    // LTO Files Routes
+    Route::get('ltos/{lto}/files', [LtoFileController::class, 'index'])->name('ltos.files.index');
+    Route::get('ltos/{lto}/files/create', [LtoFileController::class, 'create'])->name('ltos.files.create');
+    Route::post('ltos/{lto}/files', [LtoFileController::class, 'store'])->name('ltos.files.store');
+    Route::delete('ltos/files/{file}', [LtoFileController::class, 'destroy'])->name('ltos.files.destroy');
+
 
     Route::get('lto_months', [LtoMonthController::class, 'index'])->name('lto_months.index')->middleware('permission:view-lto-month');
     Route::get('lto_months/create', [LtoMonthController::class, 'create'])->name('lto_months.create')->middleware('permission:create-lto-month');
