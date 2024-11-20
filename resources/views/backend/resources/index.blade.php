@@ -21,7 +21,6 @@
                     <tr>
                         <th>Title</th>
                         <th>Category</th>
-                        <th>Type</th>
                         <th>Author</th>
                         <th>Tags</th>
                         <th>Status</th>
@@ -33,11 +32,15 @@
                         <tr>
                             <td>{{ $resource->title }}</td>
                             <td>{{ $resource->category?->name }}</td>
-                            <td>{{ ucfirst($resource->type) }}</td>
                             <td>{{ $resource->author }}</td>
                             <td>{{ $resource->tags }}</td>
                             <td>{{ ucfirst($resource->status) }}</td>
                             <td>
+                                @can('view-resources')
+                                    <a href="{{ route('resources.files.index', $resource->id) }}" class="btn btn-sm btn-info" title="View files">
+                                        <i class="bi bi-file-earmark"></i>
+                                    </a>
+                                @endcan
                                 @can('view-resources')
                                     <a href="{{ route('resources.show', $resource->id) }}" class="btn btn-sm btn-info"><i class="bi bi-eye"></i></a>
                                 @endcan

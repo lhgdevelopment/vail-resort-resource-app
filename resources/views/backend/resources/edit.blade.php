@@ -42,39 +42,28 @@
                     @endforeach
                 </select>
             </div>
-    
-            <!-- Type -->
+
             <div class="form-group mb-3">
-                <label for="type">Resource Type<span class="text-danger">*</span></label>
-                <select name="type" class="form-control" id="resourceType" required>
-                    <option value="" disabled>Select type</option>
-                    <option value="file" {{ (old('type', $resource->type) == 'file') ? 'selected' : '' }}>File</option>
-                    <option value="link" {{ (old('type', $resource->type) == 'link') ? 'selected' : '' }}>Link</option>
-                </select>
-            </div>
-    
-            <!-- File Upload (Visible if type is 'file') -->
-            <div class="form-group mb-3" id="fileUploadSection" style="display: none;">
-                <label for="file_path">Upload File (PDF or Image)</label>
-                <div id="dropzone" class="dropzone">
-                    @if ($resource->file_path)
-                        @if (in_array(mime_content_type(storage_path('app/public/' . $resource->file_path)), ['image/jpeg', 'image/png', 'image/gif']))
-                            <img src="{{ asset('storage/' . $resource->file_path) }}" alt="Current File" style="max-width: 200px; max-height: 200px;">
-                        @elseif (mime_content_type(storage_path('app/public/' . $resource->file_path)) === 'application/pdf')
-                            <embed src="{{ asset('storage/' . $resource->file_path) }}" type="application/pdf" width="100%" height="200px" />
-                        @endif
+                <label for="feature_image">Feature Image</label>
+                <div id="dropzone" class="dropzone border p-3 text-center">
+                    Click or Drag and Drop File Here
+                </div>
+                <input type="file" name="feature_image" id="file_input" class="form-control-file d-none" accept="image/*">
+
+                <!-- Display Current Image Preview -->
+                <div class="mt-2">
+                    @if ($resource->feature_image)
+                        <img id="filePreview" 
+                            src="{{ asset('storage/' . $resource->feature_image) }}" 
+                            alt="File Preview" 
+                            style="max-width: 200px; max-height: 200px;">
+                    @else
+                        <img id="filePreview" 
+                            src="#" 
+                            alt="File Preview" 
+                            style="display: none; max-width: 200px; max-height: 200px;">
                     @endif
                 </div>
-                <input type="file" name="file_path" id="file_input" class="form-control-file" accept=".pdf,image/*" style="display: none;">
-                <div class="mt-2">
-                    <img id="filePreview" src="#" alt="File Preview" style="display: none; max-width: 200px; max-height: 200px;">
-                </div>
-            </div>
-    
-            <!-- Embed Code (Visible if type is 'link') -->
-            <div class="form-group mb-3" id="embedCodeSection" style="display: none;">
-                <label for="embed_code">Embed Code</label>
-                <textarea name="embed_code" class="form-control" id="embed_code">{{ old('embed_code', $resource->embed_code) }}</textarea>
             </div>
     
             <!-- Tags -->
@@ -126,33 +115,9 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const resourceType = document.getElementById('resourceType');
-        const fileUploadSection = document.getElementById('fileUploadSection');
-        const embedCodeSection = document.getElementById('embedCodeSection');
         const dropzone = document.getElementById('dropzone');
         const fileInput = document.getElementById('file_input');
         const filePreview = document.getElementById('filePreview');
-
-        // Function to toggle sections based on resource type
-        function toggleSections() {
-            const type = resourceType.value;
-            if (type === 'file') {
-                fileUploadSection.style.display = 'block';
-                embedCodeSection.style.display = 'none';
-            } else if (type === 'link') {
-                fileUploadSection.style.display = 'none';
-                embedCodeSection.style.display = 'block';
-            } else {
-                fileUploadSection.style.display = 'none';
-                embedCodeSection.style.display = 'none';
-            }
-        }
-
-        // Initialize sections based on old input or existing resource
-        toggleSections();
-
-        // Event listener for resource type change
-        resourceType.addEventListener('change', toggleSections);
 
         // Drag-and-Drop Functionality
         dropzone.addEventListener('click', () => {
@@ -173,31 +138,32 @@
             dropzone.classList.remove('bg-light');
             const files = e.dataTransfer.files;
             if (files.length > 0) {
-                fileInput.files = files;
-                previewFile(files[0]);
+                fileInput.files = files; // Set dropped files to the input
+                previewFile(files[0]);  // Preview the first file
             }
         });
 
         fileInput.addEventListener('change', () => {
             if (fileInput.files.length > 0) {
-                previewFile(fileInput.files[0]);
+                previewFile(fileInput.files[0]); // Preview the selected file
             }
         });
 
         function previewFile(file) {
             const reader = new FileReader();
+
             reader.onload = function (e) {
                 if (file.type.startsWith('image/')) {
                     filePreview.src = e.target.result;
-                    filePreview.style.display = 'block';
-                } else if (file.type === 'application/pdf') {
-                    filePreview.src = 'https://via.placeholder.com/200x200.png?text=PDF';
-                    filePreview.style.display = 'block';
+                    filePreview.style.display = 'block'; // Show preview
                 } else {
-                    filePreview.style.display = 'none';
+                    filePreview.style.display = 'none'; // Hide if not an image
                 }
+            };
+
+            if (file) {
+                reader.readAsDataURL(file); // Read file as data URL
             }
-            reader.readAsDataURL(file);
         }
     });
 </script>

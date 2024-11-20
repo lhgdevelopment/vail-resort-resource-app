@@ -38,33 +38,15 @@ class ResourceController extends Controller
             'description'       => 'nullable|string',
             'author'            => 'nullable|string|max:255',
             'category_id'       => 'required|exists:categories,id',
-            'type'              => 'required|in:file,link',
-            'file_path'         => 'nullable|file|mimes:pdf,jpg,jpeg,png,gif|max:102400',
-            'embed_code'        => 'nullable|string',
             'tags'              => 'nullable|string|max:255',
             'status'            => 'required|in:active,inactive',
+            'feature_image' => 'nullable|file|mimes:jpg,jpeg,png,gif|max:10240', // 10MB max
         ]);
 
-        // Handle conditional fields based on type
-        if ($request->type === 'file') {
-            $request->validate([
-                'file_path' => 'required|file|mimes:pdf,jpg,jpeg,png,gif|max:102400',
-            ]);
-
-            if ($request->hasFile('file_path')) {
-                $filePath = $request->file('file_path')->store('resources/files', 'public');
-            } else {
-                $filePath = null;
-            }
-
-            $embedCode = null;
-        } else { // Link
-            $request->validate([
-                'embed_code' => 'required|string',
-            ]);
-
-            $embedCode = $request->embed_code;
-            $filePath = null;
+        // Handle feature image upload
+        $featureImagePath = null;
+        if ($request->hasFile('feature_image')) {
+            $featureImagePath = $request->file('feature_image')->store('resources/feature_images', 'public');
         }
 
         // Create the resource
@@ -73,11 +55,9 @@ class ResourceController extends Controller
             'description'     => $request->description,
             'author'          => $request->author,
             'category_id'     => $request->category_id,
-            'type'            => $request->type,
-            'file_path'       => $filePath,
-            'embed_code'      => $embedCode,
             'tags'            => $request->tags,
             'status'          => $request->status,
+            'feature_image'  => $featureImagePath,
         ]);
 
         return redirect()->route('resources.index')->with('success', 'Resource created successfully.');
@@ -111,44 +91,21 @@ class ResourceController extends Controller
             'description'       => 'nullable|string',
             'author'            => 'nullable|string|max:255',
             'category_id'       => 'required|exists:categories,id',
-            'type'              => 'required|in:file,link',
-            'file_path'         => 'nullable|file|mimes:pdf,jpg,jpeg,png,gif|max:102400',
-            'embed_code'        => 'nullable|string',
             'tags'              => 'nullable|string|max:255',
             'status'            => 'required|in:active,inactive',
+            'feature_image' => 'nullable|file|mimes:jpg,jpeg,png,gif|max:10240', // 10MB max
         ]);
 
-        // Handle conditional fields based on type
-        if ($request->type === 'file') {
-            $request->validate([
-                'file_path' => 'required|file|mimes:pdf,jpg,jpeg,png,gif|max:102400',
-            ]);
-
-            if ($request->hasFile('file_path')) {
-                // Delete old file if exists
-                if ($resource->file_path && Storage::disk('public')->exists($resource->file_path)) {
-                    Storage::disk('public')->delete($resource->file_path);
-                }
-
-                $filePath = $request->file('file_path')->store('resources/files', 'public');
-            } else {
-                $filePath = $resource->file_path;
+        // Handle feature image upload
+        $featureImagePath = $resource->feature_image;
+        if ($request->hasFile('feature_image')) {
+            // Delete the old feature image if exists
+            if ($featureImagePath && Storage::disk('public')->exists($featureImagePath)) {
+                Storage::disk('public')->delete($featureImagePath);
             }
 
-            $embedCode = null;
-        } else { // Link
-            $request->validate([
-                'embed_code' => 'required|string',
-            ]);
-
-            $embedCode = $request->embed_code;
-
-            // Delete old file if it exists since it's not needed for link type
-            if ($resource->file_path && Storage::disk('public')->exists($resource->file_path)) {
-                Storage::disk('public')->delete($resource->file_path);
-            }
-
-            $filePath = null;
+            // Upload the new feature image
+            $featureImagePath = $request->file('feature_image')->store('resources/feature_images', 'public');
         }
 
         // Update the resource
@@ -157,11 +114,9 @@ class ResourceController extends Controller
             'description'     => $request->description,
             'author'          => $request->author,
             'category_id'     => $request->category_id,
-            'type'            => $request->type,
-            'file_path'       => $filePath,
-            'embed_code'      => $embedCode,
             'tags'            => $request->tags,
             'status'          => $request->status,
+            'feature_image' => $featureImagePath,
         ]);
 
         return redirect()->route('resources.index')->with('success', 'Resource updated successfully.');
@@ -172,11 +127,9 @@ class ResourceController extends Controller
      */
     public function destroy(Resource $resource)
     {
-        // Handle file deletion if resource type is file
-        if ($resource->type === 'file' && $resource->file_path) {
-            if (Storage::disk('public')->exists($resource->file_path)) {
-                Storage::disk('public')->delete($resource->file_path);
-            }
+        // Delete the feature image if it exists
+        if ($resource->feature_image && Storage::disk('public')->exists($resource->feature_image)) {
+            Storage::disk('public')->delete($resource->feature_image);
         }
 
         // Delete the resource

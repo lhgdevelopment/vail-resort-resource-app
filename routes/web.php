@@ -14,6 +14,7 @@ use App\Http\Controllers\SMTPSettingController;
 use App\Http\Controllers\FeelSpecialController;
 use App\Http\Controllers\LtoFileController;
 use App\Http\Controllers\LtoMonthController;
+use App\Http\Controllers\ResourceFileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -95,6 +96,12 @@ Route::middleware('auth')->group(function () {
     Route::get('resources/{resource}/show', [ResourceController::class, 'show'])->name('resources.show')->middleware('permission:view-resources');
     Route::put('resources/{resource}', [ResourceController::class, 'update'])->name('resources.update')->middleware('permission:edit-resources');
     Route::delete('resources/{resource}', [ResourceController::class, 'destroy'])->name('resources.destroy')->middleware('permission:delete-resources');
+
+    // Resource Files Routes
+    Route::get('resources/{resource}/files', [ResourceFileController::class, 'index'])->name('resources.files.index');
+    Route::get('resources/{resource}/files/create', [ResourceFileController::class, 'create'])->name('resources.files.create');
+    Route::post('resources/{resource}/files', [ResourceFileController::class, 'store'])->name('resources.files.store');
+    Route::delete('resources/files/{file}', [ResourceFileController::class, 'destroy'])->name('resources.files.destroy');
 
     Route::get('ltos', [LtoController::class, 'index'])->name('ltos.index')->middleware('permission:view-ltos');
     Route::get('ltos/create', [LtoController::class, 'create'])->name('ltos.create')->middleware('permission:create-ltos');

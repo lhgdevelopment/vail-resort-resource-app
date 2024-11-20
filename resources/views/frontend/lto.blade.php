@@ -99,7 +99,7 @@
                                             @if(!in_array($file->file_type, ['jpg', 'jpeg', 'png']))
                                                 <div class="mb-2">
                                                     <a href="{{ asset('storage/' . $file->file_path) }}" download class="btn btn-secondary">
-                                                         {{ $file->file_name }}
+                                                         {{ $file->file_name }}.{{ $file->file_type }}
                                                     </a>
                                                 </div>
                                             @endif
