@@ -40,10 +40,21 @@
                 <label for="to_date" class="form-label">To Date</label>
                 <input type="date" name="to_date" id="to_date" value="{{ $lto->to_date ?? old('to_date') }}" class="form-control" required>
             </div>
-
+            
             <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea name="description" id="description" class="form-control">{{ $lto->description ?? old('description') }}</textarea>
+                <label class="form-label" for="inputEmail">Description:</label>
+                <div id="quill-editor" class="mb-3" style="height: 300px;">
+                    <!-- Quill editor will be initialized here -->
+                </div>
+                <textarea 
+                    rows="3" 
+                    class="mb-3 d-none" 
+                    name="description" 
+                    id="quill-editor-area">{{ $lto->description ?? old('description') }}</textarea>
+
+                @error('description')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
 
             <a href="{{ route('ltos.index') }}" class="btn btn-warning">Back</a>
@@ -59,33 +70,6 @@
 @endsection
 
 @section('script')
-
-<script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
-<script>
-    ClassicEditor
-    .create(document.querySelector('#description'), {
-        toolbar: [
-            'heading',
-            '|',
-            'bold',
-            'italic',
-            'underline',
-            '|',
-            'bulletedList',
-            'numberedList',
-            '|',
-            'link'
-        ],
-        ckfinder: {
-            uploadUrl: '',
-        },
-        removePlugins: ['br', 'enterkey', 'paragraph'] // Ensure <br> tags are not inserted
-    })
-    .catch(error => {
-        console.error(error);
-    });
-
-</script>
 
 <!-- JavaScript for Image Preview -->
 <script>
@@ -105,6 +89,42 @@
             reader.readAsDataURL(file);
         });
     }
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
+<!-- Initialize Quill editor -->
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Quill editor if textarea exists
+        if (document.getElementById('quill-editor-area')) {
+            var editor = new Quill('#quill-editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        [{ 'align': [] }],
+                        ['bold', 'italic', 'underline'],
+                        ['link'],
+                        ['blockquote']
+                    ]
+                }
+            });
+
+            // Set the initial content of the Quill editor
+            var quillEditorArea = document.getElementById('quill-editor-area');
+            if (quillEditorArea.value) {
+                editor.root.innerHTML = quillEditorArea.value;
+            }
+
+            // Update the hidden textarea with the editor's HTML content
+            editor.on('text-change', function() {
+                quillEditorArea.value = editor.root.innerHTML;
+            });
+        }
+    });
 </script>
 
 @endsection
