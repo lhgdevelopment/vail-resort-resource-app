@@ -33,6 +33,11 @@
                             <td>{{ $lto->to_date }}</td>
                             <td>
                                 @can('view-ltos')
+                                    <a href="{{ route('ltos.files.index', $lto->id) }}" class="btn btn-sm btn-info" title="View files">
+                                        <i class="bi bi-file-earmark"></i>
+                                    </a>
+                                @endcan
+                                @can('view-ltos')
                                     <a href="{{ route('ltos.show', $lto->id) }}" class="btn btn-sm btn-info"><i class="bi bi-eye"></i></a>
                                 @endcan
                                 @can('edit-ltos')

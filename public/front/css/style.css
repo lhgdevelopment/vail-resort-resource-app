@@ -1342,7 +1342,7 @@ opacity:1;
 
 .slider-item img {
     width: 100%;
-    height: auto;
+    height: 600px;
 }
 
 
@@ -1377,4 +1377,3 @@ opacity:1;
 .category_item .category.UpdateCode ul li a{
 	display: inline;
 }
-

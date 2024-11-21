@@ -54,7 +54,7 @@
             @endforeach
         </div>
     </div>
-</section>
+</section> 
 
 
 <!--================ bg_banner section html code end here =================-->

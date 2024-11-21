@@ -20,4 +20,9 @@ class Lto extends Model
         return $this->belongsTo(LtoMonth::class);
     }
 
+    public function files()
+    {
+        return $this->hasMany(LtoFile::class);
+    }
+
 }

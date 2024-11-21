@@ -4,7 +4,7 @@
 <div class="col-lg-10 mx-auto">
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title">Feel Special Section</h2>
+            <h2 class="card-title">LTO Banner</h2>
 
             <form action="{{ route('feel_special.update', $feelSpecial->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -23,6 +23,10 @@
                 <div class="mb-3">
                     <label for="images" class="form-label">Images</label>
                     <input type="file" name="images[]" class="form-control" id="images" multiple>
+                    
+                    <!-- Helping text for image dimensions -->
+                    <small class="form-text text-muted">Recommended image dimensions: 950x480 pixels.</small>
+
                     @if($feelSpecial->images)
                         <div class="mt-2">
                             <p>Existing Images:</p>

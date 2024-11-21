@@ -26,17 +26,28 @@
                         </div>
                     @endif
             
-                    <!-- Display Images if available -->
-                    @if($lto->images && count($lto->images) > 0)
+                    <!-- Display Files if available -->
+                    @if($lto->files && count($lto->files) > 0)
                         <div class="mt-3">
-                            <h5>Images:</h5>
-                            <div class="d-flex flex-wrap">
-                                @foreach($lto->images as $image)
-                                    <div class="me-2 mb-2">
-                                        <img src="{{ asset('storage/' . $image) }}" alt="Image" width="200" class="img-thumbnail">
-                                    </div>
+                            <h5>Files:</h5>
+                            <ul>
+                                @foreach($lto->files as $file)
+                                    <li class="mb-2">
+                                        @if(in_array($file->file_type, ['jpg', 'jpeg', 'png', 'gif']))
+                                            <!-- Show image file -->
+                                            <img src="{{ asset('storage/' . $file->file_path) }}" alt="{{ $file->file_name }}" class="img-fluid img-thumbnail" style="width: 100%;">
+                                        @elseif($file->file_type === 'pdf')
+                                            <!-- Show link to PDF -->
+                                            <embed src="{{ asset('storage/' . $file->file_path) }}" type="application/pdf" width="100%" height="250px" />
+                                        @else
+                                            <!-- Show link for other file types -->
+                                            <a href="{{ asset('storage/' . $file->file_path) }}" target="_blank" class="btn btn-sm btn-secondary" title="{{ $file->file_name }}">
+                                                <i class="bi bi-file-earmark"></i>View File
+                                            </a>
+                                        @endif
+                                    </li>
                                 @endforeach
-                            </div>
+                            </ul>
                         </div>
                     @endif
                 </div>
