@@ -104,14 +104,14 @@
                     @can('view-footer-banner')
                         <li>
                             <a href="{{ route('footer-banner.create') }}" class="{{ request()->routeIs('footer-banner.*') ? 'active' : '' }}">
-                                <i class="bi bi-circle"></i><span>Intake Form</span>
+                                <i class="bi bi-circle"></i><span>Intake Form Banner</span>
                             </a>
                         </li>
                     @endcan
                     @can('view-feel-special')
                         <li>
                             <a href="{{ route('feel_special.index') }}" class="{{ request()->routeIs('feel_special.*') ? 'active' : '' }}">
-                                <i class="bi bi-circle"></i><span>LTO</span>
+                                <i class="bi bi-circle"></i><span>LTO Banner</span>
                             </a>
                         </li>
                     @endcan

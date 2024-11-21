@@ -63,34 +63,7 @@
                                 <p class="animated animate-slide-right">{{ $resource->description }}</p>
                             </div>
 
-                            <!-- Display File or Embed Code -->
-                            @if ($resource->type === 'file' && $resource->file_path)
-                                @php
-                                    $fileType = mime_content_type(storage_path('app/public/' . $resource->file_path));
-                                @endphp
-                                @if (strpos($fileType, 'image/') === 0)
-                                    <!-- Image file display -->
-                                    <img src="{{ asset('storage/' . $resource->file_path) }}" alt="Image" class="img-fluid img-responsive rounded product-image" style="max-width: 100%; height: auto;">
-                                    <div class="social">
-                                        <a href="{{ asset('storage/' . $resource->file_path) }}" download>
-                                            <span><i class="fa-solid fa-download"></i></span>Download
-                                        </a>
-                                    </div>
-                                @elseif ($fileType === 'application/pdf')
-                                    <!-- PDF file display -->
-                                    <embed src="{{ asset('storage/' . $resource->file_path) }}" type="application/pdf" width="100%" height="600px" />
-                                    <div class="social">
-                                        <a href="{{ asset('storage/' . $resource->file_path) }}" download>
-                                            <span><i class="fa-solid fa-download"></i></span>Download
-                                        </a>
-                                    </div>
-                                @endif
-                            @elseif ($resource->type === 'link' && $resource->embed_code)
-                                <!-- Embed code for link type resources -->
-                                <div>
-                                    {!! $resource->embed_code !!}
-                                </div>
-                            @endif
+                            <img src="{{ asset('storage/' . $resource->feature_image) }}" alt="Image" class="img-fluid img-responsive rounded product-image" style="max-width: 100%; height: auto;">
                         </div>
                     </a>
                 @endforeach

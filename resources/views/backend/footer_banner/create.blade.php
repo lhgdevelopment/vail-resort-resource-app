@@ -4,7 +4,7 @@
 <div class="col-lg-10 mx-auto">
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title">Footer Banner</h2>
+            <h2 class="card-title">Intake Form Banner</h2>
 
             <form action="{{ route($banner ? 'footer-banner.update' : 'footer-banner.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
