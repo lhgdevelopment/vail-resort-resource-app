@@ -14,9 +14,6 @@ class Resource extends Model
         'description',
         'author',
         'category_id',
-        'type',
-        'file_path',
-        'embed_code',
         'tags',
         'status',
         'feature_image'

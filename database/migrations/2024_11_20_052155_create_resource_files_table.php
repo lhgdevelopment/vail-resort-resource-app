@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -20,6 +21,27 @@ return new class extends Migration
             $table->longText('embed_code')->nullable();
             $table->string('external_link')->nullable();
             $table->timestamps();
+        });
+
+        // Transfer files data from the old 'resources' table to the new 'resource_files' table
+        DB::transaction(function () {
+            $resources = DB::table('resources')->select('id', 'type', 'file_path', 'embed_code')->get();
+
+            foreach ($resources as $resource) {
+                $resourceType = $resource->type === 'file' ? 'file' : ($resource->type === 'link' ? 'embed_code' : null);
+                $fileType = $resource->type === 'file' && $resource->file_path ? pathinfo($resource->file_path, PATHINFO_EXTENSION) : null;
+
+                DB::table('resource_files')->insert([
+                    'resource_id' => $resource->id,
+                    'resource_type' => $resourceType,
+                    'file_path' => $resource->file_path,
+                    'file_type' => $fileType,
+                    'embed_code' => $resource->type === 'link' ? $resource->embed_code : null,
+                    'external_link' => null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
         });
     }
 
