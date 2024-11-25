@@ -1347,7 +1347,7 @@ opacity:1;
 
 
 .carousel-image {
-    height: 50vh;  
+    /* height: 50vh;   */
     object-fit: cover;
 }
 
