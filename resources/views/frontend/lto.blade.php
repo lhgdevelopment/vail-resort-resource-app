@@ -62,7 +62,7 @@
                                             {!! $lto->description !!}
                                         </div>
                                         <div class="mt-3">
-                                            <a href="{{ route('signup.menu-activation') }}" target="_blank" class="btn btn-primary">
+                                            <a href="{{ route('signup.lto') }}" target="_blank" class="btn btn-primary">
                                                 <i class="fas fa-external-link"></i> &nbsp; Sign Up
                                             </a>
                                         </div>

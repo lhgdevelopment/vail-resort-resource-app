@@ -38,7 +38,7 @@
             <div class="txt animated animate-slide-left">
                 <h3>{{ $feelSpecial->title }}</h3>
                 <p>{{ $feelSpecial->short_description }}</p>
-                <a href="{{route('signup.lto')}}" target="_blank">
+                <a href="{{route('lto.list')}}" target="_blank">
                     <i class="fas fa-external-link"></i> &nbsp; {{ $feelSpecial->button_title }}
                 </a>
             </div>
@@ -66,7 +66,7 @@
             <div class="txt animated animate-slide-left">
                 <h3>{{ $banner->title ?? 'a new generation of winemakers' }}</h3>
                 <p>{{ $banner->sub_title ?? 'Lorem, ipsum dolor sit amet, consectetur quasi adipisicing elit. Possimus vel, dolorum, eligendi quasi consectetur ab.' }}</p>
-                <a class="button" href="{{ $banner->button_link ?? '#' }}">{{ $banner->button_title ?? 'view details' }}</a>
+                <a class="button" href="{{ $banner->button_link ?? route('signup.menu-activation') }}">{{ $banner->button_title ?? 'view details' }}</a>
             </div>
         </div>
     </div>
