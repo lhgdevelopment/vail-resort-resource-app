@@ -59,16 +59,18 @@ class LtoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Lto $lto)
+    public function show($id)
     {
+        $lto = Lto::find($id);
         return view('backend.ltos.show', compact('lto'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Lto $lto)
+    public function edit($id)
     {
+        $lto = Lto::find($id);
         $ltoMonths = LtoMonth::where('status', true)->get();
         return view('backend.ltos.create', compact('lto', 'ltoMonths'));
     }
@@ -76,7 +78,7 @@ class LtoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Lto $lto)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -86,6 +88,7 @@ class LtoController extends Controller
             'images.*' => 'image|mimes:jpg,png,jpeg,gif|max:10420'
         ]);
 
+        $lto = Lto::find($id);
         $data = $request->all();
 
         // Handle image updates
@@ -113,8 +116,9 @@ class LtoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Lto $lto)
+    public function destroy($id)
     {
+        $lto = Lto::find($id);
         if ($lto->images) {
             foreach ($lto->images as $image) {
                 Storage::disk('public')->delete($image);

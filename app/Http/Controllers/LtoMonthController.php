@@ -37,13 +37,15 @@ class LtoMonthController extends Controller
         return view('backend.lto_months.create', compact('ltoMonth'));
     }
 
-    public function update(Request $request, LtoMonth $ltoMonth)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'month_name' => 'required|string',
             'year' => 'required|numeric',
             'status' => 'required|boolean',
         ]);
+
+        $ltoMonth = LtoMonth::find($id);
 
         $ltoMonth->update($request->all());
 
