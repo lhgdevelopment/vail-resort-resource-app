@@ -32,21 +32,21 @@
                     <div class="row g-0 p-4 bg_white rounded">
                         <div class="card-body">
                             <h5 class="card-title cardtitle animated animate-slide-left">{{ $resource->title }}</h5>
-                            <p class="card-text text-white animated animate-slide-right">{{ $resource->description }}</p>
-                            <p class="card-text text-white animated animate-slide-right">
+                            <p class="card-text text-white animated animate-slide-right mb-4">{{ $resource->description }}</p>
+                            <!-- <p class="card-text text-white animated animate-slide-right">
                                 <small>Author: {{ $resource->author }}</small>
-                            </p>
+                            </p> -->
 
                             <!-- Display Associated Files -->
                             @if ($resource->resourceFiles->isNotEmpty())
-                                <h5 class="text-white mt-4">Resource Files</h5>
-                                <hr class="text-white">
+                                <!-- <h5 class="text-white mt-4">Resource Files</h5> -->
+                                <!-- <hr class="text-white"> -->
                                 @foreach ($resource->resourceFiles as $file)
                                     <div class="mb-3">
                                         <!-- Display Resource Type -->
-                                        <p class="text-white">
+                                        <!-- <p class="text-white">
                                             <strong>Type:</strong> {{ ucwords(str_replace('_', ' ', $file->resource_type)) }}
-                                        </p>
+                                        </p> -->
 
                                         @if ($file->resource_type === 'file' && $file->file_path)
                                             @php
