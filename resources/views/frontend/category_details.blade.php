@@ -29,10 +29,10 @@
                 <div class="cards mb-3">
                     <div class="cards_img">
                         <div class="imgheight">
-                            <img src="{{ asset('storage/' . $category->thumbnail) }}" alt="{{ $category->name }}" class="animated animate-slide-left">
+                            <!-- <img src="{{ asset('storage/' . $category->thumbnail) }}" alt="{{ $category->name }}" class="animated animate-slide-left"> -->
                             <div class="cards_content">
                                 <h5 class="cardtitle animated animate-slide-left">{{ $category->name }}</h5>
-                                <h6 class="animated animate-slide-right">{{ $category->short_description }}</h6>
+                                <h6 class="animated animate-slide-right mb-3">{{ $category->short_description }}</h6>
                                 <p class="cardtext animated animate-slide-right">{{ $category->long_description }}</p>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                 <p class="animated animate-slide-right">{{ $resource->description }}</p>
                             </div>
 
-                            <img src="{{ asset('storage/' . $resource->feature_image) }}" alt="Image" class="img-fluid img-responsive rounded product-image" style="max-width: 100%; height: auto;">
+                            <!-- <img src="{{ asset('storage/' . $resource->feature_image) }}" alt="Image" class="img-fluid img-responsive rounded product-image" style="max-width: 100%; height: auto;"> -->
                         </div>
                     </a>
                 @endforeach

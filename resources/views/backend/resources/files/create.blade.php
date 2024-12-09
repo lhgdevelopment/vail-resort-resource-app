@@ -24,7 +24,7 @@
                 <div class="form-group mb-3" id="fileUploadSection" style="display: none;">
                     <label for="file_path">Upload File (PDF or Image)</label>
                     <div id="dropzone" class="dropzone border p-3 text-center">Click or Drag and Drop File Here</div>
-                    <input type="file" name="file_path" id="file_input" class="form-control-file d-none" accept=".pdf,image/*">
+                    <input type="file" name="file_path" id="file_input" class="form-control-file d-none" accept=".pdf,.ppt,.pptx,image/*">
                     <div class="mt-2">
                         <img id="filePreview" src="#" alt="File Preview" style="display: none; max-width: 200px; max-height: 200px;">
                     </div>
