@@ -37,7 +37,7 @@
                                     <p class="card-text text-white animated animate-slide-right mb-4">
                                         {{ $resource->description }}
                                     </p>
-                                </div>
+                                </div> 
 
                                 <div class="col-6 float-right">
                                     <form class="" action="">
@@ -46,6 +46,7 @@
                                       </form>
                                 </div>
                             </div>
+                            <hr class="text-white">
                             <!-- <p class="card-text text-white animated animate-slide-right">
                                 <small>Author: {{ $resource->author }}</small>
                             </p> -->
