@@ -14,7 +14,7 @@ class ResourceController extends Controller
      */
     public function index()
     {
-        $resources = Resource::with('category')->get();
+        $resources = Resource::with('category')->orderBy('created_at', 'desc')->get();
         return view('backend.resources.index', compact('resources'));
     }
 
