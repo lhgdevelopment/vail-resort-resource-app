@@ -68,7 +68,18 @@ class FrontendController extends Controller
 
     public function resourceDetails($id)
     {
-        $resource = Resource::findOrFail($id);
+        // $resource = Resource::with(['resourceFiles' => function ($query) {
+        //     $query->orderBy('file_name', 'asc'); // Sort by file_name in ascending order
+        // }])->findOrFail($id);
+
+        $searchTerm = request('search', ''); // Capture user input from the 'search' query string
+
+        $resource = Resource::with(['resourceFiles' => function ($query) use ($searchTerm) {
+            $query->when($searchTerm, function ($q) use ($searchTerm) {
+                $q->where('file_name', 'like', "%{$searchTerm}%");
+            })->orderBy('file_name', 'asc');
+        }])->findOrFail($id);
+
         $category = Category::where('id', $resource->category_id)->firstOrFail();
 
         if (Auth::user()->hasAnyRole($category->roles)) {
