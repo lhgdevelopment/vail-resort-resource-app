@@ -55,7 +55,7 @@
 
                                             @if (strpos($fileType, 'image/') === 0)
                                                 <!-- Display Image -->
-                                                <img src="{{ asset('storage/' . $file->file_path) }}" alt="Image" class="img-fluid img-responsive rounded product-image" style="max-width: 100%; height: 650px;">
+                                                <img src="{{ asset('storage/' . $file->file_path) }}" alt="Image" class="img-fluid img-responsive rounded product-image" style="max-width: 100%;">
                                                 <div class="mt-2">
                                                     <a href="{{ asset('storage/' . $file->file_path) }}" class="btn btn-success" download>
                                                         <i class="fa-solid fa-download"></i> Download
