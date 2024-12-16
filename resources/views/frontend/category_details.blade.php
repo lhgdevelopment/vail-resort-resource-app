@@ -53,7 +53,7 @@
         </div>
 
         <!-- Loop through resources in chunks of 4, and manage col1/col2 layout -->
-        @foreach($category->resources->where('status', 'active')->chunk(4) as $chunk)
+        {{-- @foreach($category->resources->where('status', 'active')->chunk(4) as $chunk)
             <div class="img_container">
                 @foreach($chunk as $index => $resource)
                     <a href="{{route('resource.details', $resource->id)}}">
@@ -62,12 +62,33 @@
                                 <h3 class="animated animate-slide-left">{{ $resource->title }}</h3>
                                 <p class="animated animate-slide-right">{{ $resource->description }}</p>
                             </div>
-
-                            <!-- <img src="{{ asset('storage/' . $resource->feature_image) }}" alt="Image" class="img-fluid img-responsive rounded product-image" style="max-width: 100%; height: auto;"> -->
                         </div>
                     </a>
                 @endforeach
             </div>
+        @endforeach --}}
+    </div>
+</section>
+
+<section id="description" class="">
+    <div class="container-fluid">
+        @foreach($category->resources->where('status', 'active')->chunk(4) as $chunk)
+        @foreach($chunk as $index => $resource)
+        <div class="row">
+            <div class="col-12">
+                <div class="cards mb-3">
+                    <div class="cards_img">
+                        <div class="imgheight" style="min-height: 200px">
+                            <div class="cards_content">
+                                <h3 class="animated animate-slide-left">{{ $resource->title }}</h3>
+                                <p class="animated animate-slide-right">{{ $resource->description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
         @endforeach
     </div>
 </section>
