@@ -83,7 +83,7 @@ class FrontendController extends Controller
         $category = Category::where('id', $resource->category_id)->firstOrFail();
 
         if (Auth::user()->hasAnyRole($category->roles)) {
-            return view('frontend.resource_details', compact('resource', 'category'));
+            return view('frontend.resource_details', compact('resource', 'category', 'searchTerm'));
         }else {
             return redirect('/');
         }

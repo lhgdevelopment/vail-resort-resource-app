@@ -31,9 +31,21 @@
                 <div class="card mb-3" style="background-color: #29292B;">
                     <div class="row g-0 p-4 bg_white rounded">
                         <div class="card-body">
-                            <h5 class="card-title cardtitle animated animate-slide-left">{{ $resource->title }}</h5>
-                            <p class="card-text text-white animated animate-slide-right mb-4">{{ $resource->description }}
-                            </p>
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5 class="card-title cardtitle animated animate-slide-left">{{ $resource->title }}</h5>
+                                    <p class="card-text text-white animated animate-slide-right mb-4">
+                                        {{ $resource->description }}
+                                    </p>
+                                </div>
+
+                                <div class="col-6 float-right">
+                                    <form class="" action="">
+                                        <input type="text" placeholder="Search.." name="search" value="{{ $searchTerm }}">
+                                        <button type="submit"><i class="fa fa-search"></i></button>
+                                      </form>
+                                </div>
+                            </div>
                             <!-- <p class="card-text text-white animated animate-slide-right">
                                 <small>Author: {{ $resource->author }}</small>
                             </p> -->
