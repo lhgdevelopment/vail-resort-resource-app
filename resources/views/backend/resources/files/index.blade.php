@@ -19,6 +19,7 @@
             <table class="table datatable">
                 <thead>
                     <tr>
+                        <th>File Name</th>
                         <th>Resource Type</th>
                         <th>Resource</th>
                         <th>Actions</th>
@@ -27,6 +28,7 @@
                 <tbody>
                     @foreach ($files as $file)
                         <tr>
+                            <td>{{ $file->file_name }}</td>
                             <td>{{ ucwords(str_replace('_', ' ', $file->resource_type)) }} </td>
                             <td>
                                 @if ($file->resource_type === 'file' && $file->file_path)

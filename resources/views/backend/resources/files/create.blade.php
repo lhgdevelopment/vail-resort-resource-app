@@ -9,6 +9,11 @@
             <form action="{{ route('resources.files.store', $resource->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
+                <div class="form-group mb-3" id="" style="">
+                    <label for="file_name">File Name</label>
+                    <input type="text" name="file_name" class="form-control" id="file_name" value="{{ old('file_name') }}">
+                </div>
+
                 <!-- Resource Type -->
                 <div class="form-group mb-3">
                     <label for="type">Resource Type <span class="text-danger">*</span></label>

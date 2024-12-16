@@ -19,6 +19,7 @@ class ResourceFile extends Model
         'resource_id',
         'resource_type',
         'file_path',
+        'file_name',
         'embed_code',
         'external_link',
     ];

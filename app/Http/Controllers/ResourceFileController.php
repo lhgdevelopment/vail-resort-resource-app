@@ -23,12 +23,14 @@ class ResourceFileController extends Controller
 
     public function store(Request $request, Resource $resource)
     {
+        
         $request->validate([
+            'file_name' => 'required|string|max:255',
             'resource_type' => 'required|in:file,embed_code,external_link',
             'file_path' => 'required_if:resource_type,file|file|mimes:pdf,jpg,jpeg,png,ppt,pptx|max:1000240',
             'embed_code' => 'required_if:resource_type,embed_code',
             'external_link' => 'required_if:resource_type,external_link|url',
-        ]);
+        ]); 
 
         $filePath = null;
         $fileType = null;
@@ -42,6 +44,7 @@ class ResourceFileController extends Controller
             'resource_id' => $resource->id,
             'resource_type' => $request->resource_type,
             'file_path' => $filePath,
+            'file_name' => $request->file_name,
             'file_type' => $fileType,
             'embed_code' => $request->embed_code,
             'external_link' => $request->external_link,
