@@ -32,7 +32,8 @@
                     <div class="row g-0 p-4 bg_white rounded">
                         <div class="card-body">
                             <h5 class="card-title cardtitle animated animate-slide-left">{{ $resource->title }}</h5>
-                            <p class="card-text text-white animated animate-slide-right mb-4">{{ $resource->description }}</p>
+                            <p class="card-text text-white animated animate-slide-right mb-4">{{ $resource->description }}
+                            </p>
                             <!-- <p class="card-text text-white animated animate-slide-right">
                                 <small>Author: {{ $resource->author }}</small>
                             </p> -->
@@ -43,6 +44,9 @@
                                 <!-- <hr class="text-white"> -->
                                 @foreach ($resource->resourceFiles as $file)
                                     <div class="mb-3">
+                                        <p class="text-white">
+                                            <strong>{{ $file->file_name ?? '' }}</strong> 
+                                        </p>
                                         <!-- Display Resource Type -->
                                         <!-- <p class="text-white">
                                             <strong>Type:</strong> {{ ucwords(str_replace('_', ' ', $file->resource_type)) }}
@@ -55,6 +59,9 @@
 
                                             @if (strpos($fileType, 'image/') === 0)
                                                 <!-- Display Image -->
+                                                <p class="text-white">
+                                                    <strong>Name:</strong> {{ $file->file_name ?? '' }}
+                                                </p>
                                                 <img src="{{ asset('storage/' . $file->file_path) }}" alt="Image" class="img-fluid img-responsive rounded product-image" style="max-width: 100%;">
                                                 <div class="mt-2">
                                                     <a href="{{ asset('storage/' . $file->file_path) }}" class="btn btn-success" download>
