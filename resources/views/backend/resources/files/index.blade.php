@@ -66,6 +66,7 @@
 
 
                             <td>
+                                <a href="{{ route('resources.files.edit', $file->id) }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
                                 @can('delete-resources')
                                     <form action="{{ route('resources.files.destroy', $file->id) }}" method="POST">
                                         @csrf
