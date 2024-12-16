@@ -37,7 +37,7 @@ class LtoController extends Controller
             'from_date' => 'required|date',
             'to_date' => 'required|date|after_or_equal:from_date',
             'lto_month_id' => 'nullable|exists:lto_months,id',
-            'images.*' => 'image|mimes:jpg,png,jpeg,gif|max:10420',
+            'images.*' => 'image|mimes:jpg,png,jpeg,gif|max:500420',
         ]);
 
         $data = $request->all();

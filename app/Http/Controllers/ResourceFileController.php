@@ -27,7 +27,7 @@ class ResourceFileController extends Controller
         $request->validate([
             'file_name' => 'required|string|max:255',
             'resource_type' => 'required|in:file,embed_code,external_link',
-            'file_path' => 'required_if:resource_type,file|file|mimes:pdf,jpg,jpeg,png,ppt,pptx|max:1000240',
+            'file_path' => 'required_if:resource_type,file|file|mimes:pdf,jpg,jpeg,png,ppt,pptx|max:5000240',
             'embed_code' => 'required_if:resource_type,embed_code',
             'external_link' => 'required_if:resource_type,external_link|url',
         ]); 

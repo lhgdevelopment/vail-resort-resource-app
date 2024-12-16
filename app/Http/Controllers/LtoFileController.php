@@ -24,7 +24,7 @@ class LtoFileController extends Controller
     {
         $request->validate([
             'file_name' => 'required|string|max:255',
-            'file' => 'required|file|mimes:pdf,pptx,ppt,png,jpg,jpeg|max:20480',
+            'file' => 'required|file|mimes:pdf,pptx,ppt,png,jpg,jpeg|max:500480',
         ]);
 
         $filePath = $request->file('file')->store('ltos/files', 'public');

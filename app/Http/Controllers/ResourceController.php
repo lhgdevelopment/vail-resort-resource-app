@@ -40,7 +40,7 @@ class ResourceController extends Controller
             'category_id'       => 'required|exists:categories,id',
             'tags'              => 'nullable|string|max:255',
             'status'            => 'required|in:active,inactive',
-            'feature_image' => 'nullable|file|mimes:jpg,jpeg,png,gif|max:10240', // 10MB max
+            'feature_image' => 'nullable|file|mimes:jpg,jpeg,png,gif|max:500240', // 10MB max
         ]);
 
         // Handle feature image upload
@@ -93,7 +93,7 @@ class ResourceController extends Controller
             'category_id'       => 'required|exists:categories,id',
             'tags'              => 'nullable|string|max:255',
             'status'            => 'required|in:active,inactive',
-            'feature_image' => 'nullable|file|mimes:jpg,jpeg,png,gif|max:10240', // 10MB max
+            'feature_image' => 'nullable|file|mimes:jpg,jpeg,png,gif|max:500240', // 10MB max
         ]);
 
         // Handle feature image upload

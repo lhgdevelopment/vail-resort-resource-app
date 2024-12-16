@@ -36,8 +36,8 @@ class CategoryController extends Controller
         // Validate the request data
         $request->validate([
             'name'              => 'required|string|max:255',
-            'banner'            => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
-            'thumbnail'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'banner'            => 'nullable|image|mimes:jpeg,png,jpg,gif|max:500240',
+            'thumbnail'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:500240',
             'is_featured'       => 'sometimes',
             'priority'          => 'nullable|integer',
             'status'            => 'required|in:active,inactive',
@@ -105,8 +105,8 @@ class CategoryController extends Controller
         // Validate the request data
         $request->validate([
             'name'              => 'required|string|max:255',
-            'banner'            => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
-            'thumbnail'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'banner'            => 'nullable|image|mimes:jpeg,png,jpg,gif|max:500240',
+            'thumbnail'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:500240',
             'is_featured'       => 'sometimes',
             'priority'          => 'nullable|integer',
             'status'            => 'required|in:active,inactive',

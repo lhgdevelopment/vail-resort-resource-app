@@ -23,7 +23,7 @@ class FooterBannerController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'image' => 'nullable|image|max:10240', // Limit to 10MB
+            'image' => 'nullable|image|max:500240', // Limit to 10MB
         ]);
 
         $banner = FooterBanner::first() ?: new FooterBanner;

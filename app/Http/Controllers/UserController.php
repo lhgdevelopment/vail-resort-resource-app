@@ -60,7 +60,7 @@ class UserController extends Controller
             'email'                 => 'required|string|email|max:255|unique:users',
             'password'              => 'required|string|min:8|confirmed',
             'roles'                 => 'required|string', // Single role as string
-            'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120', // Image validation
+            'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif|max:500120', // Image validation
         ]);
 
         // Prevent assigning 'super-admin' role even if attempted via form manipulation
@@ -117,7 +117,7 @@ class UserController extends Controller
             'password'              => 'nullable|string|min:8|confirmed',
             'roles'                 => 'required|string', // Single role as string
             'is_approved'           => 'required|boolean',
-            'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120', // Image validation
+            'image'                 => 'nullable|image|mimes:jpeg,png,jpg,gif|max:500120', // Image validation
         ]);
 
         // Prevent assigning 'super-admin' role even if attempted via form manipulation
@@ -210,7 +210,7 @@ class UserController extends Controller
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users,email,' . $admin->id,
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:50000',
             ]);
 
             // Update name and email
