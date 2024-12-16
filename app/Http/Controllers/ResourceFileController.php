@@ -53,10 +53,24 @@ class ResourceFileController extends Controller
         return redirect()->route('resources.files.index', $resource->id)->with('success', 'Resource file added successfully.');
     }
 
-    public function edit(Resource $resource, $id)
+    public function edit($id)
     {
         $resourceFile = ResourceFile::findOrFail($id);
         return view('backend.resources.files.edit', compact('resourceFile'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        
+        $request->validate([
+            'file_name' => 'required|string|max:255',
+        ]); 
+
+        $resourceFile = ResourceFile::findOrfail($id);
+        $resourceFile->file_name = $request->file_name;
+        $resourceFile->save();
+
+        return redirect()->route('resources.files.index', $resourceFile->resource->id)->with('success', 'Resource file Updated successfully.');
     }
 
     public function destroy(ResourceFile $file)

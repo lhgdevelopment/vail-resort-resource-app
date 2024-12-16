@@ -6,15 +6,15 @@
         <div class="card-body">
             <h5 class="card-title">New Resource</h5>
 
-            <form action="{{ route('resources.files.store', $resource->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('resources.files.update', $resourceFile->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group mb-3" id="" style="">
                     <label for="file_name">File Name</label>
-                    <input type="text" name="file_name" class="form-control" id="file_name" value="{{ old('file_name') }}">
+                    <input type="text" name="file_name" class="form-control" id="file_name" value="{{ $resourceFile->file_name }}">
                 </div>
 
-                <!-- Resource Type -->
+                {{-- <!-- Resource Type -->
                 <div class="form-group mb-3">
                     <label for="type">Resource Type <span class="text-danger">*</span></label>
                     <select name="resource_type" class="form-control" id="resourceType" required>
@@ -45,10 +45,10 @@
                 <div class="form-group mb-3" id="linkSection" style="display: none;">
                     <label for="external_link">External Link</label>
                     <input type="url" name="external_link" class="form-control" id="external_link" value="{{ old('external_link') }}">
-                </div>
+                </div> --}}
 
                 <!-- Action Buttons -->
-                <a href="{{ route('resources.files.index', $resource->id) }}" class="btn btn-warning">Back</a>
+                <a href="{{ route('resources.files.index', $resourceFile->resource->id) }}" class="btn btn-warning">Back</a>
                 <button type="submit" class="btn btn-primary">Upload</button>
             </form>
         </div>
