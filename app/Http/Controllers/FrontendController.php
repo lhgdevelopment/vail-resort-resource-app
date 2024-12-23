@@ -57,7 +57,10 @@ class FrontendController extends Controller
 
     public function categoryDetails($id)
     {
-        $category = Category::with('resources')->where('id', $id)->firstOrFail();
+        // $category = Category::with('resources')->where('id', $id)->firstOrFail();
+        $category = Category::with(['resources' => function ($query){
+            $query->orderBy('title', 'asc');
+        }])->findOrFail($id);
 
         if (Auth::user()->hasAnyRole($category->roles)) {
             return view('frontend.category_details', compact('category'));
