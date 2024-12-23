@@ -20,7 +20,7 @@
                     <textarea name="short_description" class="form-control" id="short_description">{{ $feelSpecial->short_description }}</textarea>
                 </div>
         
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <label for="images" class="form-label">Images</label>
                     <input type="file" name="images[]" class="form-control" id="images" multiple>
                     
@@ -38,7 +38,7 @@
                 </div>
                 <div id="image-preview-container" class="row mt-3">
                     <!-- Image previews will be appended here -->
-                </div>
+                </div> --}}
         
                 <div class="mb-3">
                     <label for="button_title" class="form-label">Button Title</label>
@@ -56,38 +56,4 @@
 @endsection
 
 @section('script')
-<script>
-    document.getElementById('images').addEventListener('change', function(event) {
-        const imagePreviewContainer = document.getElementById('image-preview-container');
-        imagePreviewContainer.innerHTML = ''; // Clear previous previews
-
-        const files = event.target.files;
-
-        Array.from(files).forEach(file => {
-            if (!file.type.startsWith('image/')) return; // Skip non-image files
-
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                // Create a new div element for each image preview
-                const colDiv = document.createElement('div');
-                colDiv.classList.add('col-md-3', 'mb-3');
-
-                // Create the image element and set the src to the loaded file URL
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.classList.add('img-thumbnail');
-                img.style.maxWidth = '300px';
-                img.style.height = '250px';
-
-                colDiv.appendChild(img);
-                imagePreviewContainer.appendChild(colDiv);
-            };
-
-            reader.readAsDataURL(file);
-        });
-    });
-
-</script>
-
 @endsection
