@@ -34,7 +34,7 @@ class FrontendController extends Controller
 
         // Fetch footer banner
         $banner = FooterBanner::first();
-        $feelSpecial = FeelSpecial::first();
+        $feelSpecial = FeelSpecial::with('ltoBannerSliders')->first();
 
         return view('frontend.welcome', compact('sliders', 'categories', 'banner', 'feelSpecial'));
     }

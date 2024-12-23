@@ -47,9 +47,9 @@
 
         <!-- Image Slider -->
         <div id="feel-special-slider" class="image col3 animated animate-slide-right">
-            @foreach($feelSpecial->images as $image)
+            @foreach($feelSpecial->ltoBannerSliders as $image)
                 <div class="slider-item">
-                    <img src="{{ asset('storage/' . $image) }}" alt="Feel Special Image" class="slider-img">
+                    <img src="{{ asset('storage/' . $image->file_path) }}" alt="Feel Special Image" class="slider-img">
                 </div>
             @endforeach
         </div>
