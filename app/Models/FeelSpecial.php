@@ -22,4 +22,9 @@ class FeelSpecial extends Model
     protected $casts = [
         'images' => 'array',
     ];
+
+    public function ltoBannerSliders()
+    {
+        return $this->hasMany(LtoBannerSlider::class);
+    }
 }

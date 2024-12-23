@@ -77,10 +77,10 @@
 
         @canany(['view-settings', 'view-sliders', 'view-footer-banner', 'view-feel-special'])
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('settings.*', 'sliders.*', 'admin.*', 'footer-banner.*', 'feel_special.*') ? '' : 'collapsed' }}" data-bs-target="#settings-nav" data-bs-toggle="collapse" href="#" aria-expanded="{{ request()->routeIs('settings.*', 'sliders.*', 'admin.*') ? 'true' : 'false' }}">
+                <a class="nav-link {{ request()->routeIs('settings.*', 'sliders.*', 'admin.*', 'footer-banner.*', 'feel_special.*', 'lto-banner-slider.*') ? '' : 'collapsed' }}" data-bs-target="#settings-nav" data-bs-toggle="collapse" href="#" aria-expanded="{{ request()->routeIs('settings.*', 'sliders.*', 'admin.*') ? 'true' : 'false' }}">
                     <i class="bi bi-gear"></i><span>Settings</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="settings-nav" class="nav-content collapse {{ request()->routeIs('settings.*', 'smtp.*', 'sliders.*', 'admin.*', 'footer-banner.*', 'feel_special.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+                <ul id="settings-nav" class="nav-content collapse {{ request()->routeIs('settings.*', 'smtp.*', 'sliders.*', 'admin.*', 'footer-banner.*', 'feel_special.*', 'lto-banner-slider.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                     @can('view-settings')
                         <li>
                             <a href="{{ route('settings.index') }}" class="{{ request()->routeIs('settings.*') ? 'active' : '' }}">
@@ -112,6 +112,13 @@
                         <li>
                             <a href="{{ route('feel_special.index') }}" class="{{ request()->routeIs('feel_special.*') ? 'active' : '' }}">
                                 <i class="bi bi-circle"></i><span>LTO Banner</span>
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view-feel-special')
+                        <li>
+                            <a href="{{ route('lto-banner-slider.index') }}" class="{{ request()->routeIs('lto-banner-slider.*') ? 'active' : '' }}">
+                                <i class="bi bi-circle"></i><span>LTO Banner Sliders</span>
                             </a>
                         </li>
                     @endcan

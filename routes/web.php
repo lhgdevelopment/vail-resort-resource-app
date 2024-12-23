@@ -12,6 +12,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SMTPSettingController;
 use App\Http\Controllers\FeelSpecialController;
+use App\Http\Controllers\LtoBannerSliderController;
 use App\Http\Controllers\LtoFileController;
 use App\Http\Controllers\LtoMonthController;
 use App\Http\Controllers\ResourceFileController;
@@ -57,8 +58,18 @@ Route::middleware('auth')->group(function () {
     Route::get('footer-banner', [FooterBannerController::class, 'create'])->name('footer-banner.create')->middleware('can:view-footer-banner');
     Route::post('footer-banner', [FooterBannerController::class, 'store'])->name('footer-banner.store')->middleware('can:edit-footer-banner');
     Route::put('footer-banner', [FooterBannerController::class, 'update'])->name('footer-banner.update')->middleware('can:edit-footer-banner');
+    
+    // Lto Banner on Homepage
     Route::get('feel-special', [FeelSpecialController::class, 'index'])->name('feel_special.index')->middleware('can:view-feel-special');
     Route::put('feel-special/{id}', [FeelSpecialController::class, 'update'])->name('feel_special.update')->middleware('can:edit-feel-special');
+
+    Route::get('lto-banner-slider', [LtoBannerSliderController::class, 'index'])->name('lto-banner-slider.index');
+    Route::get('lto-banner-slider/create', [LtoBannerSliderController::class, 'create'])->name('lto-banner-slider.create');
+    Route::post('lto-banner-slider', [LtoBannerSliderController::class, 'store'])->name('lto-banner-slider.store');
+    // Route::get('lto-banner-slider/{slider}/edit', [LtoBannerSliderController::class, 'edit'])->name('lto-banner-slider.edit');
+    // Route::put('lto-banner-slider/{slider}', [LtoBannerSliderController::class, 'update'])->name('lto-banner-slider.update');
+    Route::get('lto-banner-slider/{slider}/show', [LtoBannerSliderController::class, 'show'])->name('lto-banner-slider.show');
+    Route::delete('lto-banner-slider/{slider}', [LtoBannerSliderController::class, 'destroy'])->name('lto-banner-slider.destroy');
 
 
 
