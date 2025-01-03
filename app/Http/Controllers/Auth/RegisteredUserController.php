@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        if (Str::endsWith($request->email, ['vailresort.com', 'marketeaminc.com'])) {
+        if (Str::endsWith($request->email, ['vailresorts.com', 'marketeaminc.com'])) {
             $role_name = 'Operator';
             $role = Role::where('name', $role_name)->first();
             
@@ -85,7 +85,7 @@ class RegisteredUserController extends Controller
         $user->email_verified_at = now();
         $user->email_verification_token = null;
         //Auto approval for specific domain
-        if (Str::endsWith($user->email, ['vailresort.com', 'marketeaminc.com'])) {
+        if (Str::endsWith($user->email, ['vailresorts.com', 'marketeaminc.com'])) {
             $user->is_approved = true;
         } 
 
