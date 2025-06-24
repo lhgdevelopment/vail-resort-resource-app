@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/settings/update/{id}', [SettingController::class, 'update'])->name('settings.update');
     Route::get('settings/smtp', [SMTPSettingController::class, 'index'])->name('smtp.index');
     Route::put('settings/smtp', [SMTPSettingController::class, 'update'])->name('smtp.update');
-    Route::get('/verify/{token}', [RegisteredUserController::class, 'verifyEmail'])->name('verify.email');
+    
 
     // Route for sliders
     Route::get('sliders', [SliderController::class, 'index'])->name('sliders.index')->middleware('can:view-sliders');
@@ -139,5 +139,6 @@ Route::middleware('auth')->group(function () {
     Route::put('lto_months/{lto}', [LtoMonthController::class, 'update'])->name('lto_months.update')->middleware('permission:edit-lto-month');
     Route::delete('lto_months/{lto}', [LtoMonthController::class, 'destroy'])->name('lto_months.destroy')->middleware('permission:delete-lto-month');
 });
+Route::get('/verify/{token}', [RegisteredUserController::class, 'verifyEmail'])->name('verify.email');
 
 require __DIR__.'/auth.php';
