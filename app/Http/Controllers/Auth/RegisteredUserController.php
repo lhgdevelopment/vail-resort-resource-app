@@ -71,7 +71,7 @@ class RegisteredUserController extends Controller
         // Log in the user and redirect (you can also keep them logged out until verification)
         // Auth::login($user);
 
-        return redirect()->route('login')->with('message', 'Please verify your email.');
+        return redirect()->route('login')->with('message', 'Registration successful! Please check your email and click the verification link to activate your account.');
     }
 
     public function verifyEmail($token)
@@ -79,7 +79,7 @@ class RegisteredUserController extends Controller
         $user = User::where('email_verification_token', $token)->first();
 
         if (!$user) {
-            return redirect('/')->withErrors('Invalid verification token.');
+            return redirect('/')->withErrors('Invalid or expired verification link. Please check your email or contact support if you need assistance.');
         }
 
         $user->email_verified_at = now();
@@ -92,6 +92,6 @@ class RegisteredUserController extends Controller
         
         $user->save();
 
-        return redirect('/login')->with('message', 'Email verified.');
+        return redirect('/login')->with('message', 'Email verified successfully! You can now log in to your account.');
     }
 }
