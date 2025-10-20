@@ -63,3 +63,37 @@ if (!function_exists('ltoMonths')) {
         return $months;
     }
 }
+
+/**
+ * Configure mail settings with custom SMTP from database
+ */
+if (!function_exists('configureCustomMailSettings')) {
+    function configureCustomMailSettings()
+    {
+        try {
+            $smtpSettings = \App\Models\SMTPSetting::first();
+            
+            if ($smtpSettings) {
+                // Configure mailer with custom SMTP settings
+                config([
+                    'mail.mailers.smtp.host' => $smtpSettings->mail_host,
+                    'mail.mailers.smtp.port' => $smtpSettings->mail_port,
+                    'mail.mailers.smtp.username' => $smtpSettings->mail_username,
+                    'mail.mailers.smtp.password' => $smtpSettings->mail_password,
+                    'mail.mailers.smtp.encryption' => $smtpSettings->mail_encryption,
+                    'mail.from.address' => $smtpSettings->mail_from,
+                    'mail.from.name' => settings('site_name', 'VAIL RESORTS'),
+                ]);
+
+                // Purge the mail manager to reload configuration
+                app('mail.manager')->purge('smtp');
+                
+                return true;
+            }
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Failed to configure custom SMTP settings: ' . $e->getMessage());
+        }
+        
+        return false;
+    }
+}

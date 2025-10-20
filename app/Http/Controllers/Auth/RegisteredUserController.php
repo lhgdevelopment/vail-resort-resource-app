@@ -71,7 +71,7 @@ class RegisteredUserController extends Controller
         // Log in the user and redirect (you can also keep them logged out until verification)
         // Auth::login($user);
 
-        return redirect()->route('login')->with('message', 'Registration successful! Please check your email and click the verification link to activate your account.');
+        return redirect()->route('login')->with('message', 'Registration successful! Please check your email (inbox or spam) and click the verification link to activate your account.');
     }
 
     public function verifyEmail($token)

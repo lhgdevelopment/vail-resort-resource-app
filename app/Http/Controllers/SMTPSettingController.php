@@ -39,14 +39,14 @@ class SMTPSettingController extends Controller
         $settings->save();
 
         // Update the .env file
-        $this->updateEnv([
-            'MAIL_HOST' => $request->mail_host,
-            'MAIL_PORT' => $request->mail_port,
-            'MAIL_USERNAME' => $request->mail_username,
-            'MAIL_PASSWORD' => $request->mail_password,
-            'MAIL_ENCRYPTION' => $request->mail_encryption,
-            'MAIL_FROM_ADDRESS' => $request->mail_from,
-        ]);
+        // $this->updateEnv([
+        //     'MAIL_HOST' => $request->mail_host,
+        //     'MAIL_PORT' => $request->mail_port,
+        //     'MAIL_USERNAME' => $request->mail_username,
+        //     'MAIL_PASSWORD' => $request->mail_password,
+        //     'MAIL_ENCRYPTION' => $request->mail_encryption,
+        //     'MAIL_FROM_ADDRESS' => $request->mail_from,
+        // ]);
 
         return redirect()->route('smtp.index')->with('success', 'SMTP settings updated successfully');
     }

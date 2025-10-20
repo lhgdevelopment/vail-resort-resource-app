@@ -24,11 +24,10 @@ class VerifyEmail extends Mailable
 
     public function build()
     {
-        return $this->subject('Vail Resort - Verify Your Email Address')
+        return $this->subject('Verify Your Email Address - ' . settings('site_name', 'VAIL RESORTS'))
                     ->view('backend.emails.verify')
                     ->with(['user' => $this->user]);
     }
-
 
     /**
      * Get the message envelope.
@@ -36,7 +35,7 @@ class VerifyEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Vail Resort - Verify Email',
+            subject: 'Verify Your Email Address - ' . settings('site_name', 'VAIL RESORTS'),
         );
     }
 
@@ -47,7 +46,6 @@ class VerifyEmail extends Mailable
     {
         return new Content(
             view: 'backend.emails.verify',
-            // view: 'view.name',
         );
     }
 

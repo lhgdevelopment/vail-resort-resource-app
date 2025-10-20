@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Configure custom SMTP settings for all emails
+        configureCustomMailSettings();
     }
 }
