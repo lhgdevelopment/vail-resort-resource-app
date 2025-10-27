@@ -29,13 +29,14 @@
         <div class="row">
             <div class="col-7">
                 @php
-                    // Retrieve month name and year from the selected LTO month
-                    $monthName = $ltoMonth->month_name;
-                    $year = $ltoMonth->year;
+                    // Retrieve title from the selected LTO category
+                    $categoryTitle = $ltoMonth->title ?? $ltoMonth->month_name ?? 'LTO';
+                    $year = $ltoMonth->year ?? '';
+                    $displayTitle = $year ? $categoryTitle . ' ' . $year : $categoryTitle;
                 @endphp
             
                 <h3 class="text-uppercase text-left fs-3 text-white animated animate-slide-left">
-                    LTO Details for {{ $monthName }} {{ $year }}
+                    LTO Details for {{ $displayTitle }}
                 </h3>
             </div>
         </div>
@@ -55,9 +56,15 @@
                                 <div class="col-md-6">
                                     <div class="card-body">
                                         <h5 class="card-title animated animate-slide-left">{{ $lto->title }}</h5>
-                                        <p class="card-date animated animate-slide-left">
-                                            {{ \Carbon\Carbon::parse($lto->from_date)->format('F d, Y') }} to {{ \Carbon\Carbon::parse($lto->to_date)->format('F d, Y') }}
-                                        </p>
+                                        @if($lto->from_date && $lto->to_date)
+                                            <p class="card-date animated animate-slide-left">
+                                                {{ \Carbon\Carbon::parse($lto->from_date)->format('F d, Y') }} to {{ \Carbon\Carbon::parse($lto->to_date)->format('F d, Y') }}
+                                            </p>
+                                        @else
+                                            <p class="card-date animated animate-slide-left">
+                                                <span class="badge bg-success">Evergreen</span>
+                                            </p>
+                                        @endif
                                         <div class="card-text animated animate-slide-right">
                                             {!! $lto->description !!}
                                         </div>

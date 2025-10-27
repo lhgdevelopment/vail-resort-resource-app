@@ -9,7 +9,7 @@ class LtoMonthController extends Controller
 {
     public function index()
     {
-        $ltoMonths = LtoMonth::orderBy('id', 'desc')->get();
+        $ltoMonths = LtoMonth::orderBy('priority', 'asc')->get();
         return view('backend.lto_months.index', compact('ltoMonths'));
     }
 
@@ -21,14 +21,14 @@ class LtoMonthController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'month_name' => 'required|string',
-            'year' => 'required|numeric',
+            'title' => 'required|string|max:255',
             'status' => 'required|boolean',
+            'priority' => 'nullable|integer',
         ]);
 
         LtoMonth::create($request->all());
 
-        return redirect()->route('lto_months.index')->with('success', 'LTO Month created successfully');
+        return redirect()->route('lto_months.index')->with('success', 'LTO Category created successfully');
     }
 
     public function edit($id)
@@ -40,16 +40,16 @@ class LtoMonthController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'month_name' => 'required|string',
-            'year' => 'required|numeric',
+            'title' => 'required|string|max:255',
             'status' => 'required|boolean',
+            'priority' => 'nullable|integer',
         ]);
 
         $ltoMonth = LtoMonth::find($id);
 
         $ltoMonth->update($request->all());
 
-        return redirect()->route('lto_months.index')->with('success', 'LTO Month updated successfully');
+        return redirect()->route('lto_months.index')->with('success', 'LTO Category updated successfully');
     }
 
     public function destroy($id)

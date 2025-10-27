@@ -17,28 +17,42 @@
                 <input type="text" name="title" id="title" value="{{ $lto->title ?? old('title') }}" class="form-control" required>
             </div>
 
-            <!-- LTO Month Dropdown -->
+            <!-- LTO Category Dropdown -->
             <div class="mb-3">
-                <label for="lto_month_id" class="form-label">LTO Month</label>
+                <label for="lto_month_id" class="form-label">LTO Category</label>
                 <select name="lto_month_id" id="lto_month_id" class="form-control">
-                    <option value="">Select Month</option>
+                    <option value="">Select Category</option>
                     @foreach($ltoMonths as $month)
                         <option value="{{ $month->id }}" 
                             {{ (old('lto_month_id') == $month->id) || (isset($lto) && $lto->lto_month_id == $month->id) ? 'selected' : '' }}>
-                            {{ $month->month_name }} - {{ $month->year }}
+                            {{ $month->title ?? $month->month_name ?? 'N/A' }} {{ $month->year ?? '' }}
                         </option>
                     @endforeach
                 </select>
             </div>
 
-            <div class="mb-3">
-                <label for="from_date" class="form-label">From Date</label>
-                <input type="date" name="from_date" id="from_date" value="{{ $lto->from_date ?? old('from_date') }}" class="form-control" required>
+            <!-- Date Fields (Optional for Evergreen LTOs) -->
+            <div class="alert alert-info mb-3">
+                <strong>Note:</strong> Leave dates empty for evergreen LTOs that don't expire.
             </div>
 
             <div class="mb-3">
-                <label for="to_date" class="form-label">To Date</label>
-                <input type="date" name="to_date" id="to_date" value="{{ $lto->to_date ?? old('to_date') }}" class="form-control" required>
+                <label for="from_date" class="form-label">From Date (Optional)</label>
+                <input type="date" name="from_date" id="from_date" value="{{ $lto->from_date ?? old('from_date') }}" class="form-control">
+                <small class="form-text text-muted">Leave empty for evergreen LTOs</small>
+            </div>
+
+            <div class="mb-3">
+                <label for="to_date" class="form-label">To Date (Optional)</label>
+                <input type="date" name="to_date" id="to_date" value="{{ $lto->to_date ?? old('to_date') }}" class="form-control">
+                <small class="form-text text-muted">Leave empty for evergreen LTOs</small>
+            </div>
+
+            <!-- Priority Field for Ordering -->
+            <div class="mb-3">
+                <label for="priority" class="form-label">Priority (Ordering)</label>
+                <input type="number" name="priority" id="priority" value="{{ $lto->priority ?? old('priority', 0) }}" class="form-control" min="0">
+                <small class="form-text text-muted">Lower numbers appear first. You can reorder later using drag-and-drop.</small>
             </div>
             
             <div class="mb-3">
@@ -128,3 +142,4 @@
 </script>
 
 @endsection
+

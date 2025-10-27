@@ -9,7 +9,7 @@
         <div class="card">
           <div class="card-body">
             <div class="hgt">
-            <h5 class="card-title">LTO Months List</h5>
+            <h5 class="card-title">LTO Categories List</h5>
                 @can('create-lto-month')
                     <div class="bt mt-2"><a href="{{ route('lto_months.create') }}" class="btn btn-sm btn-primary">Create</a></div>
                 @endcan
@@ -19,17 +19,17 @@
             <table class="table datatable">
                 <thead>
                     <tr>
-                        <th>Month Name</th>
-                        <th>Year</th>
+                        <th>Category Title</th>
+                        <th>Priority</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($ltoMonths as $ltoMonth)
+                    @foreach ($ltoMonths->sortBy('priority') as $ltoMonth)
                         <tr>
-                            <td>{{ $ltoMonth->month_name }}</td>
-                            <td>{{ $ltoMonth->year }}</td>
+                            <td>{{ $ltoMonth->title ?? $ltoMonth->month_name ?? 'N/A' }}</td>
+                            <td>{{ $ltoMonth->priority ?? 0 }}</td>
                             <td>
                                 @if ($ltoMonth->status)
                                     <span class="badge bg-success">Active</span>

@@ -94,24 +94,11 @@ class FrontendController extends Controller
 
     public function ltoSelect(Request $request)
     {
-        $monthsOrder = [
-            'January' => 1, 'February' => 2, 'March' => 3,
-            'April' => 4, 'May' => 5, 'June' => 6,
-            'July' => 7, 'August' => 8, 'September' => 9,
-            'October' => 10, 'November' => 11, 'December' => 12
-        ];
-
+        // Fetch active LTO Categories ordered by priority
         $ltoMonths = LtoMonth::where('status', 1)
-            ->get()
-            ->sort(function ($a, $b) use ($monthsOrder) {
-                // Compare years first
-                if ($a->year != $b->year) {
-                    return $a->year - $b->year;
-                }
-                // Compare months by mapped numeric values
-                return $monthsOrder[$a->month_name] - $monthsOrder[$b->month_name];
-            })
-            ->values(); // Re-index the collection after sorting
+            ->orderBy('priority', 'asc')
+            ->orderBy('title', 'asc')
+            ->get();
 
         return view('frontend.lto_select', compact('ltoMonths'));
     }

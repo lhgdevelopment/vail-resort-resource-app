@@ -5,7 +5,7 @@
 
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">{{ isset($ltoMonth) ? 'Edit LTO Month' : 'Create New LTO Month' }}</h5>
+        <h5 class="card-title">{{ isset($ltoMonth) ? 'Edit LTO Category' : 'Create New LTO Category' }}</h5>
 
         <form action="{{ isset($ltoMonth) ? route('lto_months.update', $ltoMonth->id) : route('lto_months.store') }}" method="POST">
             @csrf
@@ -13,30 +13,22 @@
                 @method('PUT')
             @endif
 
-            <!-- Month Name Dropdown -->
+            <!-- Title/Name Input -->
             <div class="mb-3">
-                <label for="month_name" class="form-label">Month Name</label>
-                <select name="month_name" id="month_name" class="form-control" required>
-                    @foreach(ltoMonths() as $month)
-                        <option value="{{ $month }}" 
-                            {{ (isset($ltoMonth) && $ltoMonth->month_name === $month) || old('month_name') == $month ? 'selected' : '' }}>
-                            {{ $month }}
-                        </option>
-                    @endforeach
-                </select>
+                <label for="title" class="form-label">Category Title/Name</label>
+                <input type="text" name="title" id="title" class="form-control" 
+                    value="{{ old('title', $ltoMonth->title ?? '') }}" 
+                    placeholder="e.g., December, Pride, St. Patrick's Day, Evergreen..." required>
+                <small class="form-text text-muted">Enter a custom category name. Examples: month names, special events, or "Evergreen" for ongoing LTOs.</small>
             </div>
 
-            <!-- Year Dropdown -->
+            <!-- Priority Input -->
             <div class="mb-3">
-                <label for="year" class="form-label">Year</label>
-                <select name="year" id="year" class="form-control" required>
-                    @foreach(range(date('Y'), date('Y') + 3) as $year)
-                        <option value="{{ $year }}" 
-                            {{ (isset($ltoMonth) && $ltoMonth->year == $year) || old('year') == $year ? 'selected' : '' }}>
-                            {{ $year }}
-                        </option>
-                    @endforeach
-                </select>
+                <label for="priority" class="form-label">Priority (Ordering)</label>
+                <input type="number" name="priority" id="priority" class="form-control" 
+                    value="{{ old('priority', $ltoMonth->priority ?? 0) }}" 
+                    placeholder="0" min="0">
+                <small class="form-text text-muted">Lower numbers appear first. You can reorder later using drag-and-drop.</small>
             </div>
 
             <!-- Status Dropdown -->

@@ -34,9 +34,10 @@ class LtoController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'from_date' => 'required|date',
-            'to_date' => 'required|date|after_or_equal:from_date',
+            'from_date' => 'nullable|date',
+            'to_date' => 'nullable|date|after_or_equal:from_date',
             'lto_month_id' => 'nullable|exists:lto_months,id',
+            'priority' => 'nullable|integer',
             'images.*' => 'image|mimes:jpg,png,jpeg,gif|max:500420',
         ]);
 
@@ -82,9 +83,10 @@ class LtoController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'from_date' => 'required|date',
-            'to_date' => 'required|date|after_or_equal:from_date',
+            'from_date' => 'nullable|date',
+            'to_date' => 'nullable|date|after_or_equal:from_date',
             'lto_month_id' => 'nullable|exists:lto_months,id',
+            'priority' => 'nullable|integer',
             'images.*' => 'image|mimes:jpg,png,jpeg,gif|max:10420'
         ]);
 

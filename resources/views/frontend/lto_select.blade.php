@@ -44,8 +44,10 @@
                     <a href="{{ route('lto.data', $ltoMonth->id) }}">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $ltoMonth->month_name }}</h5>
-                                <h6 class="card-subtitle mb-2 text-body-secondary pt-3">{{ $ltoMonth->year }}</h6>
+                                <h5 class="card-title">{{ $ltoMonth->title ?? $ltoMonth->month_name ?? 'N/A' }}</h5>
+                                @if(isset($ltoMonth->year))
+                                    <h6 class="card-subtitle mb-2 text-body-secondary pt-3">{{ $ltoMonth->year }}</h6>
+                                @endif
                             </div>
                         </div>
                     </a>
