@@ -20,6 +20,7 @@
                 <thead>
                     <tr>
                         <th style="width: 40px; text-align: center;">⋮⋮</th>
+                        <th style="width: 60px; text-align: center;">Serial</th>
                         <th style="text-align: left;">Title</th>
                         <th>From Date</th>
                         <th>To Date</th>
@@ -27,11 +28,12 @@
                     </tr>
                 </thead>
                 <tbody id="ltos-tbody">
-                    @foreach ($ltos as $lto)
+                    @foreach ($ltos as $index => $lto)
                         <tr data-id="{{ $lto->id }}">
                             <td class="drag-handle text-center" style="cursor: move;">
                                 <i class="bi bi-grip-vertical" style="font-size: 1.2em; color: #6c757d;"></i>
                             </td>
+                            <td style="text-align: center;">{{ $index + 1 }}</td>
                             <td style="text-align: left;">{{ $lto->title }}</td>
                             <td>{{ $lto->from_date }}</td>
                             <td>{{ $lto->to_date }}</td>

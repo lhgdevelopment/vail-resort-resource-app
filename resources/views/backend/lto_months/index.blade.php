@@ -20,17 +20,19 @@
                 <thead>
                     <tr>
                         <th style="width: 40px; text-align: center;">⋮⋮</th>
+                        <th style="width: 60px; text-align: center;">Serial</th>
                         <th>Category Title</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="lto-categories-tbody">
-                    @foreach ($ltoMonths->sortBy('priority') as $ltoMonth)
+                    @foreach ($ltoMonths->sortBy('priority') as $index => $ltoMonth)
                         <tr data-id="{{ $ltoMonth->id }}">
                             <td class="drag-handle text-center" style="cursor: move;">
                                 <i class="bi bi-grip-vertical" style="font-size: 1.2em; color: #6c757d;"></i>
                             </td>
+                            <td style="text-align: center;">{{ $index + 1 }}</td>
                             <td>{{ $ltoMonth->title ?? $ltoMonth->month_name ?? 'N/A' }}</td>
                             <td>
                                 @if ($ltoMonth->status)

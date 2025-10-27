@@ -20,6 +20,7 @@
                 <thead>
                     <tr>
                         <th style="width: 40px; text-align: center;">⋮⋮</th>
+                        <th style="width: 60px; text-align: center;">Serial</th>
                         <th>File Name</th>
                         <th>File Type</th>
                         <th>File</th>
@@ -27,11 +28,12 @@
                     </tr>
                 </thead>
                 <tbody id="lto-files-tbody">
-                    @foreach ($files as $file)
+                    @foreach ($files as $index => $file)
                         <tr data-id="{{ $file->id }}">
                             <td class="drag-handle text-center" style="cursor: move;">
                                 <i class="bi bi-grip-vertical" style="font-size: 1.2em; color: #6c757d;"></i>
                             </td>
+                            <td style="text-align: center;">{{ $index + 1 }}</td>
                             <td>{{ $file->file_name }}</td>
                             <td>{{ $file->file_type }}</td>
                             <td>

@@ -51,6 +51,7 @@
                 <thead>
                     <tr>
                         <th style="width: 40px; text-align: center;">⋮⋮</th>
+                        <th style="width: 60px; text-align: center;">Serial</th>
                         <th>Thumbnail</th>
                         <th style="text-align: left;">Name</th>
                         <th>Is Featured</th>
@@ -60,11 +61,12 @@
                     </tr>
                 </thead>
                 <tbody id="categories-tbody">
-                    @foreach ($categories as $category)
+                    @foreach ($categories as $index => $category)
                         <tr data-id="{{ $category->id }}">
                             <td class="drag-handle text-center" style="cursor: move;">
                                 <i class="bi bi-grip-vertical" style="font-size: 1.2em; color: #6c757d;"></i>
                             </td>
+                            <td style="text-align: center;">{{ $index + 1 }}</td>
                             <td>
                                 @if ($category->thumbnail)
                                     <img src="{{ asset('storage/' . $category->thumbnail) }}" alt="Thumbnail" width="50" height="50">
