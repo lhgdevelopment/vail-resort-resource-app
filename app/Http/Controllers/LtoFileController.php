@@ -64,4 +64,15 @@ class LtoFileController extends Controller
             'message' => 'LTO Files order updated successfully.',
         ]);
     }
+
+    public function download(LtoFile $file)
+    {
+        $filePath = storage_path('app/public/' . $file->file_path);
+        
+        if (!file_exists($filePath)) {
+            abort(404, 'File not found');
+        }
+        
+        return response()->download($filePath, $file->file_name . '.' . $file->file_type);
+    }
 }

@@ -78,12 +78,17 @@
 
                                 <!-- Right Column: Image Slider -->
                                 <div class="col-md-6">
-                                    <div id="carousel-{{ $lto->id }}" class="carousel slide" data-bs-interval="false">
+                                    <div id="carousel-{{ $lto->id }}" class="carousel slide" data-bs-interval="false" style="position: relative;">
                                         <div class="carousel-inner">
                                             @foreach($lto->files as $index => $file)
                                                 @if(in_array($file->file_type, ['jpg', 'jpeg', 'png']))
                                                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                                                         <img src="{{ asset('storage/' . $file->file_path) }}" class="d-block w-100 carousel-image" alt="LTO File {{ $index + 1 }}">
+                                                        <div class="position-absolute top-0 end-0 m-2" style="z-index: 10;">
+                                                            <a href="{{ route('ltos.files.download', $file->id) }}" class="btn btn-sm btn-success" title="Download Image" download>
+                                                                <i class="fas fa-download"></i> Download
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 @endif
                                             @endforeach

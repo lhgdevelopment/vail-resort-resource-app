@@ -23,7 +23,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     const slider = document.getElementById('feel-special-slider');
+    
+    if (!slider) {
+        return; // Exit if slider doesn't exist
+    }
+    
     const items = slider.querySelectorAll('.slider-item');
+    
+    if (!items || items.length === 0) {
+        return; // Exit if no slider items
+    }
+    
     let currentIndex = 0;
 
     function showSlide(index) {
@@ -45,6 +55,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     const secondItem = document.querySelector('.breadcrumb-item.second-item');
+    
+    if (!secondItem) {
+        return; // Exit if breadcrumb item doesn't exist
+    }
+    
     const url = '/lto/list';
 
     secondItem.addEventListener('click', function () {

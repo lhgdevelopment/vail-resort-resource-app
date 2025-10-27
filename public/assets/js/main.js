@@ -112,10 +112,12 @@
   /**
    * Initiate tooltips
    */
-  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-  var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
-  })
+  var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  if (tooltipTriggerList && tooltipTriggerList.length > 0) {
+    var tooltipList = [].slice.call(tooltipTriggerList).map(function(tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  }
 
   /**
    * Initiate quill editors
@@ -266,17 +268,19 @@
    */
   var needsValidation = document.querySelectorAll('.needs-validation')
 
-  Array.prototype.slice.call(needsValidation)
-    .forEach(function(form) {
-      form.addEventListener('submit', function(event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+  if (needsValidation && needsValidation.length > 0) {
+    Array.prototype.slice.call(needsValidation)
+      .forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
 
-        form.classList.add('was-validated')
+          form.classList.add('was-validated')
       }, false)
     })
+  }
 
   /**
    * Initiate Datatables

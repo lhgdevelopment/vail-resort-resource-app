@@ -131,6 +131,7 @@ Route::middleware('auth')->group(function () {
     Route::post('ltos/{lto}/files', [LtoFileController::class, 'store'])->name('ltos.files.store');
     Route::delete('ltos/files/{file}', [LtoFileController::class, 'destroy'])->name('ltos.files.destroy');
     Route::post('ltos/files/reorder', [LtoFileController::class, 'reorder'])->name('ltos.files.reorder');
+    Route::get('ltos/files/{file}/download', [LtoFileController::class, 'download'])->name('ltos.files.download');
 
 
     Route::get('lto_months', [LtoMonthController::class, 'index'])->name('lto_months.index')->middleware('permission:view-lto-month');
