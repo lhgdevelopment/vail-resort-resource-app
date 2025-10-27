@@ -78,45 +78,62 @@
 
                                 <!-- Right Column: Image Slider -->
                                 <div class="col-md-6">
-                                    <div id="carousel-{{ $lto->id }}" class="carousel slide" data-bs-interval="false" style="position: relative;">
-                                        <div class="carousel-inner">
-                                            @foreach($lto->files as $index => $file)
-                                                @if(in_array($file->file_type, ['jpg', 'jpeg', 'png']))
+                                    @php
+                                        // Separate image files and other files
+                                        $imageFiles = collect($lto->files)->filter(function($file) {
+                                            $type = strtolower($file->file_type ?? '');
+                                            return in_array($type, ['jpg', 'jpeg', 'png', 'gif', 'webp']);
+                                        })->values();
+                                        
+                                        $otherFiles = collect($lto->files)->filter(function($file) {
+                                            $type = strtolower($file->file_type ?? '');
+                                            return !in_array($type, ['jpg', 'jpeg', 'png', 'gif', 'webp']);
+                                        })->values();
+                                    @endphp
+                                    
+                                    @if($imageFiles->count() > 0)
+                                        <div id="carousel-{{ $lto->id }}" class="carousel slide" data-bs-interval="false" style="position: relative;">
+                                            <div class="carousel-inner">
+                                                @foreach($imageFiles as $index => $file)
                                                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                                        <img src="{{ asset('storage/' . $file->file_path) }}" class="d-block w-100 carousel-image" alt="LTO File {{ $index + 1 }}">
+                                                        <img src="{{ asset('storage/' . $file->file_path) }}" class="d-block w-100 carousel-image" alt="LTO File {{ $index + 1 }}" style="height: 400px; object-fit: cover;">
                                                         <div class="position-absolute top-0 end-0 m-2" style="z-index: 10;">
                                                             <a href="{{ route('ltos.files.download', $file->id) }}" class="btn btn-sm btn-success" title="Download Image" download>
                                                                 <i class="fas fa-download"></i> Download
                                                             </a>
                                                         </div>
                                                     </div>
-                                                @endif
-                                            @endforeach
+                                                @endforeach
+                                            </div>
+                                            <!-- Carousel navigation arrows -->
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ $lto->id }}" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ $lto->id }}" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
                                         </div>
-                                        <!-- Carousel navigation arrows -->
-                                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ $lto->id }}" data-bs-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Previous</span>
-                                        </button>
-                                        <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ $lto->id }}" data-bs-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Next</span>
-                                        </button>
-                                    </div>
+                                    @else
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-info-circle"></i> No images available for this LTO.
+                                        </div>
+                                    @endif
                                     
-                                    <!-- Download Buttons -->
-                                    <div class="mt-3">
-                                        <h6>Other Files:</h6>
-                                        @foreach($lto->files as $file)
-                                            @if(!in_array($file->file_type, ['jpg', 'jpeg', 'png']))
+                                    <!-- Download Buttons for Other Files -->
+                                    @if($otherFiles->count() > 0)
+                                        <div class="mt-3">
+                                            <h6>Download Files:</h6>
+                                            @foreach($otherFiles as $file)
                                                 <div class="mb-2">
-                                                    <a href="{{ asset('storage/' . $file->file_path) }}" download class="btn btn-secondary">
-                                                         {{ $file->file_name }}.{{ $file->file_type }}
+                                                    <a href="{{ route('ltos.files.download', $file->id) }}" class="btn btn-secondary w-100">
+                                                        <i class="fas fa-download"></i> {{ $file->file_name }}.{{ $file->file_type }}
                                                     </a>
                                                 </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
