@@ -9,5 +9,5 @@ class LtoMonth extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['month_name', 'year', 'status'];
+    protected $fillable = ['title', 'status', 'priority'];
 }

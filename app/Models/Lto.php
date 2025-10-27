@@ -9,7 +9,7 @@ class Lto extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'from_date', 'to_date', 'description', 'lto_month_id', 'images'];
+    protected $fillable = ['title', 'from_date', 'to_date', 'description', 'lto_month_id', 'images', 'priority'];
 
     protected $casts = [
         'images' => 'array',
