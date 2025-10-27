@@ -35,7 +35,7 @@
                     @can('view-lto-month')
                         <li>
                             <a href="{{ route('lto_months.index') }}" class="{{ request()->routeIs('lto_months.*') ? 'active' : '' }}">
-                                <i class="bi bi-circle"></i><span>LTO Month</span>
+                                <i class="bi bi-circle"></i><span>LTO Categories</span>
                             </a>
                         </li>
                     @endcan

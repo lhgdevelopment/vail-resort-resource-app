@@ -123,12 +123,14 @@ Route::middleware('auth')->group(function () {
     Route::get('ltos/{lto}/show', [LtoController::class, 'show'])->name('ltos.show')->middleware('permission:view-ltos');
     Route::put('ltos/{lto}', [LtoController::class, 'update'])->name('ltos.update')->middleware('permission:edit-ltos');
     Route::delete('ltos/{lto}', [LtoController::class, 'destroy'])->name('ltos.destroy')->middleware('permission:delete-ltos');
+    Route::post('ltos/reorder', [LtoController::class, 'reorder'])->name('ltos.reorder')->middleware('permission:edit-ltos');
 
     // LTO Files Routes
     Route::get('ltos/{lto}/files', [LtoFileController::class, 'index'])->name('ltos.files.index');
     Route::get('ltos/{lto}/files/create', [LtoFileController::class, 'create'])->name('ltos.files.create');
     Route::post('ltos/{lto}/files', [LtoFileController::class, 'store'])->name('ltos.files.store');
     Route::delete('ltos/files/{file}', [LtoFileController::class, 'destroy'])->name('ltos.files.destroy');
+    Route::post('ltos/files/reorder', [LtoFileController::class, 'reorder'])->name('ltos.files.reorder');
 
 
     Route::get('lto_months', [LtoMonthController::class, 'index'])->name('lto_months.index')->middleware('permission:view-lto-month');
@@ -138,6 +140,7 @@ Route::middleware('auth')->group(function () {
     Route::get('lto_months/{lto}/show', [LtoMonthController::class, 'show'])->name('lto_months.show')->middleware('permission:view-lto-month');
     Route::put('lto_months/{lto}', [LtoMonthController::class, 'update'])->name('lto_months.update')->middleware('permission:edit-lto-month');
     Route::delete('lto_months/{lto}', [LtoMonthController::class, 'destroy'])->name('lto_months.destroy')->middleware('permission:delete-lto-month');
+    Route::post('lto_months/reorder', [LtoMonthController::class, 'reorder'])->name('lto_months.reorder')->middleware('permission:edit-lto-month');
 });
 Route::get('/verify/{token}', [RegisteredUserController::class, 'verifyEmail'])->name('verify.email');
 

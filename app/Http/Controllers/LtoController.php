@@ -6,6 +6,7 @@ use App\Models\Lto;
 use App\Models\LtoMonth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class LtoController extends Controller
 {
@@ -14,7 +15,7 @@ class LtoController extends Controller
      */
     public function index()
     {
-        $ltos = Lto::get();
+        $ltos = Lto::orderBy('priority', 'asc')->orderBy('id', 'desc')->get();
         return view('backend.ltos.index', compact('ltos'));
     }
 
@@ -129,5 +130,30 @@ class LtoController extends Controller
         
         $lto->delete();
         return redirect()->route('ltos.index')->with('success', 'LTO deleted successfully.');
+    }
+
+    /**
+     * Update the order/priority of LTOs via AJAX (for drag-and-drop).
+     */
+    public function reorder(Request $request)
+    {
+        \Log::info('Reorder API called', ['data' => $request->all()]);
+        
+        $request->validate([
+            'orders' => 'required|array',
+            'orders.*.id' => 'required|exists:ltos,id',
+            'orders.*.priority' => 'required|integer',
+        ]);
+
+        foreach ($request->orders as $order) {
+            Lto::where('id', $order['id'])->update(['priority' => $order['priority']]);
+        }
+
+        \Log::info('Reorder completed successfully');
+
+        return response()->json([
+            'success' => true,
+            'message' => 'LTO order updated successfully.',
+        ]);
     }
 }

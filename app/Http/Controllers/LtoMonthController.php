@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LtoMonth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class LtoMonthController extends Controller
 {
@@ -58,5 +59,27 @@ class LtoMonthController extends Controller
         $ltoMonth->delete();
 
         return redirect()->route('lto_months.index')->with('success', 'LTO Month deleted successfully');
+    }
+
+    public function reorder(Request $request)
+    {
+        \Log::info('LTO Category Reorder API called', ['data' => $request->all()]);
+        
+        $request->validate([
+            'orders' => 'required|array',
+            'orders.*.id' => 'required|exists:lto_months,id',
+            'orders.*.priority' => 'required|integer',
+        ]);
+
+        foreach ($request->orders as $order) {
+            LtoMonth::where('id', $order['id'])->update(['priority' => $order['priority']]);
+        }
+
+        \Log::info('LTO Category Reorder completed successfully');
+
+        return response()->json([
+            'success' => true,
+            'message' => 'LTO Categories order updated successfully.',
+        ]);
     }
 }

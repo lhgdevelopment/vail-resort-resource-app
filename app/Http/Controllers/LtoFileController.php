@@ -11,7 +11,7 @@ class LtoFileController extends Controller
 {
     public function index(Lto $lto)
     {
-        $files = LtoFile::where('lto_id', $lto->id)->get();
+        $files = LtoFile::where('lto_id', $lto->id)->orderBy('priority', 'asc')->get();
         return view('backend.ltos.files.index', compact('lto', 'files'));
     }
 
@@ -45,5 +45,23 @@ class LtoFileController extends Controller
         $file->delete();
 
         return redirect()->back()->with('success', 'File deleted successfully.');
+    }
+
+    public function reorder(Request $request)
+    {
+        $request->validate([
+            'orders' => 'required|array',
+            'orders.*.id' => 'required|exists:lto_files,id',
+            'orders.*.priority' => 'required|integer',
+        ]);
+
+        foreach ($request->orders as $order) {
+            LtoFile::where('id', $order['id'])->update(['priority' => $order['priority']]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'LTO Files order updated successfully.',
+        ]);
     }
 }

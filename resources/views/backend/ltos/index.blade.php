@@ -16,19 +16,23 @@
             </div>
 
             <!-- LTO Table -->
-            <table class="table datatable">
+            <table class="table" id="ltos-table">
                 <thead>
                     <tr>
-                        <th>Title</th>
+                        <th style="width: 40px; text-align: center;">⋮⋮</th>
+                        <th style="text-align: left;">Title</th>
                         <th>From Date</th>
                         <th>To Date</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="ltos-tbody">
                     @foreach ($ltos as $lto)
-                        <tr>
-                            <td>{{ $lto->title }}</td>
+                        <tr data-id="{{ $lto->id }}">
+                            <td class="drag-handle text-center" style="cursor: move;">
+                                <i class="bi bi-grip-vertical" style="font-size: 1.2em; color: #6c757d;"></i>
+                            </td>
+                            <td style="text-align: left;">{{ $lto->title }}</td>
                             <td>{{ $lto->from_date }}</td>
                             <td>{{ $lto->to_date }}</td>
                             <td>
@@ -61,4 +65,94 @@
       </div>
     </div>
 </section>
+
+@endsection
+
+@section('script')
+<!-- SortableJS for drag-and-drop -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tbody = document.querySelector('#ltos-table tbody');
+    
+    if (!tbody) return;
+    
+    // Initialize SortableJS
+    if (typeof Sortable !== 'undefined') {
+        const sortable = Sortable.create(tbody, {
+            animation: 150,
+            handle: '.drag-handle',
+            ghostClass: 'bg-info',
+            chosenClass: 'bg-light',
+            onEnd: function(evt) {
+                // Get updated order immediately on drag end
+                const rows = tbody.querySelectorAll('tr');
+                const orders = [];
+                
+                rows.forEach((row, index) => {
+                    const id = row.dataset.id;
+                    if (id) {
+                        orders.push({
+                            id: parseInt(id),
+                            priority: index
+                        });
+                    }
+                });
+                
+                // Send AJAX request to update order
+                fetch('{{ route("ltos.reorder") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ orders: orders })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show success message
+                        const alert = document.createElement('div');
+                        alert.className = 'alert alert-success alert-dismissible fade show';
+                        alert.innerHTML = '<strong>Success!</strong> ' + data.message + '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>';
+                        
+                        const cardBody = document.querySelector('.card-body');
+                        if (cardBody) {
+                            cardBody.insertBefore(alert, cardBody.firstChild);
+                            
+                            // Auto dismiss after 3 seconds
+                            setTimeout(() => {
+                                alert.remove();
+                            }, 3000);
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating order:', error);
+                });
+            }
+        });
+    }
+});
+</script>
+
+<style>
+.drag-handle-cell {
+    cursor: move !important;
+}
+
+.drag-handle-cell:hover {
+    background-color: #f0f0f0;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.bg-info {
+    background-color: #d1ecf1 !important;
+}
+</style>
 @endsection
