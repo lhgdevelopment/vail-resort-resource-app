@@ -108,8 +108,12 @@ class FrontendController extends Controller
         // Retrieve the selected LTO month from the database
         $ltoMonth = LtoMonth::findOrFail($ltoMonthId);
         
-        // Retrieve LTOs based on the selected month and year
+        // Retrieve LTOs based on the selected month and year, ordered by priority
         $ltos = LTO::where('lto_month_id', $ltoMonthId)
+                ->orderBy('priority', 'asc')
+                ->with(['files' => function($query) {
+                    $query->orderBy('priority', 'asc');
+                }])
                 ->paginate(10);
 
         return view('frontend.lto', compact('ltos', 'ltoMonth'));

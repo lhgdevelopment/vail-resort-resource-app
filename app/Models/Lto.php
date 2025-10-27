@@ -22,7 +22,7 @@ class Lto extends Model
 
     public function files()
     {
-        return $this->hasMany(LtoFile::class);
+        return $this->hasMany(LtoFile::class)->orderBy('priority', 'asc');
     }
 
 }
