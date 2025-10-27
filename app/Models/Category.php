@@ -30,4 +30,10 @@ class Category extends Model
     {
         return $this->hasMany(Resource::class);
     }
+
+    // Define the relationship with CategoryFile
+    public function categoryFiles()
+    {
+        return $this->hasMany(CategoryFile::class)->orderBy('priority', 'asc');
+    }
 }

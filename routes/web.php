@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoryFileController;
 use App\Http\Controllers\FooterBannerController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\LtoController;
@@ -99,6 +100,14 @@ Route::middleware('auth')->group(function () {
     Route::put('categories/{category}', [CategoryController::class, 'update'])->name('categories.update')->middleware('permission:edit-categories');
     Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy')->middleware('permission:delete-categories');
     Route::post('categories/reorder', [CategoryController::class, 'reorder'])->name('categories.reorder')->middleware('permission:edit-categories');
+
+    // Category Files Routes
+    Route::get('categories/{category}/files', [CategoryFileController::class, 'index'])->name('categories.files.index');
+    Route::get('categories/{category}/files/create', [CategoryFileController::class, 'create'])->name('categories.files.create');
+    Route::post('categories/{category}/files', [CategoryFileController::class, 'store'])->name('categories.files.store');
+    Route::delete('categories/files/{file}', [CategoryFileController::class, 'destroy'])->name('categories.files.destroy');
+    Route::post('categories/files/reorder', [CategoryFileController::class, 'reorder'])->name('categories.files.reorder');
+    Route::get('categories/files/{file}/download', [CategoryFileController::class, 'download'])->name('categories.files.download');
 
     // Resource Management Routes with Permission Checks
     Route::get('resources', [ResourceController::class, 'index'])->name('resources.index')->middleware('permission:view-resources');

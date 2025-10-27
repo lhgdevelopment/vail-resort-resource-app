@@ -78,10 +78,13 @@
                             <td>{{ $category->short_description ?? 'N/A' }}</td>
                             <td>
                                 @can('view-categories')
-                                    <a href="{{ route('categories.show', $category->id) }}" class="btn btn-sm btn-info"><i class="bi bi-eye"></i></a>
+                                    <a href="{{ route('categories.show', $category->id) }}" class="btn btn-sm btn-info" title="View"><i class="bi bi-eye"></i></a>
                                 @endcan
                                 @can('edit-categories')
-                                    <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="{{ route('categories.files.index', $category->id) }}" class="btn btn-sm btn-secondary" title="Manage Files"><i class="bi bi-file-earmark"></i></a>
+                                @endcan
+                                @can('edit-categories')
+                                    <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-warning" title="Edit"><i class="bi bi-pencil-square"></i></a>
                                 @endcan
         
                                 @can('delete-categories')
@@ -89,7 +92,8 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger" 
-                                                onclick="return confirm('Are you sure you want to delete this category?');">
+                                                onclick="return confirm('Are you sure you want to delete this category?');"
+                                                title="Delete">
                                                 <i class="bi bi-trash"></i>
                                         </button>
                                     </form>

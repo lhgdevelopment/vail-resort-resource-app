@@ -29,6 +29,7 @@ class FrontendController extends Controller
         // Fetch featured categories that are active, ordered by priority.
         $categories = Category::where('is_featured', true)
         ->where('status', 'active')
+        ->with('categoryFiles')
         ->orderBy('priority', 'asc')
         ->get();
 
@@ -60,7 +61,7 @@ class FrontendController extends Controller
         // $category = Category::with('resources')->where('id', $id)->firstOrFail();
         $category = Category::with(['resources' => function ($query){
             $query->orderBy('title', 'asc');
-        }])->findOrFail($id);
+        }, 'categoryFiles'])->findOrFail($id);
 
         if (Auth::user()->hasAnyRole($category->roles)) {
             return view('frontend.category_details', compact('category'));

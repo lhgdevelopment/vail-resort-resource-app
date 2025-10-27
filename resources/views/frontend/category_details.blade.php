@@ -43,6 +43,86 @@
     </div>
 </section>
 
+<!-- Category Files Section -->
+@if($category->categoryFiles && $category->categoryFiles->count() > 0)
+<section id="description" class="pb-5 bgwhite pt-5 pagedetails">
+    <div class="resource-details">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-3" style="background-color: #29292B;">
+                    <div class="row g-0 p-4 bg_white rounded">
+                        <div class="card-body">
+                            {{-- <div class="row">
+                                <div class="col-6">
+                                    <h5 class="card-title cardtitle animated animate-slide-left">Category Resources</h5>
+                                </div>
+                            </div> --}}
+                            <hr class="text-white">
+
+                            <!-- Display Category Files -->
+                            @foreach($category->categoryFiles as $file)
+                                <div class="mb-3">
+                                    <p class="text-white">
+                                        <strong>{{ $file->file_name ?? '' }}</strong>
+                                    </p>
+
+                                    @if($file->resource_type === 'file' && $file->file_path)
+                                        @php
+                                            $fileType = mime_content_type(storage_path('app/public/' . $file->file_path));
+                                        @endphp
+
+                                        @if(strpos($fileType, 'image/') === 0)
+                                            <!-- Display Image -->
+                                            <img src="{{ asset('storage/' . $file->file_path) }}" alt="Image" class="img-fluid img-responsive rounded product-image" style="max-width: 100%;">
+                                            <div class="mt-2">
+                                                <a href="{{ asset('storage/' . $file->file_path) }}" class="btn btn-success" download>
+                                                    <i class="fa-solid fa-download"></i> Download
+                                                </a>
+                                            </div>
+                                        @elseif($fileType === 'application/pdf')
+                                            <!-- Display PDF -->
+                                            <embed src="{{ asset('storage/' . $file->file_path) }}" type="application/pdf" width="100%" height="600px" />
+                                            <div class="mt-2">
+                                                <a href="{{ asset('storage/' . $file->file_path) }}" class="btn btn-success" download>
+                                                    <i class="fa-solid fa-download"></i> Download
+                                                </a>
+                                            </div>
+                                        @else
+                                            <!-- Generic File Download -->
+                                            <a href="{{ asset('storage/' . $file->file_path) }}" class="btn btn-info" download>
+                                                <i class="fa-solid fa-download"></i> Download File
+                                            </a>
+                                        @endif
+
+                                    @elseif($file->resource_type === 'embed_code' && $file->embed_code)
+                                        <!-- Display Embed Code -->
+                                        <div class="imgheight" style="overflow: hidden;">
+                                            {!! $file->embed_code !!}
+                                        </div>
+
+                                    @elseif($file->resource_type === 'external_link' && $file->external_link)
+                                        <!-- Display External Link -->
+                                        <a href="{{ $file->external_link }}" target="_blank" class="btn btn-primary">
+                                            <i class="fa fa-external-link-alt"></i> Visit Link
+                                        </a>
+                                    @else
+                                        <p class="text-muted">No content available for this file.</p>
+                                    @endif
+                                </div>
+                                <!-- Add <hr> if not the last item -->
+                                @if(!$loop->last)
+                                    <hr class="text-white">
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@endif
+
 <!-- Category Resources Section -->
 <section id="bg_banner" class="productlistpage py-xl-8">
     <div class="container-fluid">
