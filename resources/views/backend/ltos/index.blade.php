@@ -44,6 +44,12 @@
                                 @can('view-ltos')
                                     <a href="{{ route('ltos.show', $lto->id) }}" class="btn btn-sm btn-info"><i class="bi bi-eye"></i></a>
                                 @endcan
+                                @can('create-ltos')
+                                <form action="{{ route('ltos.duplicate', $lto->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button class="btn btn-sm btn-warning" title="Duplicate LTO"><i class="bi bi-files"></i></button>
+                                </form>
+                                @endcan
                                 @can('edit-ltos')
                                 <a href="{{ route('ltos.edit', $lto->id) }}" class="btn btn-sm btn-info"><i class="bi bi-pencil-square"></i></a>
                                 @endcan

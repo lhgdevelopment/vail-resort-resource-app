@@ -133,6 +133,23 @@ class LtoController extends Controller
     }
 
     /**
+     * Duplicate an existing LTO.
+     */
+    public function duplicate($id)
+    {
+        $lto = Lto::findOrFail($id);
+        
+        // Duplicate the LTO with modified title
+        $newLto = $lto->replicate();
+        $newLto->title = $lto->title . ' (Copy)';
+        $newLto->priority = 0; // Set default priority
+        $newLto->save();
+
+        return redirect()->route('ltos.edit', $newLto->id)
+            ->with('success', 'LTO duplicated successfully. Please update the title and category.');
+    }
+
+    /**
      * Update the order/priority of LTOs via AJAX (for drag-and-drop).
      */
     public function reorder(Request $request)

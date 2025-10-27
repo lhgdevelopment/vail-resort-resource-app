@@ -123,6 +123,7 @@ Route::middleware('auth')->group(function () {
     Route::get('ltos/{lto}/show', [LtoController::class, 'show'])->name('ltos.show')->middleware('permission:view-ltos');
     Route::put('ltos/{lto}', [LtoController::class, 'update'])->name('ltos.update')->middleware('permission:edit-ltos');
     Route::delete('ltos/{lto}', [LtoController::class, 'destroy'])->name('ltos.destroy')->middleware('permission:delete-ltos');
+    Route::post('ltos/{lto}/duplicate', [LtoController::class, 'duplicate'])->name('ltos.duplicate')->middleware('permission:create-ltos');
     Route::post('ltos/reorder', [LtoController::class, 'reorder'])->name('ltos.reorder')->middleware('permission:edit-ltos');
 
     // LTO Files Routes
