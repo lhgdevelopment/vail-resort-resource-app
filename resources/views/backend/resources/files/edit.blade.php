@@ -4,52 +4,70 @@
 <div class="col-lg-12">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">New Resource</h5>
+            <h5 class="card-title">Edit Resource File</h5>
 
             <form action="{{ route('resources.files.update', $resourceFile->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
 
-                <div class="form-group mb-3" id="" style="">
+                <div class="form-group mb-3">
                     <label for="file_name">File Name</label>
-                    <input type="text" name="file_name" class="form-control" id="file_name" value="{{ $resourceFile->file_name }}">
+                    <input type="text" name="file_name" class="form-control" id="file_name" value="{{ old('file_name', $resourceFile->file_name) }}">
                 </div>
 
-                {{-- <!-- Resource Type -->
+                <!-- Resource Type Dropdown -->
                 <div class="form-group mb-3">
                     <label for="type">Resource Type <span class="text-danger">*</span></label>
                     <select name="resource_type" class="form-control" id="resourceType" required>
-                        <option value="" disabled selected>Select type</option>
-                        <option value="file" {{ old('resource_type') == 'file' ? 'selected' : '' }}>File</option>
-                        <option value="embed_code" {{ old('resource_type') == 'embed_code' ? 'selected' : '' }}>Embed Code</option>
-                        <option value="external_link" {{ old('resource_type') == 'external_link' ? 'selected' : '' }}>External Link</option>
+                        <option value="" disabled>Select type</option>
+                        <option value="file" {{ old('resource_type', $resourceFile->resource_type) == 'file' ? 'selected' : '' }}>File</option>
+                        <option value="embed_code" {{ old('resource_type', $resourceFile->resource_type) == 'embed_code' ? 'selected' : '' }}>Embed Code</option>
+                        <option value="external_link" {{ old('resource_type', $resourceFile->resource_type) == 'external_link' ? 'selected' : '' }}>External Link</option>
                     </select>
                 </div>
 
                 <!-- File Upload Section -->
                 <div class="form-group mb-3" id="fileUploadSection" style="display: none;">
                     <label for="file_path">Upload File (PDF or Image)</label>
+                    @if($resourceFile->resource_type === 'file' && $resourceFile->file_path)
+                        <div class="mb-2">
+                            <strong>Current File:</strong>
+                            @php
+                                $extension = pathinfo($resourceFile->file_path, PATHINFO_EXTENSION);
+                                $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+                            @endphp
+                            @if(in_array(strtolower($extension), $imageExtensions))
+                                <div class="mt-2">
+                                    <img src="{{ asset('storage/' . $resourceFile->file_path) }}" alt="Current File" style="max-width: 200px; max-height: 200px;">
+                                </div>
+                            @else
+                                <a href="{{ asset('storage/' . $resourceFile->file_path) }}" target="_blank" class="btn btn-sm btn-info">View Current File</a>
+                            @endif
+                        </div>
+                    @endif
                     <div id="dropzone" class="dropzone border p-3 text-center">Click or Drag and Drop File Here</div>
                     <input type="file" name="file_path" id="file_input" class="form-control-file d-none" accept=".pdf,.ppt,.pptx,image/*">
                     <div class="mt-2">
                         <img id="filePreview" src="#" alt="File Preview" style="display: none; max-width: 200px; max-height: 200px;">
                     </div>
+                    <small class="form-text text-muted">Leave empty to keep the current file</small>
                 </div>
 
                 <!-- Embed Code Section -->
                 <div class="form-group mb-3" id="embedCodeSection" style="display: none;">
                     <label for="embed_code">Embed Code</label>
-                    <textarea name="embed_code" class="form-control" id="embed_code">{{ old('embed_code') }}</textarea>
+                    <textarea name="embed_code" class="form-control" id="embed_code" rows="5">{{ old('embed_code', $resourceFile->embed_code) }}</textarea>
                 </div>
 
                 <!-- External Link Section -->
                 <div class="form-group mb-3" id="linkSection" style="display: none;">
                     <label for="external_link">External Link</label>
-                    <input type="url" name="external_link" class="form-control" id="external_link" value="{{ old('external_link') }}">
-                </div> --}}
+                    <input type="url" name="external_link" class="form-control" id="external_link" value="{{ old('external_link', $resourceFile->external_link) }}">
+                </div>
 
                 <!-- Action Buttons -->
                 <a href="{{ route('resources.files.index', $resourceFile->resource->id) }}" class="btn btn-warning">Back</a>
-                <button type="submit" class="btn btn-primary">Upload</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
     </div>
@@ -81,7 +99,7 @@
             document.getElementById('external_link').disabled = type !== 'external_link';
         }
 
-        // Initialize sections based on old input or initial state
+        // Initialize sections based on current resource type
         toggleSections();
 
         // Event listener for resource type change

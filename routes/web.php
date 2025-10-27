@@ -122,7 +122,7 @@ Route::middleware('auth')->group(function () {
     Route::get('resources/{resource}/files', [ResourceFileController::class, 'index'])->name('resources.files.index');
     Route::get('resources/{resource}/files/create', [ResourceFileController::class, 'create'])->name('resources.files.create');
     Route::get('resources/resource-files/{file}', [ResourceFileController::class, 'edit'])->name('resources.files.edit');
-    Route::post('resources/resource-files/{file}', [ResourceFileController::class, 'update'])->name('resources.files.update');
+    Route::put('resources/resource-files/{file}', [ResourceFileController::class, 'update'])->name('resources.files.update');
     Route::post('resources/{resource}/files', [ResourceFileController::class, 'store'])->name('resources.files.store');
     Route::delete('resources/files/{file}', [ResourceFileController::class, 'destroy'])->name('resources.files.destroy');
 
