@@ -43,6 +43,7 @@ class RegisteredUserController extends Controller
         if (Str::endsWith($request->email, ['vailresorts.com', 'marketeaminc.com'])) {
             $role_name = 'Operator';
             $role = Role::where('name', $role_name)->first();
+            $is_approved = true;
             
         } else {
             $role_name = 'Supplier';
@@ -56,7 +57,7 @@ class RegisteredUserController extends Controller
             'role' => $role_name,
             'password' => Hash::make($request->password),
             'email_verification_token' => str()->random(32), // Generate random verification token
-            'is_approved' => false, // Set approval as false by default
+            'is_approved' => $is_approved ?? false, // Set approval as false by default
         ]);
 
         // Assign role based on email domain

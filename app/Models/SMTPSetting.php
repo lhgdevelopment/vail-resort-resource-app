@@ -11,5 +11,12 @@ class SMTPSetting extends Model
 
     protected $table = "smtp_settings";
 
-    protected $gurded = [];
+    protected $fillable = [
+        'mail_host',
+        'mail_port',
+        'mail_username',
+        'mail_from',
+        'mail_password',
+        'mail_encryption',
+    ];
 }
