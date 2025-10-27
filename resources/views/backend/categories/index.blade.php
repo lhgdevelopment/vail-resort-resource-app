@@ -1,6 +1,37 @@
 @extends('layouts.admin')
 
 @section('content')
+<style>
+    .sortable-ghost {
+        opacity: 0.5;
+        background-color: #f0f0f0;
+    }
+    .drag-handle {
+        cursor: move;
+    }
+    
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+</style>
 
 <section class="section">
     <div class="row">
@@ -16,28 +47,23 @@
             </div>
 
             <!-- Category Table -->
-            <table class="table datatable">
+            <table class="table" id="categories-table">
                 <thead>
                     <tr>
-                        <th>Banner</th>
+                        <th style="width: 40px; text-align: center;">⋮⋮</th>
                         <th>Thumbnail</th>
-                        <th>Name</th>
+                        <th style="text-align: left;">Name</th>
                         <th>Is Featured</th>
-                        <th>Priority</th>
                         <th>Status</th>
                         <th>Short Description</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="categories-tbody">
                     @foreach ($categories as $category)
-                        <tr>
-                            <td>
-                                @if ($category->banner)
-                                    <img src="{{ asset('storage/' . $category->banner) }}" alt="Banner" width="100" height="50">
-                                @else
-                                    N/A
-                                @endif
+                        <tr data-id="{{ $category->id }}">
+                            <td class="drag-handle text-center" style="cursor: move;">
+                                <i class="bi bi-grip-vertical" style="font-size: 1.2em; color: #6c757d;"></i>
                             </td>
                             <td>
                                 @if ($category->thumbnail)
@@ -46,9 +72,8 @@
                                     N/A
                                 @endif
                             </td>
-                            <td>{{ $category->name }}</td>
+                            <td style="text-align: left;">{{ $category->name }}</td>
                             <td>{{ $category->is_featured ? 'Yes' : 'No' }}</td>
-                            <td>{{ $category->priority ?? 'N/A' }}</td>
                             <td>{{ ucfirst($category->status) }}</td>
                             <td>{{ $category->short_description ?? 'N/A' }}</td>
                             <td>
@@ -81,4 +106,76 @@
       </div>
     </div>
 </section>
+@endsection
+
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<script>
+    // Toast notification function
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: ${type === 'success' ? '#28a745' : '#dc3545'};
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+            font-size: 14px;
+            animation: slideIn 0.3s ease;
+        `;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => document.body.removeChild(toast), 300);
+        }, 3000);
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const tbody = document.getElementById('categories-tbody');
+        
+        if (!tbody) return;
+        
+        const sortable = Sortable.create(tbody, {
+            handle: '.drag-handle',
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            
+            onEnd: function(evt) {
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                const orders = rows.map((row, index) => ({
+                    id: parseInt(row.getAttribute('data-id')),
+                    priority: index
+                }));
+                
+                fetch('{{ route("categories.reorder") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ orders: orders })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show success toast notification
+                        showToast('Category order updated successfully!', 'success');
+                    } else {
+                        showToast('Failed to update category order.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating category order:', error);
+                    showToast('An error occurred while updating order.', 'error');
+                });
+            }
+        });
+    });
+</script>
 @endsection

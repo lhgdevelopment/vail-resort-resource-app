@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::get(); // Fetch categories
+        $categories = Category::orderBy('priority', 'asc')->orderBy('id', 'desc')->get(); // Fetch categories ordered by priority
         return view('backend.categories.index', compact('categories'));
     }
 
@@ -194,5 +194,30 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
+    }
+
+    /**
+     * Update the order/priority of categories via AJAX (for drag-and-drop).
+     */
+    public function reorder(Request $request)
+    {
+        \Log::info('Categories reorder API called', ['data' => $request->all()]);
+        
+        $request->validate([
+            'orders' => 'required|array',
+            'orders.*.id' => 'required|exists:categories,id',
+            'orders.*.priority' => 'required|integer',
+        ]);
+
+        foreach ($request->orders as $order) {
+            Category::where('id', $order['id'])->update(['priority' => $order['priority']]);
+        }
+
+        \Log::info('Categories reorder completed successfully');
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Category order updated successfully.',
+        ]);
     }
 }

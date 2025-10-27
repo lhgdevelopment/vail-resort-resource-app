@@ -98,6 +98,7 @@ Route::middleware('auth')->group(function () {
     Route::get('categories/{category}/show', [CategoryController::class, 'show'])->name('categories.show')->middleware('permission:view-categories');
     Route::put('categories/{category}', [CategoryController::class, 'update'])->name('categories.update')->middleware('permission:edit-categories');
     Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy')->middleware('permission:delete-categories');
+    Route::post('categories/reorder', [CategoryController::class, 'reorder'])->name('categories.reorder')->middleware('permission:edit-categories');
 
     // Resource Management Routes with Permission Checks
     Route::get('resources', [ResourceController::class, 'index'])->name('resources.index')->middleware('permission:view-resources');
